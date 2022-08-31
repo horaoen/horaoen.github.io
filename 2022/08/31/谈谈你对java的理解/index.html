@@ -9,17 +9,17 @@
         <meta name="keywords" content="horaoen" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="六大方面平台无关性 Java源码首先被编译成字节码，再由不同平台的JVM进行解析，Java语言在不同的平台上运行时不需要进行重新编译，Java虚拟机在执行字节码的时候，把字节码转换成具体平台上的机器指令。  为什么JVM不直接将源码解析成机器码去执行  准备工作:每次执行都需要各种检查  兼容性∶也可以将别的语言解析成字节码    JVM如何加载class文件      GC语言特性面向对象类库异">
+    <meta name="description" content="六大方面平台无关性 Java源码首先被编译成字节码，再由不同平台的JVM进行解析，Java语言在不同的平台上运行时不需要进行重新编译，Java虚拟机在执行字节码的时候，把字节码转换成具体平台上的机器指令。 为什么JVM不直接将源码解析成机器码去执行 准备工作:每次执行都需要各种检查  兼容性∶也可以将别的语言解析成字节码   JVM如何加载class文件  Class Loader:依据特定格式，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈谈你对java的理解">
 <meta property="og:url" content="http://example.com/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Horaoen&#39;s Home">
-<meta property="og:description" content="六大方面平台无关性 Java源码首先被编译成字节码，再由不同平台的JVM进行解析，Java语言在不同的平台上运行时不需要进行重新编译，Java虚拟机在执行字节码的时候，把字节码转换成具体平台上的机器指令。  为什么JVM不直接将源码解析成机器码去执行  准备工作:每次执行都需要各种检查  兼容性∶也可以将别的语言解析成字节码    JVM如何加载class文件      GC语言特性面向对象类库异">
+<meta property="og:description" content="六大方面平台无关性 Java源码首先被编译成字节码，再由不同平台的JVM进行解析，Java语言在不同的平台上运行时不需要进行重新编译，Java虚拟机在执行字节码的时候，把字节码转换成具体平台上的机器指令。 为什么JVM不直接将源码解析成机器码去执行 准备工作:每次执行都需要各种检查  兼容性∶也可以将别的语言解析成字节码   JVM如何加载class文件  Class Loader:依据特定格式，">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/image-20220831161853958.png">
-<meta property="og:image" content="http://example.com/image-20220831165031840.png">
+<meta property="og:image" content="http://example.com/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/image-20220831165031840.png">
 <meta property="article:published_time" content="2022-08-31T08:04:30.000Z">
-<meta property="article:modified_time" content="2022-08-31T08:50:42.817Z">
+<meta property="article:modified_time" content="2022-08-31T11:10:53.011Z">
 <meta property="article:author" content="horaoen">
 <meta property="article:tag" content="horaoen">
 <meta name="twitter:card" content="summary">
@@ -353,27 +353,25 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E5%A4%A7%E6%96%B9%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">六大方面</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E5%8F%B0%E6%97%A0%E5%85%B3%E6%80%A7"><span class="toc-number">1.1.</span> <span class="toc-text">平台无关性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC"><span class="toc-number">1.2.</span> <span class="toc-text">GC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="toc-number">1.3.</span> <span class="toc-text">语言特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.4.</span> <span class="toc-text">面向对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%BA%93"><span class="toc-number">1.5.</span> <span class="toc-text">类库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-number">1.6.</span> <span class="toc-text">异常处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">2.1.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E5%A4%A7%E6%96%B9%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">六大方面</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E5%8F%B0%E6%97%A0%E5%85%B3%E6%80%A7"><span class="toc-number">1.1.</span> <span class="toc-text">平台无关性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88JVM%E4%B8%8D%E7%9B%B4%E6%8E%A5%E5%B0%86%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E6%88%90%E6%9C%BA%E5%99%A8%E7%A0%81%E5%8E%BB%E6%89%A7%E8%A1%8C"><span class="toc-number">1.1.1.</span> <span class="toc-text">为什么JVM不直接将源码解析成机器码去执行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JVM%E5%A6%82%E4%BD%95%E5%8A%A0%E8%BD%BDclass%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">JVM如何加载class文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC"><span class="toc-number">1.2.</span> <span class="toc-text">GC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="toc-number">1.3.</span> <span class="toc-text">语言特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.4.</span> <span class="toc-text">面向对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%BA%93"><span class="toc-number">1.5.</span> <span class="toc-text">类库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-number">1.6.</span> <span class="toc-text">异常处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">2.1.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
                 </div>
             
         
         
             <h1 id="六大方面"><a href="#六大方面" class="headerlink" title="六大方面"></a>六大方面</h1><h2 id="平台无关性"><a href="#平台无关性" class="headerlink" title="平台无关性"></a>平台无关性</h2><p><img src="/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/image-20220831161853958.png" alt="image-20220831161853958"></p>
 <p>Java源码首先被编译成字节码，再由不同平台的JVM进行解析，Java语言在不同的平台上运行时不需要进行重新编译，Java虚拟机在执行字节码的时候，把字节码转换成具体平台上的机器指令。</p>
-<ol>
-<li><p>为什么JVM不直接将源码解析成机器码去执行</p>
-<ol>
+<h3 id="为什么JVM不直接将源码解析成机器码去执行"><a href="#为什么JVM不直接将源码解析成机器码去执行" class="headerlink" title="为什么JVM不直接将源码解析成机器码去执行"></a>为什么JVM不直接将源码解析成机器码去执行</h3><ol>
 <li><p>准备工作:每次执行都需要各种检查</p>
 </li>
 <li><p>兼容性∶也可以将别的语言解析成字节码</p>
 </li>
 </ol>
-</li>
-<li><p>JVM如何加载class文件</p>
-<ol>
-<li><img src="/image-20220831165031840.png" alt="image-20220831165031840"></li>
-</ol>
-</li>
+<h4 id="JVM如何加载class文件"><a href="#JVM如何加载class文件" class="headerlink" title="JVM如何加载class文件"></a>JVM如何加载class文件</h4><ol>
+<li><img src="/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/image-20220831165031840.png" alt="image-20220831165031840"></li>
+<li>Class Loader:依据特定格式，加载class文件到内存</li>
+<li>Execution Engine :对命令进行解析</li>
+<li>Native Interface:融合不同开发语言的原生库为Java所用</li>
+<li>Runtime Data Area : JVM内存空间结构模型</li>
 </ol>
 <h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><h2 id="语言特性"><a href="#语言特性" class="headerlink" title="语言特性"></a>语言特性</h2><h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><h2 id="类库"><a href="#类库" class="headerlink" title="类库"></a>类库</h2><h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
 <ul>
