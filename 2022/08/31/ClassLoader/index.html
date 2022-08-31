@@ -17,9 +17,9 @@
 <meta property="og:description" content="类加载器的层级关系 JVM支持两种类型的类加载器，分别为引导类加载器(Bootstrap ClassLoader)和自定义类加载器（User-Defined ClassLoader)。 从概念上来讲，自定义类加载器一般指的是程序中由开发人员自定义的一类加载器，但是Java虚拟机规范却没有这么定义，而是将所有派生于抽象类ClassLoader的类加载器都划分为自定义类加载器。 无论类加载器的类型如何">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2022/08/31/ClassLoader/image-20220831181959406.png">
-<meta property="og:image" content="http://example.com/image-20220831183147074.png">
+<meta property="og:image" content="http://example.com/2022/08/31/ClassLoader/image-20220831183147074.png">
 <meta property="article:published_time" content="2022-08-31T09:43:18.000Z">
-<meta property="article:modified_time" content="2022-08-31T11:02:13.965Z">
+<meta property="article:modified_time" content="2022-08-31T11:06:51.777Z">
 <meta property="article:author" content="horaoen">
 <meta property="article:tag" content="jvm ClassLoader">
 <meta name="twitter:card" content="summary">
@@ -369,7 +369,7 @@
 <li>无论类加载器的类型如何划分，在程序中我们最常见的类加载器始终只有3<br>个，ClassLoader 的paren关系以及继承关系如下图所示：</li>
 </ul>
 <p><img src="/2022/08/31/ClassLoader/image-20220831181959406.png" alt="image-20220831181959406"></p>
-<p><img src="/image-20220831183147074.png" alt="image-20220831183147074"></p>
+<p><img src="/2022/08/31/ClassLoader/image-20220831183147074.png" alt="image-20220831183147074"></p>
 <h3 id="启动类加载器（BootstrapClassLoader"><a href="#启动类加载器（BootstrapClassLoader" class="headerlink" title="启动类加载器（BootstrapClassLoader)"></a>启动类加载器（BootstrapClassLoader)</h3><p>加载java核心类库包括ExtClassLoader、AppClassLoader。</p>
 <h3 id="扩展类加载器-ExtClassLoader"><a href="#扩展类加载器-ExtClassLoader" class="headerlink" title="扩展类加载器 (ExtClassLoader)"></a>扩展类加载器 (ExtClassLoader)</h3><p>继承自ClassLoader，可加载用户放在jre&#x2F;lib&#x2F;ext目录下的jar包 或java.ext.dirs系统属性所指定的目录加载类库。</p>
 <h3 id="系统类加载器-AppClassLoader"><a href="#系统类加载器-AppClassLoader" class="headerlink" title="系统类加载器(AppClassLoader)"></a>系统类加载器(AppClassLoader)</h3><p>加载用户自定义类</p>
