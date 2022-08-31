@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-08-31T08:05:50.465Z</updated>
+  <updated>2022-08-31T09:46:59.774Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,28 +17,53 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>谈谈你对java的理解</title>
-    <link href="http://example.com/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/"/>
-    <id>http://example.com/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/</id>
-    <published>2022-08-31T08:04:30.000Z</published>
-    <updated>2022-08-31T08:05:50.465Z</updated>
+    <title>classLoader</title>
+    <link href="http://example.com/2022/08/31/ClassLoader/"/>
+    <id>http://example.com/2022/08/31/ClassLoader/</id>
+    <published>2022-08-31T09:43:18.000Z</published>
+    <updated>2022-08-31T09:46:59.774Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote><ul><li><a href=""></a></li><li><a href=""></a></li></ul></blockquote>]]></content>
+    <content type="html"><![CDATA[<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote><ul><li><a href="https://www.bilibili.com/video/BV1PJ411n7xZ?p=31&vd_source=7ab43036b8c368bf0578c31e9437d6ed">bilibili-尚硅谷jvm-ClassLoader</a></li><li><a href=""></a></li></ul></blockquote>]]></content>
     
     
       
       
     <summary type="html">&lt;h2 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h2&gt;&lt;blockquote&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/l</summary>
+&lt;li&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1</summary>
       
     
     
     
     <category term="java面试" scheme="http://example.com/categories/java%E9%9D%A2%E8%AF%95/"/>
     
-    <category term="面试题" scheme="http://example.com/categories/java%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    <category term="jvm" scheme="http://example.com/categories/java%E9%9D%A2%E8%AF%95/jvm/"/>
+    
+    <category term="classLoader" scheme="http://example.com/categories/java%E9%9D%A2%E8%AF%95/jvm/classLoader/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>谈谈你对java的理解</title>
+    <link href="http://example.com/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/"/>
+    <id>http://example.com/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/</id>
+    <published>2022-08-31T08:04:30.000Z</published>
+    <updated>2022-08-31T08:50:42.817Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="六大方面"><a href="#六大方面" class="headerlink" title="六大方面"></a>六大方面</h1><h2 id="平台无关性"><a href="#平台无关性" class="headerlink" title="平台无关性"></a>平台无关性</h2><p><img src="/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/image-20220831161853958.png" alt="image-20220831161853958"></p><p>Java源码首先被编译成字节码，再由不同平台的JVM进行解析，Java语言在不同的平台上运行时不需要进行重新编译，Java虚拟机在执行字节码的时候，把字节码转换成具体平台上的机器指令。</p><ol><li><p>为什么JVM不直接将源码解析成机器码去执行</p><ol><li><p>准备工作:每次执行都需要各种检查</p></li><li><p>兼容性∶也可以将别的语言解析成字节码</p></li></ol></li><li><p>JVM如何加载class文件</p><ol><li><img src="/image-20220831165031840.png" alt="image-20220831165031840"></li></ol></li></ol><h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><h2 id="语言特性"><a href="#语言特性" class="headerlink" title="语言特性"></a>语言特性</h2><h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><h2 id="类库"><a href="#类库" class="headerlink" title="类库"></a>类库</h2><h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote><ul><li><a href=""></a></li><li><a href=""></a></li></ul></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;六大方面&quot;&gt;&lt;a href=&quot;#六大方面&quot; class=&quot;headerlink&quot; title=&quot;六大方面&quot;&gt;&lt;/a&gt;六大方面&lt;/h1&gt;&lt;h2 id=&quot;平台无关性&quot;&gt;&lt;a href=&quot;#平台无关性&quot; class=&quot;headerlink&quot; title=&quot;平台无关性&quot;&gt;</summary>
+      
+    
+    
+    
+    <category term="java面试" scheme="http://example.com/categories/java%E9%9D%A2%E8%AF%95/"/>
+    
+    <category term="面试" scheme="http://example.com/categories/java%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95/"/>
     
     
   </entry>
