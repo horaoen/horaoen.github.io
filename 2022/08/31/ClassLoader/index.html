@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/2022/08/31/ClassLoader/image-20220831181959406.png">
 <meta property="og:image" content="http://example.com/2022/08/31/ClassLoader/image-20220831183147074.png">
 <meta property="article:published_time" content="2022-08-31T09:43:18.000Z">
-<meta property="article:modified_time" content="2022-08-31T11:06:51.777Z">
+<meta property="article:modified_time" content="2022-08-31T11:10:27.541Z">
 <meta property="article:author" content="horaoen">
 <meta property="article:tag" content="jvm ClassLoader">
 <meta name="twitter:card" content="summary">
@@ -358,7 +358,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB"><span class="toc-number">1.</span> <span class="toc-text">类加载器的层级关系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%88BootstrapClassLoader"><span class="toc-number">1.0.1.</span> <span class="toc-text">启动类加载器（BootstrapClassLoader)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8-ExtClassLoader"><span class="toc-number">1.0.2.</span> <span class="toc-text">扩展类加载器 (ExtClassLoader)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8-AppClassLoader"><span class="toc-number">1.0.3.</span> <span class="toc-text">系统类加载器(AppClassLoader)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.1.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB"><span class="toc-number">1.</span> <span class="toc-text">类加载器的层级关系</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.1.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
                 </div>
             
         
@@ -370,9 +370,14 @@
 </ul>
 <p><img src="/2022/08/31/ClassLoader/image-20220831181959406.png" alt="image-20220831181959406"></p>
 <p><img src="/2022/08/31/ClassLoader/image-20220831183147074.png" alt="image-20220831183147074"></p>
-<h3 id="启动类加载器（BootstrapClassLoader"><a href="#启动类加载器（BootstrapClassLoader" class="headerlink" title="启动类加载器（BootstrapClassLoader)"></a>启动类加载器（BootstrapClassLoader)</h3><p>加载java核心类库包括ExtClassLoader、AppClassLoader。</p>
-<h3 id="扩展类加载器-ExtClassLoader"><a href="#扩展类加载器-ExtClassLoader" class="headerlink" title="扩展类加载器 (ExtClassLoader)"></a>扩展类加载器 (ExtClassLoader)</h3><p>继承自ClassLoader，可加载用户放在jre&#x2F;lib&#x2F;ext目录下的jar包 或java.ext.dirs系统属性所指定的目录加载类库。</p>
-<h3 id="系统类加载器-AppClassLoader"><a href="#系统类加载器-AppClassLoader" class="headerlink" title="系统类加载器(AppClassLoader)"></a>系统类加载器(AppClassLoader)</h3><p>加载用户自定义类</p>
+<ul>
+<li><p>启动类加载器（BootstrapClassLoader) 加载java核心类库包括ExtClassLoader、AppClassLoader。</p>
+</li>
+<li><p>扩展类加载器 (ExtClassLoader) 继承自ClassLoader，可加载用户放在jre&#x2F;lib&#x2F;ext目录下的jar包 或java.ext.dirs系统属性所指定的目录加载类库。</p>
+</li>
+<li><p>系统类加载器(AppClassLoader) 加载用户自定义类</p>
+</li>
+</ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> horaoen</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ClassLoaderTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ClassLoader</span> <span class="variable">systemClassLoader</span> <span class="operator">=</span> ClassLoader.getSystemClassLoader();</span><br><span class="line">        System.out.println(<span class="string">&quot;systemClassLoader: &quot;</span> + systemClassLoader);</span><br><span class="line">        <span class="comment">//systemClassLoader: sun.misc.Launcher$AppClassLoader@18b4aac2</span></span><br><span class="line">        </span><br><span class="line">        <span class="type">ClassLoader</span> <span class="variable">extClassLoader</span> <span class="operator">=</span> systemClassLoader.getParent();</span><br><span class="line">        System.out.println(<span class="string">&quot;extClassLoader: &quot;</span> + extClassLoader);</span><br><span class="line">        <span class="comment">//extClassLoader: sun.misc.Launcher$ExtClassLoader@1b6d3586</span></span><br><span class="line">        </span><br><span class="line">        <span class="type">ClassLoader</span> <span class="variable">bootstrapClassLoader</span> <span class="operator">=</span> extClassLoader.getParent();</span><br><span class="line">        System.out.println(<span class="string">&quot;bootstrapClassLoader: &quot;</span> + bootstrapClassLoader);</span><br><span class="line">        <span class="comment">//bootstrapClassLoader: null c/c++编写 无法加载</span></span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
