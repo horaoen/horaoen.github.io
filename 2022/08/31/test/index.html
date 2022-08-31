@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="Horaoen&#39;s Home">
 <meta property="og:description" content="123456789101112131415161718192021&#x2F;** * @author horaoen *&#x2F;public class SyncTest &amp;#123;    private int num &#x3D; 0;        public void test() &amp;#123;        for (int i &#x3D; 0; i &lt; 1000; i++) &amp;#123;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/test/image-20220831135827544.png">
+<meta property="og:image" content="http://example.com/2022/08/31/test/image-20220831135827544.png">
 <meta property="article:published_time" content="2022-08-31T04:07:58.000Z">
-<meta property="article:modified_time" content="2022-08-31T05:58:34.334Z">
+<meta property="article:modified_time" content="2022-08-31T07:31:10.990Z">
 <meta property="article:author" content="horaoen">
 <meta property="article:tag" content="horaoen">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/test/image-20220831135827544.png">
+<meta name="twitter:image" content="http://example.com/2022/08/31/test/image-20220831135827544.png">
     
 
     
@@ -226,7 +226,7 @@
         
             <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> horaoen</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SyncTest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;thread:&quot;</span> + Thread.currentThread().getId() + <span class="string">&quot; num:&quot;</span> + num++);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; <span class="keyword">new</span> <span class="title class_">SyncTest</span>().test());</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; <span class="keyword">new</span> <span class="title class_">SyncTest</span>().test());</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/test/image-20220831135827544.png" alt="image-20220831135827544"></p>
+<p><img src="/2022/08/31/test/image-20220831135827544.png" alt="image-20220831135827544"></p>
 
             </div>
         
