@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Horaoen&#39;s Home</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2022-08-31T05:58:34.334Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>horaoen</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://example.com/2022/08/31/test/"/>
+    <id>http://example.com/2022/08/31/test/</id>
+    <published>2022-08-31T04:07:58.000Z</published>
+    <updated>2022-08-31T05:58:34.334Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> horaoen</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SyncTest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;thread:&quot;</span> + Thread.currentThread().getId() + <span class="string">&quot; num:&quot;</span> + num++);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; <span class="keyword">new</span> <span class="title class_">SyncTest</span>().test());</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; <span class="keyword">new</span> <span class="title class_">SyncTest</span>().test());</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="/test/image-20220831135827544.png" alt="image-20220831135827544"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>java锁机制</title>
+    <link href="http://example.com/2022/08/31/java%E9%94%81%E6%9C%BA%E5%88%B6/"/>
+    <id>http://example.com/2022/08/31/java%E9%94%81%E6%9C%BA%E5%88%B6/</id>
+    <published>2022-08-31T02:21:53.000Z</published>
+    <updated>2022-08-31T02:21:53.207Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>git command</title>
+    <link href="http://example.com/2022/08/05/git-command/"/>
+    <id>http://example.com/2022/08/05/git-command/</id>
+    <published>2022-08-05T08:44:02.000Z</published>
+    <updated>2022-08-31T02:15:59.182Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>全局配置</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;Name&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;**.com&quot;</span></span><br><span class="line">$ git config --list</span><br></pre></td></tr></table></figure><p><strong>局部仓库配置</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config  user.name <span class="string">&quot;Name&quot;</span></span><br><span class="line">$ git config  user.email <span class="string">&quot;**.com&quot;</span></span><br><span class="line">$ git config --list</span><br></pre></td></tr></table></figure><p><strong>常用指令</strong></p><ul><li><p>basic command </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add</span><br><span class="line">$ git commit</span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure></li><li><p>查看日志</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --pretty=oneline </span><br><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">$ git reflog</span><br></pre></td></tr></table></figure></li><li><p>版本控制</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard index</span><br><span class="line">$ git reset --hard <span class="built_in">head</span>^^</span><br><span class="line">$ git reset --hard <span class="built_in">head</span>~2</span><br></pre></td></tr></table></figure></li><li><p>分支</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -v</span><br><span class="line">$ git checkout branchName</span><br><span class="line">$ git branch branchName</span><br></pre></td></tr></table></figure><ul><li><p>合并</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git chekout branchName</span><br><span class="line">$ git merge branchName</span><br></pre></td></tr></table></figure></li></ul></li><li><p>远程push源设置</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">$ git remote add origin https:......</span><br><span class="line">$ gite push origin branchName</span><br></pre></td></tr></table></figure></li><li><p>克隆拉取</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> htpps:.....</span><br><span class="line">pull = fetch + merge</span><br><span class="line">$ git fetch origin/branchName</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;全局配置&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;l</summary>
+      
+    
+    
+    
+    
+    <category term="git" scheme="http://example.com/tags/git/"/>
+    
+  </entry>
+  
+</feed>
