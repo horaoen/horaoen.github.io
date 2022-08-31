@@ -71,6 +71,34 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>http://example.com/tags/jvm/</loc>
+    <lastmod>2022-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/</loc>
+    <lastmod>2022-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/jvm/</loc>
+    <lastmod>2022-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/jvm/test/</loc>
+    <lastmod>2022-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 </urlset>
