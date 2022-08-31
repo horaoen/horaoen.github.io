@@ -1,7 +1,11 @@
 ---
 title: test
 date: 2022-08-31 12:07:58
-tags:
+tags: jvm
+categories:
+    - java面试
+    - jvm
+    - test
 ---
 
 ```java
