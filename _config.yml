@@ -106,5 +106,5 @@ theme: Wikitten
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repository: https://github.com/horaoen/horaoen.github.io.git
+  repository: git@github.com:horaoen/horaoen.github.io.git
   branch: main

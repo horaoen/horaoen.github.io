@@ -21,19 +21,12 @@ typora-root-url: ClassLoader
 
 
 
-![image-20220831183147074](/image-20220831183147074.png)
+![image-20220831183147074](image-20220831183147074.png)
 
-### 启动类加载器（BootstrapClassLoader)
+- 启动类加载器（BootstrapClassLoader) 加载java核心类库包括ExtClassLoader、AppClassLoader。
 
-加载java核心类库包括ExtClassLoader、AppClassLoader。
-
-### 扩展类加载器 (ExtClassLoader)
-
-继承自ClassLoader，可加载用户放在jre/lib/ext目录下的jar包 或java.ext.dirs系统属性所指定的目录加载类库。
-
-### 系统类加载器(AppClassLoader)
-
-加载用户自定义类
+- 扩展类加载器 (ExtClassLoader) 继承自ClassLoader，可加载用户放在jre/lib/ext目录下的jar包 或java.ext.dirs系统属性所指定的目录加载类库。
+- 系统类加载器(AppClassLoader) 加载用户自定义类
 
 
 
@@ -61,7 +54,7 @@ public class ClassLoaderTest {
 
 
 
-## 参考资料
+# 参考资料
 
 > - [bilibili-尚硅谷jvm-ClassLoader](https://www.bilibili.com/video/BV1PJ411n7xZ?p=31&vd_source=7ab43036b8c368bf0578c31e9437d6ed)
 
