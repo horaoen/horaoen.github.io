@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-09-01T03:06:34.221Z</updated>
+  <updated>2022-09-22T01:21:17.409Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>阿里云效maven私服</title>
+    <link href="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/"/>
+    <id>http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/</id>
+    <published>2022-09-21T02:16:09.000Z</published>
+    <updated>2022-09-22T01:21:17.409Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>前段时间写了一个starter(spring boot), 有另外一个web项目要引用， 本地跑跑还可以但是当我将代码推送到远程仓库时触发的jenkins构建任务就会失败，原因是这个starter只存在于本地maven仓库，我需要将它推送到一个可被访问的远程仓库上才能被别的项目拉取依赖，我用github packages实现了这个需求，现在又发现了一个更加简单的方法，利用阿里云效。</p></blockquote><h1 id="基本环境准备"><a href="#基本环境准备" class="headerlink" title="基本环境准备"></a>基本环境准备</h1><ol><li>首先你需要注册阿里云效的账号 <a href="https://devops.aliyun.com/">云效</a></li><li>然后需要有可以实验的项目，这里我准备了两个个人项目供实验<ol><li><a href="https://gitee.com/horaoen/sailor-cms.git">https://gitee.com/horaoen/sailor-cms.git</a></li><li><a href="https://gitee.com/horaoen/sailor-cms-core.git">https://gitee.com/horaoen/sailor-cms-core.git</a></li></ol></li><li>本地maven、jdk环境，这个就不用多说。</li></ol><h1 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h1><ol><li><p><img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103510978.png" alt="image-20220921103510978"></p></li><li><p><img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103606919.png" alt="image-20220921103606919"></p></li><li><p><img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103639921.png" alt="image-20220921103639921"></p></li><li><p><img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103747018.png" alt="image-20220921103747018"></p></li><li><p>推送方式有两种，如果你本地配置了其它远程库那么就只能用修改的方法，如果没有建议直接覆盖，还可以顺便修改阿里maven源，按照文档将settings.xml放在指定位置</p></li><li><p>配置项目的推送目标地址，以需要上面那个sailor-cms-core的项目为例，我们需要在根pom.xml中添加如下配置<img src="/image-20220921104236804.png" alt="image-20220921104236804"></p><p>这里我附上模板文件</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>rdc-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>Release Deploy<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://packages.aliyun.com/maven/repository/****-release-kjYWpG<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>rdc-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>Snapshot Deploy<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://packages.aliyun.com/maven/repository/****-snapshot-0GTZRF<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>配置参数可以在setting.xml中找到<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104647253.png" alt="image-20220921104647253"></p></li><li><p>如图先打包再推送<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921110720611.png" alt="image-20220921110720611"></p></li><li><p>这里有注意点：阿里云效maven默认不允许覆盖，支持覆盖需要如图开启配置<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921105204186.png" alt="image-20220921105204186"></p></li><li><p>结果如下<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921111031589.png" alt="image-20220921111031589"></p></li></ol><h1 id="拉取"><a href="#拉取" class="headerlink" title="拉取"></a>拉取</h1><p>拉取就很简单了，如果在本地你可以直接配置<denpendencies></denpendencies>节点引入依赖，在远程服务器打包时需要将maven环境配置与本地相同也就是用同样的方法覆盖settings.xml</p><p>看看效果：</p><p>由于我本地maven仓库已经有了sailor-cms-core这个包，想要复现下载过程需要先删除。</p><p>重新mvn install, 成功了<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922091600050.png" alt="image-20220922091600050"></p><p>这里我push代码看一下jenkins的构建过程（需要先改jenkins上实用的maven配置，同上settings.xml)</p><p><img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922092053947.png" alt="image-20220922092053947"> 构建任务也成功。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;前段时间写了一个starter(spring boot), 有另外一个web项目要引用， 本地跑跑还可以但是当我将代码推送到远程仓库时触发的jenkins构建任务就会失败，原因是这个starter只存在于本地maven仓库，我需要将它推送到一个可被</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>JUC</title>

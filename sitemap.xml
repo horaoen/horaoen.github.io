@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/</loc>
+    
+    <lastmod>2022-09-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/2022/09/01/JUC/</loc>
     
     <lastmod>2022-09-01</lastmod>
@@ -85,7 +94,7 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -93,28 +102,28 @@
   
   <url>
     <loc>http://example.com/tags/git/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/jvm/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/jvm-ClassLoader/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/JUC/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -123,49 +132,49 @@
   
   <url>
     <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/jvm/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/jvm/test/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/jvm/classLoader/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/java%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/java%E5%9F%BA%E7%A1%80/JUC/</loc>
-    <lastmod>2022-09-21</lastmod>
+    <lastmod>2022-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

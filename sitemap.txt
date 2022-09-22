@@ -1,3 +1,4 @@
+http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/
 http://example.com/2022/09/01/JUC/
 http://example.com/2022/08/31/ClassLoader/
 http://example.com/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/
