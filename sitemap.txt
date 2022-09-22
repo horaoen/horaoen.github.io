@@ -13,6 +13,7 @@ http://example.com/tags/git/
 http://example.com/tags/jvm/
 http://example.com/tags/jvm-ClassLoader/
 http://example.com/tags/JUC/
+http://example.com/tags/java%E6%8A%80%E6%9C%AF-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/
 http://example.com/categories/java%E9%9D%A2%E8%AF%95/
 http://example.com/categories/java%E9%9D%A2%E8%AF%95/jvm/
 http://example.com/categories/java%E9%9D%A2%E8%AF%95/jvm/test/
