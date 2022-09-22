@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103606919.png">
 <meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103639921.png">
 <meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103747018.png">
-<meta property="og:image" content="http://example.com/image-20220921104236804.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104236804.png">
 <meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104647253.png">
 <meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921110720611.png">
 <meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921105204186.png">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922091600050.png">
 <meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922092053947.png">
 <meta property="article:published_time" content="2022-09-21T02:16:09.000Z">
-<meta property="article:modified_time" content="2022-09-22T01:27:44.947Z">
+<meta property="article:modified_time" content="2022-09-22T01:33:17.988Z">
 <meta property="article:author" content="horaoen">
 <meta property="article:tag" content="horaoen">
 <meta name="twitter:card" content="summary">
@@ -426,7 +426,7 @@
 </li>
 <li><p>推送方式有两种，如果你本地配置了其它远程库那么就只能用修改的方法，如果没有建议直接覆盖，还可以顺便修改阿里maven源，按照文档将settings.xml放在指定位置</p>
 </li>
-<li><p>配置项目的推送目标地址，以需要上面那个sailor-cms-core的项目为例，我们需要在根pom.xml中添加如下配置<img src="/image-20220921104236804.png" alt="image-20220921104236804"></p>
+<li><p>配置项目的推送目标地址，以需要上面那个sailor-cms-core的项目为例，我们需要在根pom.xml中添加如下配置<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104236804.png" alt="image-20220921104236804"></p>
 <p>这里我附上模板文件</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>rdc-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>Release Deploy<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://packages.aliyun.com/maven/repository/****-release-kjYWpG<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>rdc-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>Snapshot Deploy<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://packages.aliyun.com/maven/repository/****-snapshot-0GTZRF<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
