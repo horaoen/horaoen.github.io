@@ -6,7 +6,6 @@ tags: JUC
 categories: 
   - java面试
   - java基础
-  - JUC
 typora-root-url: JUC
 
 ---

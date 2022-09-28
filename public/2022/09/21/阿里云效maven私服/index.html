@@ -3,26 +3,36 @@
 <head>
     <meta charset="utf-8">
     
-    <title>test | Horaoen&#39;s Home</title>
+    <title>阿里云效maven私服 | Horaoen&#39;s Home</title>
     
     
-        <meta name="keywords" content="jvm" />
+        <meta name="keywords" content="horaoen" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="123456789101112131415161718192021&#x2F;** * @author horaoen *&#x2F;public class SyncTest &amp;#123;    private int num &#x3D; 0;        public void test() &amp;#123;        for (int i &#x3D; 0; i &lt; 1000; i++) &amp;#123;">
+    <meta name="description" content="前段时间写了一个starter(spring boot), 有另外一个web项目要引用， 本地跑跑还可以但是当我将代码推送到远程仓库时触发的jenkins构建任务就会失败，原因是这个starter只存在于本地maven仓库，我需要将它推送到一个可被访问的远程仓库上才能被别的项目拉取依赖，我用github packages实现了这个需求，现在又发现了一个更加简单的方法，利用阿里云效。  基本环境准">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="http://example.com/2022/08/31/test/index.html">
+<meta property="og:title" content="阿里云效maven私服">
+<meta property="og:url" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/index.html">
 <meta property="og:site_name" content="Horaoen&#39;s Home">
-<meta property="og:description" content="123456789101112131415161718192021&#x2F;** * @author horaoen *&#x2F;public class SyncTest &amp;#123;    private int num &#x3D; 0;        public void test() &amp;#123;        for (int i &#x3D; 0; i &lt; 1000; i++) &amp;#123;">
+<meta property="og:description" content="前段时间写了一个starter(spring boot), 有另外一个web项目要引用， 本地跑跑还可以但是当我将代码推送到远程仓库时触发的jenkins构建任务就会失败，原因是这个starter只存在于本地maven仓库，我需要将它推送到一个可被访问的远程仓库上才能被别的项目拉取依赖，我用github packages实现了这个需求，现在又发现了一个更加简单的方法，利用阿里云效。  基本环境准">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2022/08/31/test/image-20220831135827544.png">
-<meta property="article:published_time" content="2022-08-31T04:07:58.000Z">
-<meta property="article:modified_time" content="2022-08-31T08:00:10.770Z">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103510978.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103606919.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103639921.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103747018.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104236804.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104647253.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921110720611.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921105204186.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921111031589.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922091600050.png">
+<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922092053947.png">
+<meta property="article:published_time" content="2022-09-21T02:16:09.000Z">
+<meta property="article:modified_time" content="2022-09-22T01:33:17.988Z">
 <meta property="article:author" content="horaoen">
-<meta property="article:tag" content="jvm">
+<meta property="article:tag" content="horaoen">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/08/31/test/image-20220831135827544.png">
+<meta name="twitter:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103510978.png">
     
 
     
@@ -185,50 +195,32 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder-open"></i>
                             &nbsp;
-                            java面试
+                            java技术
                         </a>
                          <ul class="unstyled" id="tree" > 
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            java基础
-                        </a>
-                         <ul class="unstyled" id="tree" > 
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            JUC
-                        </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2022/09/01/JUC/">JUC</a></li>  </ul> 
-                    </li> 
-                     </ul> 
-                    </li> 
-                    
                     <li class="directory open">
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder-open"></i>
                             &nbsp;
-                            jvm
+                            开发环境
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/">阿里云效maven私服</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            设计模式
                         </a>
                          <ul class="unstyled" id="tree" > 
                     <li class="directory">
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            classLoader
+                            行为模式
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2022/08/31/ClassLoader/">ClassLoader</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory open">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
-                            &nbsp;
-                            test
-                        </a>
-                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/2022/08/31/test/">test</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2022/09/27/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/">命令模式</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -243,7 +235,43 @@
                     </li> 
                      </ul> 
                     </li> 
-                     <li class="file"><a href="/2022/08/05/git-command/">git command</a></li>  <li class="file"><a href="/2022/08/31/java%E9%94%81%E6%9C%BA%E5%88%B6/">java锁机制</a></li>  </ul> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            java面试
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            java基础
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2022/09/01/JUC/">JUC</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            jvm
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2022/08/31/ClassLoader/">ClassLoader</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开发工具
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2022/08/05/git-command/">git command</a></li>  </ul> 
+                    </li> 
+                     </ul> 
     </div>
     <script>
         $(document).ready(function() {
@@ -314,7 +342,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-阿里云效maven私服" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -324,20 +352,15 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/java%E9%9D%A2%E8%AF%95/">java面试</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/java%E9%9D%A2%E8%AF%95/jvm/">jvm</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/java%E9%9D%A2%E8%AF%95/jvm/test/">test</a>
+        <a class="article-category-link" href="/categories/java%E6%8A%80%E6%9C%AF/">java技术</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/java%E6%8A%80%E6%9C%AF/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">开发环境</a>
     </div>
 
                         
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link-link" href="/tags/jvm/" rel="tag">jvm</a>
-    </div>
-
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2022/08/31/test/">
-            <time datetime="2022-08-31T04:07:58.000Z" itemprop="datePublished">2022-08-31</time>
+        <a href="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/">
+            <time datetime="2022-09-21T02:16:09.000Z" itemprop="datePublished">2022-09-21</time>
         </a>
     </div>
 
@@ -348,13 +371,13 @@
                         
                         
                             <div class="article-meta-button">
-                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/test.md'> Source </a>
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/阿里云效maven私服.md'> Source </a>
                             </div>
                             <div class="article-meta-button">
-                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/test.md'> Edit </a>
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/阿里云效maven私服.md'> Edit </a>
                             </div>
                             <div class="article-meta-button">
-                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/test.md'> History </a>
+                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/阿里云效maven私服.md'> History </a>
                             </div>
                         
                     </div>
@@ -362,7 +385,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            test
+            阿里云效maven私服
         </h1>
     
 
@@ -373,11 +396,55 @@
         
         
             
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">基本环境准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A8%E9%80%81"><span class="toc-number">2.</span> <span class="toc-text">推送</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%89%E5%8F%96"><span class="toc-number">3.</span> <span class="toc-text">拉取</span></a></li></ol>
+                </div>
+            
         
         
-            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> horaoen</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SyncTest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;thread:&quot;</span> + Thread.currentThread().getId() + <span class="string">&quot; num:&quot;</span> + num++);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; <span class="keyword">new</span> <span class="title class_">SyncTest</span>().test());</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; <span class="keyword">new</span> <span class="title class_">SyncTest</span>().test());</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2022/08/31/test/image-20220831135827544.png" alt="image-20220831135827544"></p>
+            <blockquote>
+<p>前段时间写了一个starter(spring boot), 有另外一个web项目要引用， 本地跑跑还可以但是当我将代码推送到远程仓库时触发的jenkins构建任务就会失败，原因是这个starter只存在于本地maven仓库，我需要将它推送到一个可被访问的远程仓库上才能被别的项目拉取依赖，我用github packages实现了这个需求，现在又发现了一个更加简单的方法，利用阿里云效。</p>
+</blockquote>
+<h1 id="基本环境准备"><a href="#基本环境准备" class="headerlink" title="基本环境准备"></a>基本环境准备</h1><ol>
+<li>首先你需要注册阿里云效的账号 <a target="_blank" rel="noopener" href="https://devops.aliyun.com/">云效</a></li>
+<li>然后需要有可以实验的项目，这里我准备了两个个人项目供实验<ol>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/horaoen/sailor-cms.git">https://gitee.com/horaoen/sailor-cms.git</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/horaoen/sailor-cms-core.git">https://gitee.com/horaoen/sailor-cms-core.git</a></li>
+</ol>
+</li>
+<li>本地maven、jdk环境，这个就不用多说。</li>
+</ol>
+<h1 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h1><ol>
+<li><p><img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103510978.png" alt="image-20220921103510978"></p>
+</li>
+<li><p><img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103606919.png" alt="image-20220921103606919"></p>
+</li>
+<li><p><img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103639921.png" alt="image-20220921103639921"></p>
+</li>
+<li><p><img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103747018.png" alt="image-20220921103747018"></p>
+</li>
+<li><p>推送方式有两种，如果你本地配置了其它远程库那么就只能用修改的方法，如果没有建议直接覆盖，还可以顺便修改阿里maven源，按照文档将settings.xml放在指定位置</p>
+</li>
+<li><p>配置项目的推送目标地址，以需要上面那个sailor-cms-core的项目为例，我们需要在根pom.xml中添加如下配置<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104236804.png" alt="image-20220921104236804"></p>
+<p>这里我附上模板文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>rdc-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>Release Deploy<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://packages.aliyun.com/maven/repository/****-release-kjYWpG<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>rdc-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>Snapshot Deploy<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://packages.aliyun.com/maven/repository/****-snapshot-0GTZRF<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置参数可以在setting.xml中找到<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104647253.png" alt="image-20220921104647253"></p>
+</li>
+<li><p>如图先打包再推送<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921110720611.png" alt="image-20220921110720611"></p>
+</li>
+<li><p>这里有注意点：阿里云效maven默认不允许覆盖，支持覆盖需要如图开启配置<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921105204186.png" alt="image-20220921105204186"></p>
+</li>
+<li><p>结果如下<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921111031589.png" alt="image-20220921111031589"></p>
+</li>
+</ol>
+<h1 id="拉取"><a href="#拉取" class="headerlink" title="拉取"></a>拉取</h1><p>拉取就很简单了，如果在本地你可以直接配置<denpendencies></denpendencies>节点引入依赖，在远程服务器打包时需要将maven环境配置与本地相同也就是用同样的方法覆盖settings.xml</p>
+<p>看看效果：</p>
+<p>由于我本地maven仓库已经有了sailor-cms-core这个包，想要复现下载过程需要先删除。</p>
+<p>重新mvn install, 成功了<img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922091600050.png" alt="image-20220922091600050"></p>
+<p>这里我push代码看一下jenkins的构建过程（需要先改jenkins上实用的maven配置，同上settings.xml)</p>
+<p><img src="/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922092053947.png" alt="image-20220922092053947"> 构建任务也成功。</p>
 
             </div>
         
@@ -390,19 +457,19 @@
     
 <nav id="article-nav">
     
-        <a href="/2022/08/31/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9java%E7%9A%84%E7%90%86%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2022/09/27/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    谈谈你对java的理解
+                    命令模式
                 
             </div>
         </a>
     
     
-        <a href="/2022/08/31/java%E9%94%81%E6%9C%BA%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2022/09/01/JUC/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">java锁机制</div>
+            <div class="article-nav-title">JUC</div>
         </a>
     
 </nav>

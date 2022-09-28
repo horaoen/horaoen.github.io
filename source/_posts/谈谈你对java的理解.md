@@ -2,9 +2,9 @@
 title: 谈谈你对java的理解
 toc: true
 date: 2022-08-31 16:04:30
-tags: 
+tags: 面试
 categories:
-    - java面试
+    - java技术
     - 面试
 typora-root-url: 谈谈你对java的理解
 ---

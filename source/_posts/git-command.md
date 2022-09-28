@@ -2,7 +2,10 @@
 title: git command
 date: 2022-08-05 16:44:02
 tags: 
+  - cvs
   - git
+categories:
+    - 开发工具
 ---
 
 

@@ -4,6 +4,7 @@ date: {{ date }}
 toc: true
 tags: 
 categories: 
+typora-root-url: {{ title }}
 ---
 
 
