@@ -129,27 +129,6 @@
 
   
   <url>
-    <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/</loc>
-    <lastmod>2022-09-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/jvm/</loc>
-    <lastmod>2022-09-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/categories/java%E9%9D%A2%E8%AF%95/java%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2022-09-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/categories/java%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2022-09-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -186,6 +165,20 @@
   
   <url>
     <loc>http://example.com/categories/java%E6%8A%80%E6%9C%AF/%E9%9D%A2%E8%AF%95/</loc>
+    <lastmod>2022-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/java%E6%8A%80%E6%9C%AF/%E9%9D%A2%E8%AF%95/jvm/</loc>
+    <lastmod>2022-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/java%E6%8A%80%E6%9C%AF/%E9%9D%A2%E8%AF%95/java%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2022-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
