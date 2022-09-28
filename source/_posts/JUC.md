@@ -4,7 +4,8 @@ toc: true
 date: 2022-09-01 09:30:48
 tags: JUC
 categories: 
-  - java面试
+  - java技术
+  - 面试
   - java基础
 typora-root-url: JUC
 

@@ -4,7 +4,8 @@ toc: true
 date: 2022-08-31 17:43:18
 tags: jvm ClassLoader
 categories: 
-    - java面试
+    - java技术
+    - 面试
     - jvm
 typora-root-url: ClassLoader
 ---
