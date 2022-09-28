@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-09-28T06:56:45.584Z</updated>
+  <updated>2022-09-28T08:07:03.154Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式基础</title>
+    <link href="http://example.com/2022/09/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%9F%BA%E7%A1%80/"/>
+    <id>http://example.com/2022/09/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%9F%BA%E7%A1%80/</id>
+    <published>2022-09-28T07:44:15.000Z</published>
+    <updated>2022-09-28T08:07:03.154Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="设计模式原则"><a href="#设计模式原则" class="headerlink" title="设计模式原则"></a>设计模式原则</h1><ol><li>单一职责原则（Single Responsiblitity Principle, SRP)</li><li>开闭原则</li><li>里氏替换原则</li><li>依赖倒置原则</li><li>接口隔离原则</li><li>合成复用原则</li><li>迪米特法则</li></ol><p><strong>模式是在特定环境下人们解决某类重复出现问题的一套成功或有效的解决方案</strong></p><blockquote><p>John Vlissides：模式从不保证任何东西，它不能保证你一定能后做出可复用的软件，提高你的生产效率，更不能保证世界和平。模式并不能替代人来完成软件系统的创造，它们只不过会给那些缺乏经验但却具备才能和创造力的人带来希望。</p></blockquote><h1 id="UML建模"><a href="#UML建模" class="headerlink" title="UML建模"></a>UML建模</h1><h2 id="类之间的关系"><a href="#类之间的关系" class="headerlink" title="类之间的关系"></a>类之间的关系</h2><ol><li>关联关系</li><li>依赖关系</li><li>泛化关系</li><li>接口与实现关系</li></ol><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote><ul><li><a href=""></a></li><li><a href=""></a></li></ul></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;设计模式原则&quot;&gt;&lt;a href=&quot;#设计模式原则&quot; class=&quot;headerlink&quot; title=&quot;设计模式原则&quot;&gt;&lt;/a&gt;设计模式原则&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;单一职责原则（Single Responsiblitity Principle, SRP)&lt;/l</summary>
+      
+    
+    
+    
+    <category term="java技术" scheme="http://example.com/categories/java%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="设计模式" scheme="http://example.com/categories/java%E6%8A%80%E6%9C%AF/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="UML 设计原则" scheme="http://example.com/tags/UML-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/"/>
+    
+  </entry>
   
   <entry>
     <title>命令模式</title>
