@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-09-28T08:07:03.154Z</updated>
+  <updated>2022-09-30T08:33:44.708Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,13 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>idea快捷键</title>
+    <link href="http://example.com/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    <id>http://example.com/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/</id>
+    <published>2022-09-30T06:54:03.000Z</published>
+    <updated>2022-09-30T08:33:44.708Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一、Editing"><a href="#一、Editing" class="headerlink" title="一、Editing"></a>一、Editing</h1><p><img src="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/image-20220930152515309.png" alt="image-20220930152515309"></p><ol><li>shift + enter</li><li>ctrl + enter</li><li>ctrl + o</li><li>ctrl + i</li><li>ctrl + shift + []</li><li>ctrl + p</li></ol><h1 id="二、Useage-Search"><a href="#二、Useage-Search" class="headerlink" title="二、Useage Search"></a>二、Useage Search</h1><p><img src="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/image-20220930152554565.png" alt="image-20220930152554565"></p><h1 id="三、Navigation"><a href="#三、Navigation" class="headerlink" title="三、Navigation"></a>三、Navigation</h1><p><img src="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/image-20220930152652577.png" alt="image-20220930152652577"></p><ol><li>ctrl + e</li><li>ctrl + n</li><li>ctrl + u</li><li>ctrl + shift + n</li><li>shift + esc</li><li></li></ol><h1 id="四、Search-x2F-Replace"><a href="#四、Search-x2F-Replace" class="headerlink" title="四、Search&#x2F;Replace"></a>四、Search&#x2F;Replace</h1><p><img src="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/image-20220930152732673.png" alt="image-20220930152732673"></p><h1 id="五、Live-Templates"><a href="#五、Live-Templates" class="headerlink" title="五、Live Templates"></a>五、Live Templates</h1><p><img src="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/image-20220930152807267.png" alt="image-20220930152807267"></p><h1 id="六、Refactoring"><a href="#六、Refactoring" class="headerlink" title="六、Refactoring"></a>六、Refactoring</h1><p><img src="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/image-20220930152841258.png" alt="image-20220930152841258"></p><h1 id="七、Debugging"><a href="#七、Debugging" class="headerlink" title="七、Debugging"></a>七、Debugging</h1><p><img src="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/image-20220930152924277.png" alt="image-20220930152924277"></p><h1 id="八、Compile-and-Run"><a href="#八、Compile-and-Run" class="headerlink" title="八、Compile and Run"></a>八、Compile and Run</h1><p><img src="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/image-20220930153001958.png" alt="image-20220930153001958"></p><h1 id="九、VCS-x2F-Local-History"><a href="#九、VCS-x2F-Local-History" class="headerlink" title="九、VCS&#x2F;Local History"></a>九、VCS&#x2F;Local History</h1><p><img src="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/image-20220930153048278.png" alt="image-20220930153048278"></p><ol><li>ctrl + k</li><li>ctrl + t</li></ol><h1 id="十、General"><a href="#十、General" class="headerlink" title="十、General"></a>十、General</h1><p><img src="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/image-20220930153124466.png" alt="image-20220930153124466"></p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote><ul><li><a href=""></a></li><li><a href=""></a></li></ul></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;一、Editing&quot;&gt;&lt;a href=&quot;#一、Editing&quot; class=&quot;headerlink&quot; title=&quot;一、Editing&quot;&gt;&lt;/a&gt;一、Editing&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/2022/09/30/idea%E5%BF%AB%E6%8D%</summary>
+      
+    
+    
+    
+    <category term="java技术" scheme="http://example.com/categories/java%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="开发环境" scheme="http://example.com/categories/java%E6%8A%80%E6%9C%AF/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>设计模式基础</title>
     <link href="http://example.com/2022/09/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%9F%BA%E7%A1%80/"/>
     <id>http://example.com/2022/09/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%9F%BA%E7%A1%80/</id>
     <published>2022-09-28T07:44:15.000Z</published>
-    <updated>2022-09-28T08:07:03.154Z</updated>
+    <updated>2022-09-30T05:15:29.670Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="设计模式原则"><a href="#设计模式原则" class="headerlink" title="设计模式原则"></a>设计模式原则</h1><ol><li>单一职责原则（Single Responsiblitity Principle, SRP)</li><li>开闭原则</li><li>里氏替换原则</li><li>依赖倒置原则</li><li>接口隔离原则</li><li>合成复用原则</li><li>迪米特法则</li></ol><p><strong>模式是在特定环境下人们解决某类重复出现问题的一套成功或有效的解决方案</strong></p><blockquote><p>John Vlissides：模式从不保证任何东西，它不能保证你一定能后做出可复用的软件，提高你的生产效率，更不能保证世界和平。模式并不能替代人来完成软件系统的创造，它们只不过会给那些缺乏经验但却具备才能和创造力的人带来希望。</p></blockquote><h1 id="UML建模"><a href="#UML建模" class="headerlink" title="UML建模"></a>UML建模</h1><h2 id="类之间的关系"><a href="#类之间的关系" class="headerlink" title="类之间的关系"></a>类之间的关系</h2><ol><li>关联关系</li><li>依赖关系</li><li>泛化关系</li><li>接口与实现关系</li></ol><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote><ul><li><a href=""></a></li><li><a href=""></a></li></ul></blockquote>]]></content>
+    <content type="html"><![CDATA[<h1 id="设计模式原则"><a href="#设计模式原则" class="headerlink" title="设计模式原则"></a>设计模式原则</h1><ol><li>单一职责原则（Single Responsiblitity Principle, SRP)</li><li>开闭原则</li><li>里氏替换原则</li><li>依赖倒置原则</li><li>接口隔离原则</li><li>合成复用原则</li><li>迪米特法则</li></ol><p>开闭原则是目标，里氏替换原则是基础，依赖倒置原则是手段。</p><p><strong>模式是在特定环境下人们解决某类重复出现问题的一套成功或有效的解决方案</strong></p><blockquote><p>John Vlissides：模式从不保证任何东西，它不能保证你一定能后做出可复用的软件，提高你的生产效率，更不能保证世界和平。模式并不能替代人来完成软件系统的创造，它们只不过会给那些缺乏经验但却具备才能和创造力的人带来希望。</p></blockquote><h1 id="UML建模"><a href="#UML建模" class="headerlink" title="UML建模"></a>UML建模</h1><h2 id="类之间的关系"><a href="#类之间的关系" class="headerlink" title="类之间的关系"></a>类之间的关系</h2><ol><li><p>关联关系</p><ol><li><img src="/2022/09/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%9F%BA%E7%A1%80/image-20220929101146023.png" alt="image-20220929101146023"></li></ol></li><li><p>依赖关系</p><ol><li>一种使用关系，相比于关联关系较弱，无生命周期影响。</li><li><img src="/2022/09/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%9F%BA%E7%A1%80/image-20220930125227735.png" alt="image-20220930125227735"></li></ol></li><li><p>泛化关系（Generalization)</p><ol><li>即继承 extends</li><li><img src="/2022/09/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%9F%BA%E7%A1%80/image-20220930130117950.png" alt="image-20220930130117950"></li></ol></li><li><p>接口与实现关系(Realization)</p><ol><li>implements</li><li><img src="/2022/09/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%9F%BA%E7%A1%80/image-20220930131518959.png" alt="image-20220930131518959"></li></ol></li></ol><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote><ul><li><a href=""></a></li><li><a href=""></a></li></ul></blockquote>]]></content>
     
     
       
