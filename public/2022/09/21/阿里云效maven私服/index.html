@@ -12,35 +12,33 @@
     <meta name="description" content="前段时间写了一个starter(spring boot), 有另外一个web项目要引用， 本地跑跑还可以但是当我将代码推送到远程仓库时触发的jenkins构建任务就会失败，原因是这个starter只存在于本地maven仓库，我需要将它推送到一个可被访问的远程仓库上才能被别的项目拉取依赖，我用github packages实现了这个需求，现在又发现了一个更加简单的方法，利用阿里云效。  基本环境准">
 <meta property="og:type" content="article">
 <meta property="og:title" content="阿里云效maven私服">
-<meta property="og:url" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/index.html">
+<meta property="og:url" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/index.html">
 <meta property="og:site_name" content="Horaoen&#39;s Home">
 <meta property="og:description" content="前段时间写了一个starter(spring boot), 有另外一个web项目要引用， 本地跑跑还可以但是当我将代码推送到远程仓库时触发的jenkins构建任务就会失败，原因是这个starter只存在于本地maven仓库，我需要将它推送到一个可被访问的远程仓库上才能被别的项目拉取依赖，我用github packages实现了这个需求，现在又发现了一个更加简单的方法，利用阿里云效。  基本环境准">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103510978.png">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103606919.png">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103639921.png">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103747018.png">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104236804.png">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104647253.png">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921110720611.png">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921105204186.png">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921111031589.png">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922091600050.png">
-<meta property="og:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922092053947.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103510978.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103606919.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103639921.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103747018.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104236804.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921104647253.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921110720611.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921105204186.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921111031589.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922091600050.png">
+<meta property="og:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220922092053947.png">
 <meta property="article:published_time" content="2022-09-21T02:16:09.000Z">
 <meta property="article:modified_time" content="2022-09-22T01:33:17.988Z">
 <meta property="article:author" content="horaoen">
 <meta property="article:tag" content="horaoen">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103510978.png">
+<meta name="twitter:image" content="https://horaoen.github.io/2022/09/21/%E9%98%BF%E9%87%8C%E4%BA%91%E6%95%88maven%E7%A7%81%E6%9C%8D/image-20220921103510978.png">
     
 
     
-        <link rel="alternate" href="/atom.xml" title="Horaoen&#39;s Home" type="application/atom+xml" />
-    
 
     
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/img/favicon.png" />
     
 
     
@@ -81,7 +79,8 @@
     
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Horaoen's Home" type="application/atom+xml">
+</head>
 
 <body>
     <div id="container">
@@ -280,7 +279,7 @@
                     </li> 
                      </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file"><a href="/2022/10/17/test/">test</a></li>  </ul> 
     </div>
     <script>
         $(document).ready(function() {
@@ -348,6 +347,112 @@
     </script>
 
     
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>最新文章</span></h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/10/17/test/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2022/10/17/test/" class="title">test</a></p>
+                            <p class="item-date"><time datetime="2022-10-17T06:08:39.000Z" itemprop="datePublished">2022-10-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/10/04/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E7%90%86%E8%AE%BA%E7%9F%A5%E8%AF%86/">理论知识</a></p>
+                            <p class="item-title"><a href="/2022/10/04/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="title">微服务基础知识</a></p>
+                            <p class="item-date"><time datetime="2022-10-04T13:57:57.000Z" itemprop="datePublished">2022-10-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/java%E6%8A%80%E6%9C%AF/">java技术</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/java%E6%8A%80%E6%9C%AF/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">开发环境</a></p>
+                            <p class="item-title"><a href="/2022/09/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="title">idea快捷键</a></p>
+                            <p class="item-date"><time datetime="2022-09-30T06:54:03.000Z" itemprop="datePublished">2022-09-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/09/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%9F%BA%E7%A1%80/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/java%E6%8A%80%E6%9C%AF/">java技术</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/java%E6%8A%80%E6%9C%AF/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></p>
+                            <p class="item-title"><a href="/2022/09/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%9F%BA%E7%A1%80/" class="title">设计模式基础</a></p>
+                            <p class="item-date"><time datetime="2022-09-28T07:44:15.000Z" itemprop="datePublished">2022-09-28</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/09/27/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/java%E6%8A%80%E6%9C%AF/">java技术</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/java%E6%8A%80%E6%9C%AF/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></p>
+                            <p class="item-title"><a href="/2022/09/27/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" class="title">命令模式</a></p>
+                            <p class="item-date"><time datetime="2022-09-27T05:19:36.000Z" itemprop="datePublished">2022-09-27</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
@@ -380,13 +485,13 @@
                         
                         
                             <div class="article-meta-button">
-                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/阿里云效maven私服.md'> Source </a>
+                                <a target="_blank" rel="noopener" href='https://github.com/horaoen/horaoen.github.io/raw/source/source/_posts/阿里云效maven私服.md'> Source </a>
                             </div>
                             <div class="article-meta-button">
-                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/阿里云效maven私服.md'> Edit </a>
+                                <a target="_blank" rel="noopener" href='https://github.com/horaoen/horaoen.github.io/edit/source/source/_posts/阿里云效maven私服.md'> Edit </a>
                             </div>
                             <div class="article-meta-button">
-                                <a target="_blank" rel="noopener" href='https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/阿里云效maven私服.md'> History </a>
+                                <a target="_blank" rel="noopener" href='https://github.com/horaoen/horaoen.github.io/commits/source/source/_posts/阿里云效maven私服.md'> History </a>
                             </div>
                         
                     </div>
