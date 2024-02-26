@@ -27,7 +27,7 @@ useCDN = false
 favicon = "/icon/favicon.png"
 
 # show in the footer
-copyright = "keith"
+copyright = "horaoen"
 
 # config your Google Analysis ID
 ga = "XXXX-XXXXX"
