@@ -1,6 +1,6 @@
 +++
-title = "List of blog posts"
-sort_by = "date"
-template = "posts.html"
+path = "posts" 
+template = "posts.html" 
+transparent = true 
+sort_by = "date" 
 +++
-
