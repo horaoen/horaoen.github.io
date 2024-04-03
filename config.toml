@@ -46,10 +46,11 @@ posted_by = "Published by"
 read_time = "minute read"
 all_tags = "All tags"
 menus = [
-  { name = "Home", url = "/", weight = 2 },
-  { name = "All posts", url = "/posts", weight = 2 },
-  { name = "About", url = "/about", weight = 3 },
-  { name = "Tags", url = "/tags", weight = 4 },
+  { name = "首页", url = "/", weight = 3 },
+  { name = "文章", url = "/posts", weight = 2 },
+  { name = "宠物救助", url = "/protpets", weight = 6 },
+  { name = "关于我", url = "/about", weight = 4 },
+  { name = "标签", url = "/tags", weight = 4 },
 ]
 
 # config social icon info in the footer
