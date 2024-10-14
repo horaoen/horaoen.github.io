@@ -1,5 +1,5 @@
 +++
-title = "code cheat sheet"
+title = "mysql"
 date = "2024-10-12"
 +++
 
