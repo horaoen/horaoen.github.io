@@ -12,4 +12,5 @@ date = "2024-10-28"
 4. current_time => current_date() / sysdate() / curdate()
 5. date(var) => trunc(var) 
 6. convert => cast
-7. match_partern = REPLACE('${ew.department}', ',', '|'), REGEXP  match_partern => REGEXP_LIKE(var1, match_partern)
+7. convert(str, SIGNED) => to_number(REGEXP_SUBSTR(str, '[0-9]+'))
+8. match_partern = REPLACE('${ew.department}', ',', '|'), REGEXP  match_partern => REGEXP_LIKE(var1, match_partern)
