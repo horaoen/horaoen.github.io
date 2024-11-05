@@ -14,3 +14,37 @@ date = "2024-10-28"
 6. convert => cast
 7. convert(str, SIGNED) => to_number(REGEXP_SUBSTR(str, '[0-9]+'))
 8. match_partern = REPLACE('${ew.department}', ',', '|'), REGEXP  match_partern => REGEXP_LIKE(var1, match_partern)
+
+# 数据迁移
+1. [迁移问题](https://eco.dameng.com/document/dm/zh-cn/faq/faq-mysql-dm8-migrate.html)
+2. [迁移步骤](https://eco.dameng.com/document/dm/zh-cn/start/tool-dm-migrate)
+
+# 数据校验
+## 比对索引
+1. mysql
+```sql
+SELECT a.TABLE_SCHEMA,
+       a.TABLE_NAME,
+       a.index_name,
+       GROUP_CONCAT(column_name ORDER BY seq_in_index) AS `Columns`
+FROM information_schema.statistics a
+where a.TABLE_SCHEMA = 'xzfw_pro1019' and a.COLUMN_NAME != 'id'
+GROUP BY a.TABLE_SCHEMA,a.TABLE_NAME,a.index_name
+order by INDEX_NAME;
+```
+2. dm
+```sql
+SELECT 
+    i.OWNER AS TABLE_SCHEMA,
+    i.TABLE_NAME,
+    i.INDEX_NAME,
+    LISTAGG(c.COLUMN_NAME, ',') WITHIN GROUP (ORDER BY c.COLUMN_POSITION) AS Columns
+FROM 
+    DBA_INDEXES i
+JOIN 
+    DBA_IND_COLUMNS c ON i.OWNER = c.INDEX_OWNER AND i.INDEX_NAME = c.INDEX_NAME
+ WHERE i.OWNER = 'xzfw_pro1019' AND c.COLUMN_NAME != 'id'
+GROUP BY 
+    i.OWNER, i.TABLE_NAME, i.INDEX_NAME
+ORDER BY i.TABLE_NAME
+```
