@@ -14,6 +14,8 @@ date = "2024-10-28"
 6. convert => cast
 7. convert(str, SIGNED) => to_number(REGEXP_SUBSTR(str, '[0-9]+'))
 8. match_partern = REPLACE('${ew.department}', ',', '|'), REGEXP  match_partern => REGEXP_LIKE(var1, match_partern)
+9. if函数传参数为null时（部分环境支持，兼容性不好），替换为case ... when ... else ...end
+10. DATEDIFF 必须指定date_unit
 
 # 数据迁移
 1. [迁移问题](https://eco.dameng.com/document/dm/zh-cn/faq/faq-mysql-dm8-migrate.html)
@@ -47,4 +49,14 @@ JOIN
 GROUP BY 
     i.OWNER, i.TABLE_NAME, i.INDEX_NAME
 ORDER BY i.INDEX_NAME
+```
+
+## 相关数据操作
+1. 清空数据库表
+```sql
+BEGIN
+    FOR rec IN (SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER = 'XZFW') LOOP
+        EXECUTE IMMEDIATE 'DROP TABLE XZFW.' || rec.TABLE_NAME || ' CASCADE CONSTRAINTS';
+    END LOOP;
+END;
 ```
