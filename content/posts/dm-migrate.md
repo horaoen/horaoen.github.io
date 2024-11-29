@@ -21,7 +21,7 @@ date = "2024-10-28"
 # 数据迁移
 1. [迁移问题](https://eco.dameng.com/document/dm/zh-cn/faq/faq-mysql-dm8-migrate.html)
 2. [迁移步骤](https://eco.dameng.com/document/dm/zh-cn/start/tool-dm-migrate)
-
+3. source -> start
 # 数据校验
 ## 比对索引
 1. mysql

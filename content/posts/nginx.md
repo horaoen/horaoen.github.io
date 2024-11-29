@@ -12,7 +12,6 @@ server {
         log_not_found off;
     }
 
-
     add_header Content-Security-Policy
         "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' *;";
 
@@ -33,4 +32,13 @@ server {
 
 ```conf
 nginx -s reload
+```
+
+### history模式路由访问不到
+```conf
+location / {
+    ...
+    try_files $uri $uri/ /index.html;
+    ...
+}
 ```
