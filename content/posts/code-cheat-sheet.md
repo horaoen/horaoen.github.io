@@ -56,6 +56,20 @@ ExcelReader reader = ExcelUtil.getReader(FileUtil.file("path"), 0);
 ```
 ExcelWriter excelWriter = ExcelUtil.getWriter();
 ```
+### Jackson
+#### Jsonstr to Obj
+```java
+// 字段映射
+// @JsonAlias("FixedParkingNo")
+// private Long fixedParkingNo;
+ObjectMapper objectMapper = new ObjectMapper();
+try {
+    carInfos = objectMapper.readValue(new File(filePath), new TypeReference<List<CarInfo>>() {
+    });
+} catch (IOException e) {
+    throw new RuntimeException(e);
+}
+```
 ## DB
 ### 时间段重叠问题
 ```sql
@@ -78,3 +92,4 @@ BEGIN
     END$$
 DELIMITER ;
 ```
+
