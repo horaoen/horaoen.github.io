@@ -12,3 +12,52 @@ date = "2024-10-28"
 4. current_time => current_date() / sysdate() / curdate()
 5. date(var) => trunc(var) 
 6. convert => cast
+7. convert(str, SIGNED) => to_number(REGEXP_SUBSTR(str, '[0-9]+'))
+8. match_partern = REPLACE('${ew.department}', ',', '|'), REGEXP  match_partern => REGEXP_LIKE(var1, match_partern)
+9. if函数传参数为null时（部分环境支持，兼容性不好），替换为case ... when ... else ...end
+10. DATEDIFF 必须指定date_unit
+11. WITH RECURSIVE cte1 => WITH cte1(var)
+
+# 数据迁移
+1. [迁移问题](https://eco.dameng.com/document/dm/zh-cn/faq/faq-mysql-dm8-migrate.html)
+2. [迁移步骤](https://eco.dameng.com/document/dm/zh-cn/start/tool-dm-migrate)
+3. source -> start
+# 数据校验
+## 比对索引
+1. mysql
+```sql
+SELECT a.TABLE_SCHEMA,
+       a.TABLE_NAME,
+       a.index_name,
+       GROUP_CONCAT(column_name ORDER BY seq_in_index) AS `Columns`
+FROM information_schema.statistics a
+where a.TABLE_SCHEMA = 'xzfw_pro1019' and a.COLUMN_NAME != 'id'
+GROUP BY a.TABLE_SCHEMA,a.TABLE_NAME,a.index_name
+order by INDEX_NAME;
+```
+2. dm
+```sql
+SELECT 
+    i.OWNER AS TABLE_SCHEMA,
+    i.TABLE_NAME,
+    i.INDEX_NAME,
+    LISTAGG(c.COLUMN_NAME, ',') WITHIN GROUP (ORDER BY c.COLUMN_POSITION) AS Columns
+FROM 
+    DBA_INDEXES i
+JOIN 
+    DBA_IND_COLUMNS c ON i.OWNER = c.INDEX_OWNER AND i.INDEX_NAME = c.INDEX_NAME
+ WHERE i.OWNER = 'xzfw_pro1019' AND c.COLUMN_NAME != 'id'
+GROUP BY 
+    i.OWNER, i.TABLE_NAME, i.INDEX_NAME
+ORDER BY i.INDEX_NAME
+```
+
+## 相关数据操作
+1. 清空数据库表
+```sql
+BEGIN
+    FOR rec IN (SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER = 'XZFW') LOOP
+        EXECUTE IMMEDIATE 'DROP TABLE XZFW.' || rec.TABLE_NAME || ' CASCADE CONSTRAINTS';
+    END LOOP;
+END;
+```
