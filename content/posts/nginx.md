@@ -3,6 +3,7 @@ title = "nginx摘要"
 date = "2024-10-12"
 +++
 
+[nginx doc](https://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size)
 ```conf
 server {
 
@@ -41,4 +42,20 @@ location / {
     try_files $uri $uri/ /index.html;
     ...
 }
+```
+
+### 响应超时
+```conf
+Syntax:	proxy_read_timeout time;
+Default:	
+proxy_read_timeout 60s;
+Context:	http, server, location
+```
+
+### 413 文件大小限制
+```conf
+Syntax:	client_max_body_size size;
+Default:	
+client_max_body_size 1m;
+Context:	http, server, locations
 ```
