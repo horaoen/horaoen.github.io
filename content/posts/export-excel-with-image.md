@@ -150,5 +150,11 @@ public class ListUrlImageConverter implements Converter<List<URL>> {
 ```java
 @ExcelProperty(value = "相关附件", converter = ListUrlImageConverter.class)
 @ColumnWidth(value = 40)
-prijvate List<URL> imgUrls;
+private List<URL> imgUrls;
+```
+```java
+response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
+                    EasyExcel.write(response.getOutputStream(), AssignTaskForExportVo.class)
+                            .registerWriteHandler(new CustomImageModifyHandler()).sheet()
+                            .doWrite(assignTaskForExportVos);
 ```
