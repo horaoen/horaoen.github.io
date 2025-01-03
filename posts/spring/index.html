@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             spring
+            
+        </title>
+
+        
+            <meta property="og:title" content="spring" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">spring</h1>
+            <div class="meta">
+                
+                on  2024-10-15
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h1 id="bean-huan-cun">Bean 缓存</h1>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#bf616a;">Nullable
+</span><span style="color:#b48ead;">protected </span><span style="color:#ebcb8b;">Object </span><span style="color:#bf616a;">getSingleton</span><span>(</span><span style="color:#ebcb8b;">String</span><span> beanName, </span><span style="color:#b48ead;">boolean</span><span> allowEarlyReference) {
+</span><span>    </span><span style="color:#65737e;">// 查询一级缓存
+</span><span>    </span><span style="color:#ebcb8b;">Object</span><span> singletonObject = </span><span style="color:#bf616a;">this</span><span>.singletonObjects.</span><span style="color:#bf616a;">get</span><span>(beanName);
+</span><span>    </span><span style="color:#65737e;">// 如果一级缓存不存在且当前 bean 正在创建
+</span><span>    </span><span style="color:#b48ead;">if </span><span>(singletonObject == </span><span style="color:#d08770;">null </span><span>&amp;&amp; </span><span style="color:#bf616a;">isSingletonCurrentlyInCreation</span><span>(beanName)) {
+</span><span>        </span><span style="color:#65737e;">// 查询二级缓存
+</span><span>        singletonObject = </span><span style="color:#bf616a;">this</span><span>.earlySingletonObjects.</span><span style="color:#bf616a;">get</span><span>(beanName);
+</span><span>        </span><span style="color:#65737e;">// 如果二级缓存不存在且允许提前引用
+</span><span>        </span><span style="color:#b48ead;">if </span><span>(singletonObject == </span><span style="color:#d08770;">null </span><span>&amp;&amp; allowEarlyReference) {
+</span><span>            </span><span style="color:#b48ead;">synchronized </span><span>(</span><span style="color:#bf616a;">this</span><span>.singletonObjects) {
+</span><span>                </span><span style="color:#65737e;">// Consistent creation of early reference within full singleton lock
+</span><span>               </span><span style="color:#65737e;">// 一级缓存重新获取 
+</span><span>                singletonObject = </span><span style="color:#bf616a;">this</span><span>.singletonObjects.</span><span style="color:#bf616a;">get</span><span>(beanName);
+</span><span>                </span><span style="color:#b48ead;">if </span><span>(singletonObject == </span><span style="color:#d08770;">null</span><span>) {
+</span><span>                    </span><span style="color:#65737e;">// 二级缓存重新获取
+</span><span>                    singletonObject = </span><span style="color:#bf616a;">this</span><span>.earlySingletonObjects.</span><span style="color:#bf616a;">get</span><span>(beanName);
+</span><span>                    </span><span style="color:#b48ead;">if </span><span>(singletonObject == </span><span style="color:#d08770;">null</span><span>) {
+</span><span>                        </span><span style="color:#65737e;">// 三级缓存获取
+</span><span>                        </span><span style="color:#ebcb8b;">ObjectFactory</span><span>&lt;?&gt; singletonFactory = </span><span style="color:#bf616a;">this</span><span>.singletonFactories.</span><span style="color:#bf616a;">get</span><span>(beanName);
+</span><span>                        </span><span style="color:#b48ead;">if </span><span>(singletonFactory != </span><span style="color:#d08770;">null</span><span>) {
+</span><span>                            singletonObject = singletonFactory.</span><span style="color:#bf616a;">getObject</span><span>();
+</span><span>                            </span><span style="color:#bf616a;">this</span><span>.earlySingletonObjects.</span><span style="color:#bf616a;">put</span><span>(beanName, singletonObject);
+</span><span>                            </span><span style="color:#bf616a;">this</span><span>.singletonFactories.</span><span style="color:#bf616a;">remove</span><span>(beanName);
+</span><span>                        }
+</span><span>                    }
+</span><span>                }
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>    </span><span style="color:#b48ead;">return</span><span> singletonObject;
+</span><span>}
+</span></code></pre>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2025 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
