@@ -59,3 +59,8 @@ Default:
 client_max_body_size 1m;
 Context:	http, server, locations
 ```
+
+### CSP
+- [csp mdn doc](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP)
+
+- nginx `add_header Content-Security-Policy img-src * 'self' data: blob: https: http:`
