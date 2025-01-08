@@ -10,3 +10,8 @@ df -h
 tar -cvf target_name file_name
 tar -xvf target_name file_name
 ```
+
+### 网络联通性测试
+```sh
+telnet {ip} {port}
+```
