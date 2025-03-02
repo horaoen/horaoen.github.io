@@ -42,3 +42,23 @@ Multiversion Concurrency Control
 | 不可重复读（read-committed） | 否   | 是         | 是   |
 | 可重复读（repeatable-read）  | 否   | 否         | 是   |
 | 串行化（serializable）       | 否   | 否         | 否   |
+
+### ReadView & UndoLog
+InnoDB中MVCC可以通过ReadView和UndoLog实现，UndoLog保存了历史快照，ReadView用来判断具体哪个快照可读
+当前事务查询一条记录符合ReadView的规则直接返回，不符合查询UndoLog
+
+#### ReadView
+在RC下，事务每次select都会获取一个ReadView, 在RR下，一个事务只会在第一次select获取ReadView
+
+### B+
+1. 特点：平衡树、关键字在叶子节点顺序排放、非页子节点不存放数据可以存放更多索引数据、叶子节点双向链表
+2. 支持范围查询、排序；节点分裂、合并IO操作少、有利于磁盘预读、有利于缓存。
+
+### MySQL执行过程
+1. 连接器建立通讯连接
+2. 检查是否开启缓存
+3. 解析器=》解析树 ， 预处理器检查语法是否合法
+4. 优化器生成执行计划，根据索引看看是否可以优化
+5. 执行器执行语句
+
+
