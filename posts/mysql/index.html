@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             mysql
+            
+        </title>
+
+        
+            <meta property="og:title" content="mysql" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">mysql</h1>
+            <div class="meta">
+                
+                on  2024-10-12
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h2 id="suo-yin">索引</h2>
+<h3 id="suo-yin-wei-ming-zhong-de-qing-kuang">索引未命中的情况</h3>
+<ol>
+<li>字段字符集编码不一致</li>
+</ol>
+<h2 id="mvvc">MVVC</h2>
+<p>Multiversion Concurrency Control
+读-读并发一般没有问题、写-写并发加锁、读-写并发通过MVCC解决</p>
+<h3 id="kuai-zhao-du">快照读</h3>
+<p>快照读是MVCC实现的基础、当前读是悲观锁实现的基础</p>
+<h3 id="le-guan-suo-bei-guan-suo">乐观锁/悲观锁</h3>
+<ol>
+<li>乐观锁，数据提交时检测，主要通过CAS实现</li>
+<li>悲观锁，基于数据库锁机制（查询时添加互斥锁）</li>
+</ol>
+<h3 id="du-xie-suo">读写锁</h3>
+<ol>
+<li>读锁（共享锁）允许T读取一行，阻止其它事务获取该行排它锁。事务T</li>
+<li>写锁（排它锁、互斥锁）允许T读取和修改、阻止其它事务获取读写锁</li>
+</ol>
+<h3 id="mysql-ddl-dml-dql-dcl">MySQL DDL、DML、DQL、DCL</h3>
+<ol>
+<li>DDL: Data Definition Language, 数据定义语言</li>
+<li>DML: Data Manipulation Language, 数据操纵语言</li>
+<li>DQL: Data Query Language, 数据查询语言</li>
+<li>DCL: Data Control Language, 数据控制语言, 主要是用来设置/更改数据库用户权限</li>
+</ol>
+<h3 id="acid">ACID</h3>
+<ol>
+<li>原子性（Atomicity）</li>
+<li>一致性（Consistency）</li>
+<li>隔离性（Isolation）</li>
+<li>持久性（Durability）</li>
+</ol>
+<h3 id="ge-chi-ji-bie">隔离级别</h3>
+<table><thead><tr><th>事务隔离级别</th><th>脏读</th><th>不可重复读</th><th>幻读</th></tr></thead><tbody>
+<tr><td>读未提交（read-uncommitted）</td><td>是</td><td>是</td><td>是</td></tr>
+<tr><td>不可重复读（read-committed）</td><td>否</td><td>是</td><td>是</td></tr>
+<tr><td>可重复读（repeatable-read）</td><td>否</td><td>否</td><td>是</td></tr>
+<tr><td>串行化（serializable）</td><td>否</td><td>否</td><td>否</td></tr>
+</tbody></table>
+<h3 id="readview-undolog">ReadView &amp; UndoLog</h3>
+<p>InnoDB中MVCC可以通过ReadView和UndoLog实现，UndoLog保存了历史快照，ReadView用来判断具体哪个快照可读
+当前事务查询一条记录符合ReadView的规则直接返回，不符合查询UndoLog</p>
+<h4 id="readview">ReadView</h4>
+<p>在RC下，事务每次select都会获取一个ReadView, 在RR下，一个事务只会在第一次select获取ReadView</p>
+<h3 id="b">B+</h3>
+<ol>
+<li>特点：平衡树、关键字在叶子节点顺序排放、非页子节点不存放数据可以存放更多索引数据、叶子节点双向链表</li>
+<li>支持范围查询、排序；节点分裂、合并IO操作少、有利于磁盘预读、有利于缓存。</li>
+</ol>
+<h3 id="mysqlzhi-xing-guo-cheng">MySQL执行过程</h3>
+<ol>
+<li>连接器建立通讯连接</li>
+<li>检查是否开启缓存</li>
+<li>解析器=》解析树 ， 预处理器检查语法是否合法</li>
+<li>优化器生成执行计划，根据索引看看是否可以优化</li>
+<li>执行器执行语句</li>
+</ol>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2025 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
