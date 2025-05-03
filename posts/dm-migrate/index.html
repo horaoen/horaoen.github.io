@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             达梦数据库迁移
+            
+        </title>
+
+        
+            <meta property="og:title" content="达梦数据库迁移" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">达梦数据库迁移</h1>
+            <div class="meta">
+                
+                on  2024-10-28
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h1 id="huan-jing">环境</h1>
+<ol>
+<li>客户端：macos使用dbeaver, IDEA: 使用mysql连接修改驱动使用达梦数据库连接驱动</li>
+</ol>
+<h1 id="han-shu">函数</h1>
+<ol>
+<li>str_to_date =&gt; to_date(date1, 'YYYY-MM-DD HH24:MI:SS')</li>
+<li>group_concat =&gt; wm_concat / listagg</li>
+<li>date_sub =&gt; add_days / add_months</li>
+<li>current_time =&gt; current_date() / sysdate() / curdate()</li>
+<li>date(var) =&gt; trunc(var) </li>
+<li>convert =&gt; cast</li>
+<li>convert(str, SIGNED) =&gt; to_number(REGEXP_SUBSTR(str, '[0-9]+'))</li>
+<li>match_partern = REPLACE('${ew.department}', ',', '|'), REGEXP  match_partern =&gt; REGEXP_LIKE(var1, match_partern)</li>
+<li>if函数传参数为null时（部分环境支持，兼容性不好），替换为case ... when ... else ...end</li>
+<li>DATEDIFF 必须指定date_unit</li>
+<li>WITH RECURSIVE cte1 =&gt; WITH cte1(var)</li>
+</ol>
+<h1 id="shu-ju-qian-yi">数据迁移</h1>
+<ol>
+<li><a href="https://eco.dameng.com/document/dm/zh-cn/faq/faq-mysql-dm8-migrate.html">迁移问题</a></li>
+<li><a href="https://eco.dameng.com/document/dm/zh-cn/start/tool-dm-migrate">迁移步骤</a></li>
+<li>source -&gt; start</li>
+</ol>
+<h1 id="shu-ju-xiao-yan">数据校验</h1>
+<h2 id="bi-dui-suo-yin">比对索引</h2>
+<ol>
+<li>mysql</li>
+</ol>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#b48ead;">SELECT </span><span style="color:#d08770;">a</span><span>.</span><span style="color:#d08770;">TABLE_SCHEMA</span><span>,
+</span><span>       </span><span style="color:#d08770;">a</span><span>.</span><span style="color:#d08770;">TABLE_NAME</span><span>,
+</span><span>       </span><span style="color:#d08770;">a</span><span>.</span><span style="color:#d08770;">index_name</span><span>,
+</span><span>       GROUP_CONCAT(column_name </span><span style="color:#b48ead;">ORDER BY</span><span> seq_in_index) AS `</span><span style="color:#a3be8c;">Columns</span><span>`
+</span><span style="color:#b48ead;">FROM </span><span style="color:#d08770;">information_schema</span><span>.</span><span style="color:#d08770;">statistics</span><span> a
+</span><span style="color:#b48ead;">where </span><span style="color:#d08770;">a</span><span>.</span><span style="color:#d08770;">TABLE_SCHEMA </span><span>= &#39;</span><span style="color:#a3be8c;">xzfw_pro1019</span><span>&#39; and </span><span style="color:#d08770;">a</span><span>.</span><span style="color:#d08770;">COLUMN_NAME </span><span>!= &#39;</span><span style="color:#a3be8c;">id</span><span>&#39;
+</span><span style="color:#b48ead;">GROUP BY </span><span style="color:#d08770;">a</span><span>.</span><span style="color:#d08770;">TABLE_SCHEMA</span><span>,</span><span style="color:#d08770;">a</span><span>.</span><span style="color:#d08770;">TABLE_NAME</span><span>,</span><span style="color:#d08770;">a</span><span>.</span><span style="color:#d08770;">index_name
+</span><span style="color:#b48ead;">order by</span><span> INDEX_NAME;
+</span></code></pre>
+<ol start="2">
+<li>dm</li>
+</ol>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#b48ead;">SELECT 
+</span><span>    </span><span style="color:#d08770;">i</span><span>.</span><span style="color:#d08770;">OWNER </span><span>AS TABLE_SCHEMA,
+</span><span>    </span><span style="color:#d08770;">i</span><span>.</span><span style="color:#d08770;">TABLE_NAME</span><span>,
+</span><span>    </span><span style="color:#d08770;">i</span><span>.</span><span style="color:#d08770;">INDEX_NAME</span><span>,
+</span><span>    LISTAGG(</span><span style="color:#d08770;">c</span><span>.</span><span style="color:#d08770;">COLUMN_NAME</span><span>, &#39;</span><span style="color:#a3be8c;">,</span><span>&#39;) WITHIN GROUP (</span><span style="color:#b48ead;">ORDER BY </span><span style="color:#d08770;">c</span><span>.</span><span style="color:#d08770;">COLUMN_POSITION</span><span>) AS Columns
+</span><span style="color:#b48ead;">FROM 
+</span><span>    DBA_INDEXES i
+</span><span style="color:#b48ead;">JOIN 
+</span><span>    DBA_IND_COLUMNS c ON </span><span style="color:#d08770;">i</span><span>.</span><span style="color:#d08770;">OWNER </span><span>= </span><span style="color:#d08770;">c</span><span>.</span><span style="color:#d08770;">INDEX_OWNER </span><span>AND </span><span style="color:#d08770;">i</span><span>.</span><span style="color:#d08770;">INDEX_NAME </span><span>= </span><span style="color:#d08770;">c</span><span>.</span><span style="color:#d08770;">INDEX_NAME
+</span><span> </span><span style="color:#b48ead;">WHERE </span><span style="color:#d08770;">i</span><span>.</span><span style="color:#d08770;">OWNER </span><span>= &#39;</span><span style="color:#a3be8c;">xzfw_pro1019</span><span>&#39; AND </span><span style="color:#d08770;">c</span><span>.</span><span style="color:#d08770;">COLUMN_NAME </span><span>!= &#39;</span><span style="color:#a3be8c;">id</span><span>&#39;
+</span><span style="color:#b48ead;">GROUP BY 
+</span><span>    </span><span style="color:#d08770;">i</span><span>.</span><span style="color:#d08770;">OWNER</span><span>, </span><span style="color:#d08770;">i</span><span>.</span><span style="color:#d08770;">TABLE_NAME</span><span>, </span><span style="color:#d08770;">i</span><span>.</span><span style="color:#d08770;">INDEX_NAME
+</span><span style="color:#b48ead;">ORDER BY </span><span style="color:#d08770;">i</span><span>.</span><span style="color:#d08770;">INDEX_NAME
+</span></code></pre>
+<h2 id="xiang-guan-shu-ju-cao-zuo">相关数据操作</h2>
+<ol>
+<li>清空数据库表</li>
+</ol>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#b48ead;">BEGIN
+</span><span>    FOR rec IN (</span><span style="color:#b48ead;">SELECT</span><span> TABLE_NAME </span><span style="color:#b48ead;">FROM</span><span> ALL_TABLES </span><span style="color:#b48ead;">WHERE</span><span> OWNER = &#39;</span><span style="color:#a3be8c;">XZFW</span><span>&#39;) LOOP
+</span><span>        EXECUTE IMMEDIATE &#39;</span><span style="color:#a3be8c;">DROP TABLE XZFW.</span><span>&#39; || </span><span style="color:#d08770;">rec</span><span>.</span><span style="color:#d08770;">TABLE_NAME </span><span>|| &#39;</span><span style="color:#a3be8c;"> CASCADE CONSTRAINTS</span><span>&#39;;
+</span><span>    </span><span style="color:#b48ead;">END</span><span> LOOP;
+</span><span style="color:#b48ead;">END</span><span>;
+</span></code></pre>
+<h3 id="qi-yu-tips">其余tips</h3>
+<h4 id="cha-xun-yue-shu">查询约束</h4>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span> </span><span style="color:#b48ead;">SELECT 
+</span><span>    CONSTRAINT_NAME, 
+</span><span>    CONSTRAINT_TYPE, 
+</span><span>    SEARCH_CONDITION, 
+</span><span>    R_CONSTRAINT_NAME, 
+</span><span>    DELETE_RULE, 
+</span><span>    STATUS, 
+</span><span>    DEFERRABLE, 
+</span><span>    VALIDATED, 
+</span><span>    GENERATED
+</span><span style="color:#b48ead;">FROM 
+</span><span>    USER_CONSTRAINTS
+</span><span style="color:#b48ead;">WHERE 
+</span><span>    TABLE_NAME = &#39;</span><span style="color:#a3be8c;">T_WORKFLOW_WORK_ITEM</span><span>&#39; AND
+</span><span>    OWNER = &#39;</span><span style="color:#a3be8c;">XZFW</span><span>&#39;;
+</span></code></pre>
+<h4 id="shan-chu-yue-shu">删除约束</h4>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#b48ead;">ALTER TABLE </span><span style="color:#d08770;">XZFW</span><span>.</span><span style="color:#d08770;">T_WORKFLOW_PROCESS_INST</span><span> DROP </span><span style="color:#b48ead;">CONSTRAINT</span><span> CONS134220360;
+</span></code></pre>
+<h4 id="cha-xun-suo-yin">查询索引</h4>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span> </span><span style="color:#b48ead;">SELECT 
+</span><span>       </span><span style="color:#d08770;">I</span><span>.</span><span style="color:#d08770;">INDEX_NAME </span><span>AS INDEX_NAME,
+</span><span>       </span><span style="color:#d08770;">IC</span><span>.</span><span style="color:#d08770;">COLUMN_NAME </span><span>AS COLUMN_NAME,
+</span><span>       </span><span style="color:#d08770;">IC</span><span>.</span><span style="color:#d08770;">COLUMN_POSITION </span><span>AS COLUMN_POSITION,
+</span><span>       </span><span style="color:#d08770;">I</span><span>.</span><span style="color:#d08770;">UNIQUENESS </span><span>AS UNIQUENESS
+</span><span>   </span><span style="color:#b48ead;">FROM 
+</span><span>       USER_INDEXES I
+</span><span>   </span><span style="color:#b48ead;">JOIN 
+</span><span>       USER_IND_COLUMNS IC ON </span><span style="color:#d08770;">I</span><span>.</span><span style="color:#d08770;">INDEX_NAME </span><span>= </span><span style="color:#d08770;">IC</span><span>.</span><span style="color:#d08770;">INDEX_NAME
+</span><span>   </span><span style="color:#b48ead;">WHERE 
+</span><span>       </span><span style="color:#d08770;">I</span><span>.</span><span style="color:#d08770;">TABLE_NAME </span><span>= &#39;</span><span style="color:#a3be8c;">T_WORKFLOW_WORK_ITEM</span><span>&#39;;
+</span></code></pre>
+<h4 id="shan-chu-suo-yin">删除索引</h4>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#b48ead;">DROP INDEX </span><span style="color:#d08770;">XZFW</span><span>.</span><span style="color:#d08770;">INDEX33559470</span><span>;
+</span></code></pre>
+<h4 id="chuang-jian-suo-yin">创建索引</h4>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#b48ead;">CREATE INDEX </span><span>T_WORKFLOW_WORK_ITEM_WORK_ITEM_ID_IDX ON XZFW.</span><span style="color:#8fa1b3;">T_WORKFLOW_WORK_ITEM</span><span> (WORK_ITEM_ID);
+</span><span style="color:#b48ead;">CREATE INDEX </span><span>T_WORKFLOW_PROCESS_INST_PROCESS_INST_ID_IDX ON XZFW.</span><span style="color:#8fa1b3;">T_WORKFLOW_PROCESS_INST</span><span> (PROCESS_INST_ID);
+</span></code></pre>
+<h4 id="shan-chu-ju-he-suo-yin">删除聚合索引</h4>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code></code></pre>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2025 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
