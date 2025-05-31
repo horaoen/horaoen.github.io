@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             连续时间片段判断解决方案
+            
+        </title>
+
+        
+            <meta property="og:title" content="连续时间片段判断解决方案" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">连续时间片段判断解决方案</h1>
+            <div class="meta">
+                
+                on  2024-11-07
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h2 id="chang-jing">场景</h2>
+<p>一个账号同一个会议室不能连续多天预定(4天)超过4个小时(会议预定开始时间和结束时间不垮天)</p>
+<h2 id="schema">schema</h2>
+<pre data-lang="mysql" style="background-color:#2b303b;color:#c0c5ce;" class="language-mysql "><code class="language-mysql" data-lang="mysql"><span>create table meeting_room_reserve
+</span><span>(
+</span><span>    id              bigint auto_increment comment &#39;主键&#39;
+</span><span>        primary key,
+</span><span>    meeting_room_id bigint                   null comment &#39;会议室id&#39;,
+</span><span>    start_time      varchar(24) charset utf8 null comment &#39;会议开始时间&#39;,
+</span><span>    end_time        varchar(24) charset utf8 null comment &#39;会议结束时间&#39;,
+</span><span>    meeting_date    varchar(32) charset utf8 null comment &#39;会议日期&#39;
+</span><span>);
+</span></code></pre>
+<h2 id="si-lu">思路</h2>
+<ol>
+<li>查出满足预定条件的会议记录（超过4小时、当前账号）</li>
+<li>即将预定的日期union步骤1查询结果的日期按照预定时间排序</li>
+<li>查询排序后的日期与前一个日期的时间间隔天数</li>
+<li>设置group_id, 间隔天数为1的日期与前一天是同一组</li>
+<li>根据group_id分组, 每组都是一个连续时间区间, 过滤出当前日期所在的分组</li>
+<li>根据连续时间天数继续过滤，如果不满足要求返回结果是1，满足是0</li>
+</ol>
+<h2 id="final-solution">final solution</h2>
+<pre data-lang="mysql" style="background-color:#2b303b;color:#c0c5ce;" class="language-mysql "><code class="language-mysql" data-lang="mysql"><span>select count(*)
+</span><span>        from (WITH DateList AS (SELECT #{meetingDate} AS meeting_date
+</span><span>                                UNION
+</span><span>                                SELECT meeting_date
+</span><span>                                FROM t_meeting_pre_form t
+</span><span>                                WHERE t.create_user = #{userCode}
+</span><span>                                  AND TIMESTAMPDIFF(HOUR, STR_TO_DATE(t.meeting_time_top, &#39;%Y-%m-%d %H:%i:%s&#39;),
+</span><span>                                                    STR_TO_DATE(t.meeting_time_bottom, &#39;%Y-%m-%d %H:%i:%s&#39;)) &gt; 4
+</span><span>                                  and t.delete_mark = 0
+</span><span>                                  and t.meeting_room_id = #{meetingRoomId}
+</span><span>                                ORDER BY meeting_date),
+</span><span>                   RankedDates AS (SELECT meeting_date,
+</span><span>                                          DATEDIFF(meeting_date,
+</span><span>                                                   LAG(meeting_date) OVER (ORDER BY meeting_date)) AS date_diff
+</span><span>                                   FROM DateList),
+</span><span>                   ConsecutiveGroups AS (SELECT meeting_date,
+</span><span>                                                SUM(IF(date_diff = 1, 0, 1))
+</span><span>                                                    OVER (ORDER BY meeting_date) AS group_id
+</span><span>                                         FROM RankedDates)
+</span><span>              SELECT group_id, MIN(meeting_date) AS start_date, MAX(meeting_date) AS end_date
+</span><span>              FROM ConsecutiveGroups
+</span><span>              GROUP BY group_id
+</span><span>              HAVING DATEDIFF(MAX(meeting_date), MIN(meeting_date)) &gt;= 3
+</span><span>                 and str_to_date(#{meetingDate}, &#39;%Y-%m-%d&#39;) between str_to_date(start_date, &#39;%Y-%m-%d&#39;) and str_to_date(end_date, &#39;%Y-%m-%d&#39;)) as tmp
+</span></code></pre>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2025 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
