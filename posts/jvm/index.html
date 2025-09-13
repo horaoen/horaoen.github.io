@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             JVM笔记
+            
+        </title>
+
+        
+            <meta property="og:title" content="JVM笔记" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">JVM笔记</h1>
+            <div class="meta">
+                
+                on  2025-01-20
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <ol>
+<li>新生代如果只有一个Eden+一个Survivor可以吗？
+<ul>
+<li>不行，如果只有一个Survivor也能实现复制算法但是会大大浪费内存</li>
+</ul>
+</li>
+<li>Young GC和 Full GC的触发条件
+<ul>
+<li>Young GC:
+<ul>
+<li>eden区分配满</li>
+</ul>
+</li>
+<li>Full GC： 
+<ul>
+<li>老年代空间不足</li>
+<li>空间分配担保失败</li>
+<li>永久代空间不足</li>
+<li>System.gc()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>STW 
+<ul>
+<li>执行垃圾回收算法时，所有java线程刮起，native代码可以执行但不能与jvm交互</li>
+</ul>
+</li>
+<li>垃圾回收算法
+<ol>
+<li>标记清除算法，内存碎片</li>
+<li>标记复制算法，浪费空间</li>
+<li>标记整理算法，慢</li>
+</ol>
+</li>
+<li>jvm如何判断对象是否存活
+<ol>
+<li>可达性分析算法 (STW时间长、 内存消耗大)</li>
+<li>应用计数法（循环引用会导致内存泄漏）</li>
+<li>三色标记法（初始标记、并发标记、重新标记）</li>
+</ol>
+</li>
+<li>GC Roots
+<ol>
+<li>Class</li>
+<li>Thread</li>
+</ol>
+</li>
+<li>强引用、软引用、弱引用、虚引用</li>
+<li>新生代标记复制算法，老年代标记整理</li>
+<li>CMS
+<ol>
+<li>老年代垃圾回收器，标记清除算法，并发标记并发清理</li>
+<li>三色标记法，然后清除</li>
+<li>高并发低停顿、抢占线程用户线程变慢、浮动垃圾、内存碎片</li>
+</ol>
+</li>
+<li></li>
+</ol>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2025 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
