@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             excel导出插入图片
+            
+        </title>
+
+        
+            <meta property="og:title" content="excel导出插入图片" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">excel导出插入图片</h1>
+            <div class="meta">
+                
+                on  2025-01-02
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h2 id="dependency">dependency</h2>
+<pre data-lang="xml" style="background-color:#2b303b;color:#c0c5ce;" class="language-xml "><code class="language-xml" data-lang="xml"><span>&lt;</span><span style="color:#bf616a;">dependency</span><span>&gt;
+</span><span>    &lt;</span><span style="color:#bf616a;">groupId</span><span>&gt;com.alibaba&lt;/</span><span style="color:#bf616a;">groupId</span><span>&gt;
+</span><span>    &lt;</span><span style="color:#bf616a;">artifactId</span><span>&gt;easyexcel&lt;/</span><span style="color:#bf616a;">artifactId</span><span>&gt;
+</span><span>    &lt;</span><span style="color:#bf616a;">version</span><span>&gt;3.2.1&lt;/</span><span style="color:#bf616a;">version</span><span>&gt;
+</span><span>&lt;/</span><span style="color:#bf616a;">dependency</span><span>&gt;
+</span></code></pre>
+<h2 id="imp">imp</h2>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#b48ead;">public class </span><span style="color:#ebcb8b;">CustomImageModifyHandler </span><span style="color:#b48ead;">implements </span><span style="color:#a3be8c;">CellWriteHandler </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">private final </span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">String</span><span style="color:#eff1f5;">&gt; repeats </span><span>= </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">ArrayList</span><span style="color:#eff1f5;">&lt;&gt;();
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">private void </span><span style="color:#8fa1b3;">insertImage</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">Sheet </span><span style="color:#bf616a;">sheet</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">Cell </span><span style="color:#bf616a;">cell</span><span style="color:#eff1f5;">, </span><span style="color:#b48ead;">byte[] </span><span style="color:#bf616a;">pictureData</span><span style="color:#eff1f5;">, </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">i</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">int</span><span style="color:#eff1f5;"> picWidth </span><span>= </span><span style="color:#ebcb8b;">Units</span><span style="color:#eff1f5;">.</span><span style="color:#bf616a;">pixelToEMU</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">60</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">int</span><span style="color:#eff1f5;"> index </span><span>=</span><span style="color:#eff1f5;"> sheet.</span><span style="color:#bf616a;">getWorkbook</span><span style="color:#eff1f5;">().</span><span style="color:#bf616a;">addPicture</span><span style="color:#eff1f5;">(pictureData, </span><span style="color:#ebcb8b;">HSSFWorkbook</span><span style="color:#eff1f5;">.</span><span style="color:#d08770;">PICTURE_TYPE_PNG</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        </span><span style="color:#ebcb8b;">Drawing</span><span style="color:#eff1f5;"> drawing </span><span>=</span><span style="color:#eff1f5;"> sheet.</span><span style="color:#bf616a;">getDrawingPatriarch</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(drawing </span><span>== </span><span style="color:#d08770;">null</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">            drawing </span><span>=</span><span style="color:#eff1f5;"> sheet.</span><span style="color:#bf616a;">createDrawingPatriarch</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">        </span><span style="color:#ebcb8b;">CreationHelper</span><span style="color:#eff1f5;"> helper </span><span>=</span><span style="color:#eff1f5;"> sheet.</span><span style="color:#bf616a;">getWorkbook</span><span style="color:#eff1f5;">().</span><span style="color:#bf616a;">getCreationHelper</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">        </span><span style="color:#ebcb8b;">ClientAnchor</span><span style="color:#eff1f5;"> anchor </span><span>=</span><span style="color:#eff1f5;"> helper.</span><span style="color:#bf616a;">createClientAnchor</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">// 设置图片坐标
+</span><span style="color:#eff1f5;">        anchor.</span><span style="color:#bf616a;">setDx1</span><span style="color:#eff1f5;">(picWidth </span><span>*</span><span style="color:#eff1f5;"> i);
+</span><span style="color:#eff1f5;">        anchor.</span><span style="color:#bf616a;">setDx2</span><span style="color:#eff1f5;">(picWidth </span><span>+</span><span style="color:#eff1f5;"> picWidth </span><span>*</span><span style="color:#eff1f5;"> i);
+</span><span style="color:#eff1f5;">        anchor.</span><span style="color:#bf616a;">setDy1</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        anchor.</span><span style="color:#bf616a;">setDy2</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">//设置图片位置
+</span><span style="color:#eff1f5;">        anchor.</span><span style="color:#bf616a;">setCol1</span><span style="color:#eff1f5;">(cell.</span><span style="color:#bf616a;">getColumnIndex</span><span style="color:#eff1f5;">());
+</span><span style="color:#eff1f5;">        anchor.</span><span style="color:#bf616a;">setCol2</span><span style="color:#eff1f5;">(cell.</span><span style="color:#bf616a;">getColumnIndex</span><span style="color:#eff1f5;">());
+</span><span style="color:#eff1f5;">        anchor.</span><span style="color:#bf616a;">setRow1</span><span style="color:#eff1f5;">(cell.</span><span style="color:#bf616a;">getRowIndex</span><span style="color:#eff1f5;">());
+</span><span style="color:#eff1f5;">        anchor.</span><span style="color:#bf616a;">setRow2</span><span style="color:#eff1f5;">(cell.</span><span style="color:#bf616a;">getRowIndex</span><span style="color:#eff1f5;">() </span><span>+ </span><span style="color:#d08770;">1</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">// 设置图片可以随着单元格移动
+</span><span style="color:#eff1f5;">        anchor.</span><span style="color:#bf616a;">setAnchorType</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">ClientAnchor</span><span style="color:#eff1f5;">.</span><span style="color:#ebcb8b;">AnchorType</span><span style="color:#eff1f5;">.</span><span style="color:#d08770;">MOVE_AND_RESIZE</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        drawing.</span><span style="color:#bf616a;">createPicture</span><span style="color:#eff1f5;">(anchor, index);
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">afterCellDataConverted</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">WriteSheetHolder </span><span style="color:#bf616a;">writeSheetHolder</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">WriteTableHolder </span><span style="color:#bf616a;">writeTableHolder</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;">&lt;</span><span>?</span><span style="color:#eff1f5;">&gt; </span><span style="color:#bf616a;">cellData</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">Cell </span><span style="color:#bf616a;">cell</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">Head </span><span style="color:#bf616a;">head</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">Integer </span><span style="color:#bf616a;">relativeRowIndex</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">Boolean </span><span style="color:#bf616a;">isHead</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">//  在 数据转换成功后 不是头就把类型设置成空
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(isHead) {
+</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">//将要插入图片的单元格的type设置为空,下面再填充图片
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(cellData.</span><span style="color:#bf616a;">getData</span><span style="color:#eff1f5;">() </span><span>!= </span><span style="color:#d08770;">null </span><span>||</span><span style="color:#eff1f5;"> cellData.</span><span style="color:#bf616a;">getData</span><span style="color:#eff1f5;">() </span><span>instanceof </span><span style="color:#ebcb8b;">ArrayList</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">            cellData.</span><span style="color:#bf616a;">setType</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">CellDataTypeEnum</span><span style="color:#eff1f5;">.</span><span style="color:#d08770;">EMPTY</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">SuppressWarnings</span><span style="color:#eff1f5;">(</span><span>&quot;</span><span style="color:#a3be8c;">rawtypes</span><span>&quot;</span><span style="color:#eff1f5;">)
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">afterCellDispose</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">WriteSheetHolder </span><span style="color:#bf616a;">writeSheetHolder</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">WriteTableHolder </span><span style="color:#bf616a;">writeTableHolder</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;">&lt;</span><span>?</span><span style="color:#eff1f5;">&gt;&gt; </span><span style="color:#bf616a;">cellDataList</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">Cell </span><span style="color:#bf616a;">cell</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">Head </span><span style="color:#bf616a;">head</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">Integer </span><span style="color:#bf616a;">relativeRowIndex</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">Boolean </span><span style="color:#bf616a;">isHead</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">//  在 单元格写入完毕后 ，自己填充图片
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(isHead </span><span>|| </span><span style="color:#ebcb8b;">CollectionUtils</span><span style="color:#eff1f5;">.</span><span style="color:#bf616a;">isEmpty</span><span style="color:#eff1f5;">(cellDataList)) {
+</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">boolean</span><span style="color:#eff1f5;"> listFlag </span><span>= </span><span style="color:#d08770;">false</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">        </span><span style="color:#ebcb8b;">ArrayList</span><span style="color:#eff1f5;"> data </span><span>= </span><span style="color:#d08770;">null</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">        </span><span style="color:#ebcb8b;">Sheet</span><span style="color:#eff1f5;"> sheet </span><span>=</span><span style="color:#eff1f5;"> cell.</span><span style="color:#bf616a;">getSheet</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">// 此处为ListUrlConverterUtil的返回值
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(cellDataList.</span><span style="color:#bf616a;">get</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">).</span><span style="color:#bf616a;">getData</span><span style="color:#eff1f5;">() </span><span>instanceof </span><span style="color:#ebcb8b;">ArrayList</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">            data </span><span>= </span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">ArrayList</span><span style="color:#eff1f5;">) cellDataList.</span><span style="color:#bf616a;">get</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">).</span><span style="color:#bf616a;">getData</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(data.</span><span style="color:#bf616a;">isEmpty</span><span style="color:#eff1f5;">()) {
+</span><span style="color:#eff1f5;">                </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">            }
+</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(data.</span><span style="color:#bf616a;">get</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">) </span><span>instanceof </span><span style="color:#ebcb8b;">CellData</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">                </span><span style="color:#ebcb8b;">CellData</span><span style="color:#eff1f5;"> cellData </span><span>= </span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">CellData</span><span style="color:#eff1f5;">) data.</span><span style="color:#bf616a;">get</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">                </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(cellData </span><span>instanceof </span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">                    listFlag </span><span>= </span><span style="color:#d08770;">true</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">                } </span><span style="color:#b48ead;">else </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">                    </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">                }
+</span><span style="color:#eff1f5;">            }
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(</span><span>!</span><span style="color:#eff1f5;">listFlag </span><span>&amp;&amp;</span><span style="color:#eff1f5;"> cellDataList.</span><span style="color:#bf616a;">get</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">).</span><span style="color:#bf616a;">getData</span><span style="color:#eff1f5;">() </span><span>== </span><span style="color:#d08770;">null</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">        </span><span style="color:#ebcb8b;">String</span><span style="color:#eff1f5;"> key </span><span>=</span><span style="color:#eff1f5;"> cell.</span><span style="color:#bf616a;">getRowIndex</span><span style="color:#eff1f5;">() </span><span>+ &quot;</span><span style="color:#a3be8c;">_</span><span>&quot; +</span><span style="color:#eff1f5;"> cell.</span><span style="color:#bf616a;">getColumnIndex</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(repeats.</span><span style="color:#bf616a;">contains</span><span style="color:#eff1f5;">(key)) {
+</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">        repeats.</span><span style="color:#bf616a;">add</span><span style="color:#eff1f5;">(key);
+</span><span style="color:#eff1f5;">        </span><span style="color:#65737e;">// 默认要导出的图片大小为60*60px,60px的行高大约是900,60px列宽大概是248*8
+</span><span style="color:#eff1f5;">        sheet.</span><span style="color:#bf616a;">getRow</span><span style="color:#eff1f5;">(cell.</span><span style="color:#bf616a;">getRowIndex</span><span style="color:#eff1f5;">()).</span><span style="color:#bf616a;">setHeight</span><span style="color:#eff1f5;">((</span><span style="color:#b48ead;">short</span><span style="color:#eff1f5;">) </span><span style="color:#d08770;">900</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(listFlag </span><span>&amp;&amp; </span><span style="color:#d08770;">240 </span><span>* </span><span style="color:#d08770;">8 </span><span>*</span><span style="color:#eff1f5;"> data.</span><span style="color:#bf616a;">size</span><span style="color:#eff1f5;">() </span><span>&lt; </span><span style="color:#d08770;">3000</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">            sheet.</span><span style="color:#bf616a;">setColumnWidth</span><span style="color:#eff1f5;">(cell.</span><span style="color:#bf616a;">getColumnIndex</span><span style="color:#eff1f5;">(), </span><span style="color:#d08770;">3000</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        } </span><span style="color:#b48ead;">else </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">            sheet.</span><span style="color:#bf616a;">setColumnWidth</span><span style="color:#eff1f5;">(cell.</span><span style="color:#bf616a;">getColumnIndex</span><span style="color:#eff1f5;">(), listFlag </span><span>? </span><span style="color:#d08770;">240 </span><span>* </span><span style="color:#d08770;">8 </span><span>*</span><span style="color:#eff1f5;"> data.</span><span style="color:#bf616a;">size</span><span style="color:#eff1f5;">() </span><span>: </span><span style="color:#d08770;">240 </span><span>* </span><span style="color:#d08770;">8</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(listFlag) {
+</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">for </span><span style="color:#eff1f5;">(</span><span style="color:#b48ead;">int</span><span style="color:#eff1f5;"> i </span><span>= </span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">; i </span><span>&lt;</span><span style="color:#eff1f5;"> data.</span><span style="color:#bf616a;">size</span><span style="color:#eff1f5;">(); i</span><span>++</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">                </span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;"> cellData </span><span>= </span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;">) data.</span><span style="color:#bf616a;">get</span><span style="color:#eff1f5;">(i);
+</span><span style="color:#eff1f5;">                </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(cellData.</span><span style="color:#bf616a;">getData</span><span style="color:#eff1f5;">() </span><span>== </span><span style="color:#d08770;">null</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">                    </span><span style="color:#b48ead;">continue</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">                }
+</span><span style="color:#eff1f5;">                </span><span style="color:#bf616a;">this</span><span style="color:#eff1f5;">.</span><span style="color:#bf616a;">insertImage</span><span style="color:#eff1f5;">(sheet, cell, (</span><span style="color:#b48ead;">byte[]</span><span style="color:#eff1f5;">) cellData.</span><span style="color:#bf616a;">getData</span><span style="color:#eff1f5;">(), i);
+</span><span style="color:#eff1f5;">            }
+</span><span style="color:#eff1f5;">        } </span><span style="color:#b48ead;">else </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">            </span><span style="color:#65737e;">// cellDataList 是list的原因是 填充的情况下 可能会多个写到一个单元格 但是如果普通写入 一定只有一个
+</span><span style="color:#eff1f5;">            </span><span style="color:#bf616a;">this</span><span style="color:#eff1f5;">.</span><span style="color:#bf616a;">insertImage</span><span style="color:#eff1f5;">(sheet, cell, (</span><span style="color:#b48ead;">byte[]</span><span style="color:#eff1f5;">) cellDataList.</span><span style="color:#bf616a;">get</span><span style="color:#eff1f5;">(</span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">).</span><span style="color:#bf616a;">getData</span><span style="color:#eff1f5;">(), </span><span style="color:#d08770;">0</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">}
+</span></code></pre>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#b48ead;">public class </span><span style="color:#ebcb8b;">ListUrlImageConverter </span><span style="color:#b48ead;">implements </span><span style="color:#a3be8c;">Converter</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">URL</span><span style="color:#eff1f5;">&gt;&gt; {
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public static int </span><span style="color:#eff1f5;">urlConnectTimeout </span><span>= </span><span style="color:#d08770;">1000</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public static int </span><span style="color:#eff1f5;">urlReadTimeout </span><span>= </span><span style="color:#d08770;">5000</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public </span><span style="color:#ebcb8b;">Class</span><span style="color:#eff1f5;">&lt;</span><span>?</span><span style="color:#eff1f5;">&gt; </span><span style="color:#8fa1b3;">supportJavaTypeKey</span><span style="color:#eff1f5;">() {
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">return </span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">.</span><span style="color:#bf616a;">class</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">Override
+</span><span style="color:#eff1f5;">    @</span><span style="color:#bf616a;">SuppressWarnings</span><span style="color:#eff1f5;">({</span><span>&quot;</span><span style="color:#a3be8c;">rawtypes</span><span>&quot;</span><span style="color:#eff1f5;">, </span><span>&quot;</span><span style="color:#a3be8c;">unchecked</span><span>&quot;</span><span style="color:#eff1f5;">})
+</span><span style="color:#eff1f5;">    </span><span style="color:#b48ead;">public </span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;">&lt;</span><span>?</span><span style="color:#eff1f5;">&gt; </span><span style="color:#8fa1b3;">convertToExcelData</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">URL</span><span style="color:#eff1f5;">&gt; </span><span style="color:#bf616a;">value</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">ExcelContentProperty </span><span style="color:#bf616a;">contentProperty</span><span style="color:#eff1f5;">, </span><span style="color:#ebcb8b;">GlobalConfiguration </span><span style="color:#bf616a;">globalConfiguration</span><span style="color:#eff1f5;">) </span><span style="color:#b48ead;">throws </span><span style="color:#ebcb8b;">Exception </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">        </span><span style="color:#ebcb8b;">List</span><span style="color:#eff1f5;">&lt;</span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;">&gt; data </span><span>= </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">ArrayList</span><span style="color:#eff1f5;">&lt;&gt;();
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">for </span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">URL</span><span style="color:#eff1f5;"> url </span><span>:</span><span style="color:#eff1f5;"> value) {
+</span><span style="color:#eff1f5;">            </span><span style="color:#ebcb8b;">InputStream</span><span style="color:#eff1f5;"> inputStream </span><span>= </span><span style="color:#d08770;">null</span><span style="color:#eff1f5;">;
+</span><span style="color:#eff1f5;">            </span><span style="color:#b48ead;">try </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">                </span><span style="color:#ebcb8b;">URLConnection</span><span style="color:#eff1f5;"> urlConnection </span><span>=</span><span style="color:#eff1f5;"> url.</span><span style="color:#bf616a;">openConnection</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">                urlConnection.</span><span style="color:#bf616a;">setConnectTimeout</span><span style="color:#eff1f5;">(urlConnectTimeout);
+</span><span style="color:#eff1f5;">                urlConnection.</span><span style="color:#bf616a;">setReadTimeout</span><span style="color:#eff1f5;">(urlReadTimeout);
+</span><span style="color:#eff1f5;">                inputStream </span><span>=</span><span style="color:#eff1f5;"> urlConnection.</span><span style="color:#bf616a;">getInputStream</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">                </span><span style="color:#b48ead;">byte[]</span><span style="color:#eff1f5;"> bytes </span><span>= </span><span style="color:#ebcb8b;">IoUtils</span><span style="color:#eff1f5;">.</span><span style="color:#bf616a;">toByteArray</span><span style="color:#eff1f5;">(inputStream);
+</span><span style="color:#eff1f5;">                </span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;"> cellData </span><span>= </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;">(bytes);
+</span><span style="color:#eff1f5;">                cellData.</span><span style="color:#bf616a;">setData</span><span style="color:#eff1f5;">(bytes);
+</span><span style="color:#eff1f5;">                data.</span><span style="color:#bf616a;">add</span><span style="color:#eff1f5;">(cellData);
+</span><span style="color:#eff1f5;">            } </span><span style="color:#b48ead;">finally </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">                </span><span style="color:#b48ead;">if </span><span style="color:#eff1f5;">(inputStream </span><span>!= </span><span style="color:#d08770;">null</span><span style="color:#eff1f5;">) {
+</span><span style="color:#eff1f5;">                    inputStream.</span><span style="color:#bf616a;">close</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">                }
+</span><span style="color:#eff1f5;">            }
+</span><span style="color:#eff1f5;">        }
+</span><span style="color:#eff1f5;">        </span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;"> cellData </span><span>= </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">WriteCellData</span><span style="color:#eff1f5;">();
+</span><span style="color:#eff1f5;">        cellData.</span><span style="color:#bf616a;">setData</span><span style="color:#eff1f5;">(data);
+</span><span style="color:#eff1f5;">        cellData.</span><span style="color:#bf616a;">setType</span><span style="color:#eff1f5;">(</span><span style="color:#ebcb8b;">CellDataTypeEnum</span><span style="color:#eff1f5;">.</span><span style="color:#d08770;">EMPTY</span><span style="color:#eff1f5;">);
+</span><span style="color:#eff1f5;">        </span><span style="color:#b48ead;">return</span><span style="color:#eff1f5;"> cellData;
+</span><span style="color:#eff1f5;">    }
+</span><span style="color:#eff1f5;">}
+</span></code></pre>
+<h2 id="usage">usage</h2>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#bf616a;">ExcelProperty</span><span>(</span><span style="color:#bf616a;">value </span><span>= &quot;</span><span style="color:#a3be8c;">相关附件</span><span>&quot;, </span><span style="color:#bf616a;">converter </span><span>= </span><span style="color:#ebcb8b;">ListUrlImageConverter</span><span>.</span><span style="color:#bf616a;">class</span><span>)
+</span><span>@</span><span style="color:#bf616a;">ColumnWidth</span><span>(</span><span style="color:#bf616a;">value </span><span>= </span><span style="color:#d08770;">40</span><span>)
+</span><span style="color:#b48ead;">private </span><span style="color:#ebcb8b;">List</span><span>&lt;</span><span style="color:#ebcb8b;">URL</span><span>&gt; imgUrls;
+</span></code></pre>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span>response.</span><span style="color:#bf616a;">setHeader</span><span>(&quot;</span><span style="color:#a3be8c;">Content-Disposition</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">attachment;filename=</span><span>&quot; + fileName + &quot;</span><span style="color:#a3be8c;">.xlsx</span><span>&quot;);
+</span><span>                    </span><span style="color:#ebcb8b;">EasyExcel</span><span>.</span><span style="color:#bf616a;">write</span><span>(response.</span><span style="color:#bf616a;">getOutputStream</span><span>(), </span><span style="color:#ebcb8b;">AssignTaskForExportVo</span><span>.</span><span style="color:#bf616a;">class</span><span>)
+</span><span>                            .</span><span style="color:#bf616a;">registerWriteHandler</span><span>(</span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">CustomImageModifyHandler</span><span>()).</span><span style="color:#bf616a;">sheet</span><span>()
+</span><span>                            .</span><span style="color:#bf616a;">doWrite</span><span>(assignTaskForExportVos);
+</span></code></pre>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2025 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
