@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             code cheat sheet
+            
+        </title>
+
+        
+            <meta property="og:title" content="code cheat sheet" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">code cheat sheet</h1>
+            <div class="meta">
+                
+                on  2024-10-12
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h2 id="java">Java</h2>
+<h3 id="qu-chu-kong-ge">去除空格</h3>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#b48ead;">public </span><span style="color:#ebcb8b;">String </span><span style="color:#bf616a;">trim</span><span>(</span><span style="color:#ebcb8b;">String</span><span> str) {
+</span><span>    </span><span style="color:#65737e;">// &quot;\u0020&quot; 半角空格, office空格, 全角空格
+</span><span>    </span><span style="color:#b48ead;">return</span><span> str.</span><span style="color:#bf616a;">trim</span><span>().</span><span style="color:#bf616a;">replace</span><span>(&quot;</span><span style="color:#96b5b4;">\u</span><span style="color:#a3be8c;">00a0</span><span>&quot;, &quot;&quot;).</span><span style="color:#bf616a;">replace</span><span>(&quot;</span><span style="color:#96b5b4;">\u</span><span style="color:#a3be8c;">3000</span><span>&quot;, &quot;&quot;);
+</span><span>} 
+</span></code></pre>
+<h2 id="spring">Spring</h2>
+<h3 id="huo-qu-servletxiang-guan-can-shu">获取Servlet相关参数</h3>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#ebcb8b;">ServletRequestAttributes</span><span> servletRequestAttributes = (</span><span style="color:#ebcb8b;">ServletRequestAttributes</span><span>) </span><span style="color:#ebcb8b;">RequestContextHolder</span><span>.</span><span style="color:#bf616a;">getRequestAttributes</span><span>();
+</span><span style="color:#ebcb8b;">HttpServletResponse</span><span> response = servletRequestAttributes.</span><span style="color:#bf616a;">getResponse</span><span>();
+</span><span style="color:#ebcb8b;">HttpServletRequest</span><span> request = servletRequestAttributes.</span><span style="color:#bf616a;">getRequest</span><span>();
+</span></code></pre>
+<h2 id="library">Library</h2>
+<h3 id="hutool">Hutool</h3>
+<h4 id="excelutil">ExcelUtil</h4>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#ebcb8b;">ExcelReader</span><span> reader = </span><span style="color:#ebcb8b;">ExcelUtil</span><span>.</span><span style="color:#bf616a;">getReader</span><span>(</span><span style="color:#ebcb8b;">FileUtil</span><span>.</span><span style="color:#bf616a;">file</span><span>(&quot;</span><span style="color:#a3be8c;">公务用车车辆管理员信息.xlsx</span><span>&quot;), </span><span style="color:#d08770;">0</span><span>);
+</span><span style="color:#ebcb8b;">List</span><span>&lt;</span><span style="color:#ebcb8b;">Map</span><span>&lt;</span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#ebcb8b;">Object</span><span>&gt;&gt; carManagerMaps = reader.</span><span style="color:#bf616a;">readAll</span><span>();
+</span><span style="color:#65737e;">//  所有用车管理员userCode
+</span><span style="color:#ebcb8b;">List</span><span>&lt;</span><span style="color:#ebcb8b;">String</span><span>&gt; carManagersUserCode = carManagerMaps.</span><span style="color:#bf616a;">stream</span><span>()
+</span><span>        .</span><span style="color:#bf616a;">map</span><span>(</span><span style="color:#bf616a;">map </span><span style="color:#b48ead;">-&gt;</span><span> map.</span><span style="color:#bf616a;">get</span><span>(&quot;</span><span style="color:#a3be8c;">账号</span><span>&quot;).</span><span style="color:#bf616a;">toString</span><span>())
+</span><span>        .</span><span style="color:#bf616a;">collect</span><span>(</span><span style="color:#ebcb8b;">Collectors</span><span>.</span><span style="color:#bf616a;">toList</span><span>());
+</span><span>
+</span><span style="color:#b48ead;">final </span><span style="color:#ebcb8b;">List</span><span>&lt;</span><span style="color:#ebcb8b;">LinkedHashMap</span><span>&lt;</span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#ebcb8b;">String</span><span>&gt;&gt; rows = carManagersUserCode.</span><span style="color:#bf616a;">stream</span><span>().</span><span style="color:#bf616a;">map</span><span>(</span><span style="color:#bf616a;">userCode </span><span style="color:#b48ead;">-&gt; </span><span>{
+</span><span>    </span><span style="color:#ebcb8b;">LinkedHashMap</span><span>&lt;</span><span style="color:#ebcb8b;">String</span><span>, </span><span style="color:#ebcb8b;">String</span><span>&gt; row = </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">LinkedHashMap</span><span>&lt;&gt;();
+</span><span>    row.</span><span style="color:#bf616a;">put</span><span>(&quot;</span><span style="color:#a3be8c;">账号</span><span>&quot;, userCode);
+</span><span>    </span><span style="color:#b48ead;">return</span><span> row;
+</span><span>}).</span><span style="color:#bf616a;">collect</span><span>(</span><span style="color:#ebcb8b;">Collectors</span><span>.</span><span style="color:#bf616a;">toList</span><span>());
+</span><span>
+</span><span style="color:#ebcb8b;">ExcelWriter</span><span> excelWriter = </span><span style="color:#ebcb8b;">ExcelUtil</span><span>.</span><span style="color:#bf616a;">getWriter</span><span>();
+</span><span>
+</span><span>excelWriter.</span><span style="color:#bf616a;">renameSheet</span><span>(&quot;</span><span style="color:#a3be8c;">所有车辆管理员账号</span><span>&quot;);
+</span><span>excelWriter.</span><span style="color:#bf616a;">write</span><span>(rows, </span><span style="color:#d08770;">true</span><span>);
+</span><span>
+</span><span>response.</span><span style="color:#bf616a;">setContentType</span><span>(&quot;</span><span style="color:#a3be8c;">application/vnd.ms-excel;charset=utf-8</span><span>&quot;);
+</span><span>response.</span><span style="color:#bf616a;">setHeader</span><span>(&quot;</span><span style="color:#a3be8c;">Content-Disposition</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">attachment;filename=test_1.xls</span><span>&quot;);
+</span><span style="color:#ebcb8b;">ServletOutputStream</span><span> out = response.</span><span style="color:#bf616a;">getOutputStream</span><span>();
+</span><span>excelWriter.</span><span style="color:#bf616a;">flush</span><span>(out, </span><span style="color:#d08770;">true</span><span>);
+</span><span>
+</span><span>excelWriter.</span><span style="color:#bf616a;">close</span><span>();
+</span><span style="color:#ebcb8b;">IoUtil</span><span>.</span><span style="color:#bf616a;">close</span><span>(out);
+</span></code></pre>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#ebcb8b;">ExcelReader</span><span> reader = </span><span style="color:#ebcb8b;">ExcelUtil</span><span>.</span><span style="color:#bf616a;">getReader</span><span>(</span><span style="color:#ebcb8b;">FileUtil</span><span>.</span><span style="color:#bf616a;">file</span><span>(&quot;</span><span style="color:#a3be8c;">path</span><span>&quot;), </span><span style="color:#d08770;">0</span><span>);
+</span></code></pre>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>ExcelWriter excelWriter = ExcelUtil.getWriter();
+</span></code></pre>
+<h3 id="jackson">Jackson</h3>
+<h4 id="jsonstr-to-obj">Jsonstr to Obj</h4>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#65737e;">// 字段映射
+</span><span style="color:#65737e;">// @JsonAlias(&quot;FixedParkingNo&quot;)
+</span><span style="color:#65737e;">// private Long fixedParkingNo;
+</span><span style="color:#ebcb8b;">ObjectMapper</span><span> objectMapper = </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">ObjectMapper</span><span>();
+</span><span style="color:#b48ead;">try </span><span>{
+</span><span>    carInfos = objectMapper.</span><span style="color:#bf616a;">readValue</span><span>(</span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">File</span><span>(filePath), </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">TypeReference</span><span>&lt;</span><span style="color:#ebcb8b;">List</span><span>&lt;</span><span style="color:#ebcb8b;">CarInfo</span><span>&gt;&gt;() </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">    }</span><span>);
+</span><span>} </span><span style="color:#b48ead;">catch </span><span>(</span><span style="color:#ebcb8b;">IOException </span><span style="color:#bf616a;">e</span><span>) {
+</span><span>    </span><span style="color:#b48ead;">throw new </span><span style="color:#ebcb8b;">RuntimeException</span><span>(e);
+</span><span>}
+</span></code></pre>
+<h2 id="db">DB</h2>
+<h3 id="shi-jian-duan-zhong-die-wen-ti">时间段重叠问题</h3>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span>DELIMITER $$
+</span><span style="color:#b48ead;">CREATE TRIGGER </span><span style="color:#8fa1b3;">check_time_overlap
+</span><span>    BEFORE </span><span style="color:#b48ead;">INSERT
+</span><span>    ON t_meeting_pre_form
+</span><span>    FOR EACH ROW
+</span><span style="color:#b48ead;">BEGIN
+</span><span>    IF EXISTS (</span><span style="color:#b48ead;">SELECT </span><span style="color:#d08770;">1
+</span><span>               </span><span style="color:#b48ead;">FROM</span><span> t_meeting_pre_form
+</span><span>               </span><span style="color:#b48ead;">WHERE</span><span> (not (</span><span style="color:#d08770;">NEW</span><span>.</span><span style="color:#d08770;">meeting_time_top </span><span>&gt;= meeting_time_bottom
+</span><span>                   or </span><span style="color:#d08770;">NEW</span><span>.</span><span style="color:#d08770;">meeting_time_bottom </span><span>&lt;= meeting_time_top))
+</span><span>                 AND </span><span style="color:#d08770;">NEW</span><span>.</span><span style="color:#d08770;">meeting_room_id </span><span>= meeting_room_id
+</span><span>                 AND </span><span style="color:#d08770;">NEW</span><span>.</span><span style="color:#d08770;">meeting_date </span><span>= meeting_date
+</span><span>                 AND delete_mark = </span><span style="color:#d08770;">0</span><span>) </span><span style="color:#b48ead;">THEN
+</span><span>        SIGNAL SQLSTATE &#39;</span><span style="color:#a3be8c;">45000</span><span>&#39;
+</span><span>            </span><span style="color:#b48ead;">SET</span><span> MESSAGE_TEXT = &#39;</span><span style="color:#a3be8c;">会议室预定时间重叠</span><span>&#39;;
+</span><span>    </span><span style="color:#b48ead;">END</span><span> IF;
+</span><span>    </span><span style="color:#b48ead;">END</span><span>$$
+</span><span>DELIMITER ;
+</span></code></pre>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2026 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             CICD
+            
+        </title>
+
+        
+            <meta property="og:title" content="CICD" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">CICD</h1>
+            <div class="meta">
+                
+                on  2025-01-20
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h1 id="jenkins">Jenkins</h1>
+<h2 id="java-jarbao-qi-dong">java jar包启动</h2>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>pipeline {
+</span><span>    agent any
+</span><span>    environment {
+</span><span>        MAVEN_HOME = &#39;/Users/horaoen/dev/apache-maven-3.8.8&#39;
+</span><span>        PATH = &quot;${MAVEN_HOME}/bin:${env.PATH}&quot;
+</span><span>        JAVA_HOME = &#39;/Users/horaoen/.jenv/versions/oracle64-1.8.0.401&#39;
+</span><span>    }
+</span><span>    stages {
+</span><span>        stage(&#39;build and run&#39;) {
+</span><span>            steps {
+</span><span>                script {
+</span><span>                    // 停止在端口9001上运行的服务
+</span><span>                    script {
+</span><span>                        def pid = sh(script: &quot;lsof -t -i:9001&quot;, returnStatus: true)
+</span><span>                        if (pid != 1) {
+</span><span>                            sh &quot;kill -9 ${pid}&quot;
+</span><span>                            echo &quot;Stopped existing service on port 9001 with PID ${pid}&quot;
+</span><span>                        } else {
+</span><span>                            echo &quot;No process found on port 9001&quot;
+</span><span>                        }
+</span><span>                    }
+</span><span>                    // 进入指定目录
+</span><span>                    dir(&#39;chinatower_cyy_service&#39;) {
+</span><span>                        // 执行 Maven 构建命令
+</span><span>                        sh &#39;mvn clean package --settings /Users/horaoen/code/cntower.xml -Dmaven.repo.local=/Users/horaoen/.m2/repository&#39;
+</span><span>                        // 重新启动服务
+</span><span>                        sh &#39;nohup java -jar target/chinatower_cyy_service-1.0.0-SNAPSHOT.jar --spring.profiles=local --server.port=9001 &gt;&gt; ~/logs/service.log &amp;&#39;
+</span><span>                    }
+</span><span>                }
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2026 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             nginx摘要
+            
+        </title>
+
+        
+            <meta property="og:title" content="nginx摘要" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">nginx摘要</h1>
+            <div class="meta">
+                
+                on  2024-10-12
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <p><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size">nginx doc</a></p>
+<pre data-lang="conf" style="background-color:#2b303b;color:#c0c5ce;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#b48ead;">server </span><span>{
+</span><span>
+</span><span style="color:#b48ead;">    location </span><span>~ /\.DS_Store {
+</span><span>        </span><span style="color:#bf616a;">deny </span><span>all;
+</span><span>        </span><span style="color:#bf616a;">access_log </span><span style="color:#d08770;">off</span><span>;
+</span><span>        </span><span style="color:#bf616a;">log_not_found </span><span style="color:#d08770;">off</span><span>;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">add_header </span><span>Content-Security-Policy
+</span><span>        </span><span style="color:#a3be8c;">&quot;default-src &#39;self&#39;; script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39;; style-src &#39;self&#39; &#39;unsafe-inline&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39;; connect-src &#39;self&#39; *;&quot;</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">add_header </span><span>X-Frame-Options DENY;
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">listen </span><span style="color:#d08770;">8020</span><span>;
+</span><span>    </span><span style="color:#bf616a;">server_name </span><span style="color:#d08770;">localhost</span><span>;
+</span><span>    </span><span style="color:#bf616a;">error_page </span><span style="color:#d08770;">405 </span><span>=</span><span style="color:#d08770;">200 </span><span style="color:#b48ead;">$uri</span><span>;
+</span><span>
+</span><span style="color:#b48ead;">    location </span><span>/ {
+</span><span>        </span><span style="color:#bf616a;">root </span><span>/app/xzfw/car-moa-ui;
+</span><span style="color:#b48ead;">        index</span><span> index.html index.htm;
+</span><span>        </span><span style="color:#bf616a;">try_files </span><span style="color:#b48ead;">$uri $uri</span><span>/ /index.html;
+</span><span>    }
+</span><span>
+</span><span>}
+</span></code></pre>
+<pre data-lang="conf" style="background-color:#2b303b;color:#c0c5ce;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#bf616a;">nginx </span><span>-s reload
+</span></code></pre>
+<h3 id="historymo-shi-lu-you-fang-wen-bu-dao">history模式路由访问不到</h3>
+<pre data-lang="conf" style="background-color:#2b303b;color:#c0c5ce;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#b48ead;">location </span><span>/ {
+</span><span>    ...
+</span><span>    </span><span style="color:#bf616a;">try_files </span><span style="color:#b48ead;">$uri $uri</span><span>/ /index.html;
+</span><span>    ...
+</span><span>}
+</span></code></pre>
+<h3 id="xiang-ying-chao-shi">响应超时</h3>
+<pre data-lang="conf" style="background-color:#2b303b;color:#c0c5ce;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#bf616a;">Syntax</span><span>:	proxy_read_timeout time;
+</span><span style="color:#bf616a;">Default</span><span>:	
+</span><span style="color:#bf616a;">proxy_read_timeout </span><span style="color:#d08770;">60s</span><span>;
+</span><span style="color:#bf616a;">Context</span><span>:	http, server, </span><span style="color:#b48ead;">location
+</span></code></pre>
+<h3 id="413-wen-jian-da-xiao-xian-zhi">413 文件大小限制</h3>
+<pre data-lang="conf" style="background-color:#2b303b;color:#c0c5ce;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#bf616a;">Syntax</span><span>:	client_max_body_size size;
+</span><span style="color:#bf616a;">Default</span><span>:	
+</span><span style="color:#bf616a;">client_max_body_size </span><span style="color:#d08770;">1m</span><span>;
+</span><span style="color:#bf616a;">Context</span><span>:	http, server, locations
+</span></code></pre>
+<h3 id="csp">CSP</h3>
+<ul>
+<li>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP">csp mdn doc</a></p>
+</li>
+<li>
+<p>nginx <code>add_header Content-Security-Policy img-src * 'self' data: blob: https: http:</code></p>
+</li>
+</ul>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2026 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
