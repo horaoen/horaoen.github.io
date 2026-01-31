@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             datax增量数据同步
+            
+        </title>
+
+        
+            <meta property="og:title" content="datax增量数据同步" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">datax增量数据同步</h1>
+            <div class="meta">
+                
+                on  2024-12-27
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <h1 id="background">background</h1>
+<p><img src="/static/posts/91fbee70-05f4-4638-8c05-46805acb31b5.png" alt="增量方案" /></p>
+<h1 id="dataxhuan-jing">datax环境</h1>
+<p><a href="https://github.com/alibaba/DataX/blob/master/userGuid.md">userGuid</a></p>
+<h2 id="table">table</h2>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span> </span><span style="color:#b48ead;">CREATE TABLE </span><span>`</span><span style="color:#8fa1b3;">tc_biz_vertical_test_0000</span><span>` (
+</span><span>`</span><span style="color:#a3be8c;">biz_order_id</span><span>` </span><span style="color:#b48ead;">bigint</span><span>(</span><span style="color:#d08770;">20</span><span>) NOT </span><span style="color:#d08770;">NULL</span><span> COMMENT &#39;</span><span style="color:#a3be8c;">id</span><span>&#39;,
+</span><span>`</span><span style="color:#a3be8c;">key_value</span><span>` </span><span style="color:#b48ead;">varchar</span><span>(</span><span style="color:#d08770;">4000</span><span>) NOT </span><span style="color:#d08770;">NULL</span><span> COMMENT &#39;</span><span style="color:#a3be8c;">Key-value的内容</span><span>&#39;,
+</span><span>`</span><span style="color:#a3be8c;">gmt_create</span><span>` </span><span style="color:#b48ead;">datetime </span><span>NOT </span><span style="color:#d08770;">NULL</span><span> COMMENT &#39;</span><span style="color:#a3be8c;">创建时间</span><span>&#39;,
+</span><span>`</span><span style="color:#a3be8c;">gmt_modified</span><span>` </span><span style="color:#b48ead;">datetime </span><span>NOT </span><span style="color:#d08770;">NULL</span><span> COMMENT &#39;</span><span style="color:#a3be8c;">修改时间</span><span>&#39;,
+</span><span>`</span><span style="color:#a3be8c;">attribute_cc</span><span>` </span><span style="color:#b48ead;">int</span><span>(</span><span style="color:#d08770;">11</span><span>) </span><span style="color:#b48ead;">DEFAULT </span><span style="color:#d08770;">NULL</span><span> COMMENT &#39;</span><span style="color:#a3be8c;">防止并发修改的标志</span><span>&#39;,
+</span><span>`</span><span style="color:#a3be8c;">value_type</span><span>` </span><span style="color:#b48ead;">int</span><span>(</span><span style="color:#d08770;">11</span><span>) NOT </span><span style="color:#d08770;">NULL </span><span style="color:#b48ead;">DEFAULT </span><span>&#39;</span><span style="color:#a3be8c;">0</span><span>&#39; COMMENT &#39;</span><span style="color:#a3be8c;">类型</span><span>&#39;,
+</span><span>`</span><span style="color:#a3be8c;">buyer_id</span><span>` </span><span style="color:#b48ead;">bigint</span><span>(</span><span style="color:#d08770;">20</span><span>) </span><span style="color:#b48ead;">DEFAULT </span><span style="color:#d08770;">NULL</span><span> COMMENT &#39;</span><span style="color:#a3be8c;">buyerid</span><span>&#39;,
+</span><span>`</span><span style="color:#a3be8c;">seller_id</span><span>` </span><span style="color:#b48ead;">bigint</span><span>(</span><span style="color:#d08770;">20</span><span>) </span><span style="color:#b48ead;">DEFAULT </span><span style="color:#d08770;">NULL</span><span> COMMENT &#39;</span><span style="color:#a3be8c;">seller_id</span><span>&#39;,
+</span><span style="color:#b48ead;">PRIMARY KEY</span><span> (`</span><span style="color:#a3be8c;">biz_order_id</span><span>`,`</span><span style="color:#a3be8c;">value_type</span><span>`),
+</span><span>KEY `</span><span style="color:#a3be8c;">idx_biz_vertical_gmtmodified</span><span>` (`</span><span style="color:#a3be8c;">gmt_modified</span><span>`)
+</span><span>) ENGINE=InnoDB </span><span style="color:#b48ead;">DEFAULT</span><span> CHARSET=gbk COMMENT=&#39;</span><span style="color:#a3be8c;">tc_biz_vertical</span><span>&#39;
+</span><span>
+</span><span style="color:#b48ead;">ALTER TABLE </span><span>tc_biz_vertical_test_0000 MODIFY COLUMN biz_order_id </span><span style="color:#b48ead;">bigint</span><span> auto_increment NOT </span><span style="color:#d08770;">NULL</span><span> COMMENT &#39;</span><span style="color:#a3be8c;">id</span><span>&#39;;
+</span></code></pre>
+<h2 id="mock-data">mock data</h2>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#b48ead;">SET</span><span> GLOBAL log_bin_trust_function_creators = </span><span style="color:#d08770;">1</span><span>; </span><span style="color:#65737e;">-- 允许创建函数
+</span><span>DELIMITER $$
+</span><span>
+</span><span style="color:#b48ead;">CREATE FUNCTION </span><span style="color:#8fa1b3;">mock_data</span><span>()
+</span><span>RETURNS </span><span style="color:#b48ead;">INT
+</span><span>DETERMINISTIC
+</span><span style="color:#b48ead;">BEGIN 
+</span><span>    DECLARE num </span><span style="color:#b48ead;">INT DEFAULT </span><span style="color:#d08770;">10000</span><span>; </span><span style="color:#65737e;">-- 定义循环的次数
+</span><span>    DECLARE i </span><span style="color:#b48ead;">INT DEFAULT </span><span style="color:#d08770;">0</span><span>;       </span><span style="color:#65737e;">-- 定义计数器
+</span><span>
+</span><span>    </span><span style="color:#65737e;">-- 使用 WHILE 循环插入数据
+</span><span>    WHILE i &lt; num DO
+</span><span>        </span><span style="color:#b48ead;">INSERT INTO</span><span> tc_biz_vertical_test_0000 (
+</span><span>            key_value, gmt_create, gmt_modified, attribute_cc, value_type, buyer_id, seller_id
+</span><span>        )
+</span><span>        </span><span style="color:#b48ead;">VALUES</span><span> (&#39;</span><span style="color:#a3be8c;">test</span><span>&#39;, </span><span style="color:#96b5b4;">CURRENT_TIMESTAMP</span><span>, </span><span style="color:#96b5b4;">CURRENT_TIMESTAMP</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">1</span><span>);
+</span><span>        
+</span><span>        </span><span style="color:#b48ead;">SET</span><span> i = i + </span><span style="color:#d08770;">1</span><span>; </span><span style="color:#65737e;">-- 增加计数器
+</span><span>    </span><span style="color:#b48ead;">END</span><span> WHILE;
+</span><span>
+</span><span>    RETURN i; </span><span style="color:#65737e;">-- 返回插入的记录数
+</span><span style="color:#b48ead;">END</span><span>$$
+</span><span>
+</span><span>DELIMITER ;
+</span></code></pre>
+<h2 id="crontab">crontab</h2>
+<pre data-lang="shell" style="background-color:#2b303b;color:#c0c5ce;" class="language-shell "><code class="language-shell" data-lang="shell"><span>$ crontab -e
+</span><span>*/5 * * * *  python3 ~/dev/datax/bin/datax.py ~/dev/repo/datax-inc-sync/mysql_to_mysql.json &gt;&gt; ~/dev/datax/mysql_to_mysql.log &amp;
+</span></code></pre>
+<h2 id="datax-config">datax config</h2>
+<p><a href="https://github.com/horaoen/datax-inc-sync/blob/main/mysql_to_mysql.json">mysql_to_mysql.json</a></p>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2026 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>

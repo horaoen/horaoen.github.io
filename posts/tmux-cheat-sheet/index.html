@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+        <title>
+             tmux cheat sheet
+            
+        </title>
+
+        
+            <meta property="og:title" content="tmux cheat sheet" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+         <link rel="icon" type="image/png" href=&#x2F;icon&#x2F;favicon.png />
+    
+
+    
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=XXXX-XXXXX"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'XXXX-XXXXX');
+        </script>
+    
+
+    
+    
+        <script src=https://horaoen.github.io/js/feather.min.js></script>
+    
+
+
+    
+        <link href=https://horaoen.github.io/css/fonts.css rel="stylesheet" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://horaoen.github.io/css/main.css />
+
+    
+        <link
+            rel="stylesheet"
+            id="darkModeStyle"
+            type="text/css"
+            href=https://horaoen.github.io/css/dark.css
+            
+            
+                disabled
+            
+        />
+    
+
+    
+
+
+    
+
+
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main" id="main_title">
+        <a href=https:&#x2F;&#x2F;horaoen.github.io></a>
+    </div>
+
+    <nav>
+        
+            <a href=&#x2F;>首页</a>
+        
+            <a href=&#x2F;posts>文章</a>
+        
+            <a href=&#x2F;protpets>宠物救助</a>
+        
+            <a href=&#x2F;about>关于我</a>
+        
+            <a href=&#x2F;tags>标签</a>
+        
+
+        
+            |
+
+            
+                <a href=&#x2F;>en</a>
+            
+        
+
+        
+            | <a id="dark-mode-toggle" onclick="toggleTheme()" href=""></a>
+            <script src=https://horaoen.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+    
+<main>
+    <article>
+        <div class="title">
+            <h1 class="title">tmux cheat sheet</h1>
+            <div class="meta">
+                
+                on  2025-02-14
+
+                
+            </div>
+        </div>
+
+        
+
+        <section class="body">
+            <p>启动新会话：</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>tmux [new -s 会话名 -n 窗口名]
+</span></code></pre>
+<p>恢复会话：</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>tmux at [-t 会话名]
+</span></code></pre>
+<p>列出所有会话：</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>tmux ls
+</span></code></pre>
+<p><a name="killSessions"></a>关闭会话：</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>tmux kill-session -t 会话名
+</span></code></pre>
+<p><a name="killAllSessions"></a>关闭所有会话：</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>tmux ls | grep : | cut -d. -f1 | awk &#39;{print substr($1, 0, length($1)-1)}&#39; | xargs kill
+</span></code></pre>
+<h1 id="zai-tmux-zhong-an-xia-tmux-qian-zhui-ctrl-b-ran-hou">在 Tmux 中，按下 Tmux 前缀 <code>ctrl+b</code>，然后：</h1>
+<h2 id="hui-hua">会话</h2>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>:new&lt;回车&gt;  启动新会话
+</span><span>s           列出所有会话
+</span><span>$           重命名当前会话
+</span></code></pre>
+<h2 id="chuang-kou-biao-qian-ye"><a name="WindowsTabs"></a>窗口 (标签页)</h2>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>c  创建新窗口
+</span><span>w  列出所有窗口
+</span><span>n  后一个窗口
+</span><span>p  前一个窗口
+</span><span>f  查找窗口
+</span><span>,  重命名当前窗口
+</span><span>&amp;  关闭当前窗口
+</span></code></pre>
+<h2 id="diao-zheng-chuang-kou-pai-xu">调整窗口排序</h2>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>swap-window -s 3 -t 1  交换 3 号和 1 号窗口
+</span><span>swap-window -t 1       交换当前和 1 号窗口
+</span><span>move-window -t 1       移动当前窗口到 1 号
+</span></code></pre>
+<h2 id="chuang-ge-fen-ge-chuang-kou"><a name="PanesSplits"></a>窗格（分割窗口）</h2>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>%  垂直分割
+</span><span>&quot;  水平分割
+</span><span>o  交换窗格
+</span><span>x  关闭窗格
+</span><span>⍽  左边这个符号代表空格键 - 切换布局
+</span><span>q 显示每个窗格是第几个，当数字出现的时候按数字几就选中第几个窗格
+</span><span>{ 与上一个窗格交换位置
+</span><span>} 与下一个窗格交换位置
+</span><span>z 切换窗格最大化/最小化
+</span></code></pre>
+<h2 id="tong-bu-chuang-ge"><a name="syncPanes"></a>同步窗格</h2>
+<p>这么做可以切换到想要的窗口，输入 Tmux 前缀和一个冒号呼出命令提示行，然后输入：</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>:setw synchronize-panes
+</span></code></pre>
+<p>你可以指定开或关，否则重复执行命令会在两者间切换。
+这个选项值针对某个窗口有效，不会影响别的会话和窗口。
+完事儿之后再次执行命令来关闭。<a href="http://blog.sanctum.geek.nz/sync-tmux-panes/">帮助</a></p>
+<h2 id="diao-zheng-chuang-ge-chi-cun">调整窗格尺寸</h2>
+<p>如果你不喜欢默认布局，可以重调窗格的尺寸。虽然这很容易实现，但一般不需要这么干。这几个命令用来调整窗格：</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>PREFIX : resize-pane -D          当前窗格向下扩大 1 格
+</span><span>PREFIX : resize-pane -U          当前窗格向上扩大 1 格
+</span><span>PREFIX : resize-pane -L          当前窗格向左扩大 1 格
+</span><span>PREFIX : resize-pane -R          当前窗格向右扩大 1 格
+</span><span>PREFIX : resize-pane -D 20       当前窗格向下扩大 20 格
+</span><span>PREFIX : resize-pane -t 2 -L 20  编号为 2 的窗格向左扩大 20 格
+</span></code></pre>
+<h2 id="wen-ben-fu-zhi-mo-shi">文本复制模式：</h2>
+<p>按下 <code>PREFIX-[</code> 进入文本复制模式。可以使用方向键在屏幕中移动光标。默认情况下，方向键是启用的。在配置文件中启用 Vim 键盘布局来切换窗口、调整窗格大小。Tmux 也支持 Vi 模式。要是想启用 Vi 模式，只需要把下面这一行添加到 .tmux.conf 中：</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>setw -g mode-keys vi
+</span></code></pre>
+<p>启用这条配置后，就可以使用 h、j、k、l 来移动光标了。</p>
+<p>想要退出文本复制模式的话，按下回车键就可以了。然后按下 <code>PREFIX-]</code> 粘贴刚才复制的文本。</p>
+<p>一次移动一格效率低下，在 Vi 模式启用的情况下，可以辅助一些别的快捷键高效工作。</p>
+<p>例如，可以使用 w 键逐词移动，使用 b 键逐词回退。使用 f 键加上任意字符跳转到当前行第一次出现该字符的位置，使用 F 键达到相反的效果。</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>vi             emacs        功能
+</span><span>^              M-m          反缩进
+</span><span>Escape         C-g          清除选定内容
+</span><span>Enter          M-w          复制选定内容
+</span><span>j              Down         光标下移
+</span><span>h              Left         光标左移
+</span><span>l              Right        光标右移
+</span><span>L                           光标移到尾行
+</span><span>M              M-r          光标移到中间行
+</span><span>H              M-R          光标移到首行
+</span><span>k              Up           光标上移
+</span><span>d              C-u          删除整行
+</span><span>D              C-k          删除到行末
+</span><span>$              C-e          移到行尾
+</span><span>:              g            前往指定行
+</span><span>C-d            M-Down       向下滚动半屏
+</span><span>C-u            M-Up         向上滚动半屏
+</span><span>C-f            Page down    下一页
+</span><span>w              M-f          下一个词
+</span><span>p              C-y          粘贴
+</span><span>C-b            Page up      上一页
+</span><span>b              M-b          上一个词
+</span><span>q              Escape       退出
+</span><span>C-Down or J    C-Down       向下翻
+</span><span>C-Up or K      C-Up         向下翻
+</span><span>n              n            继续搜索
+</span><span>?              C-r          向前搜索
+</span><span>/              C-s          向后搜索
+</span><span>0              C-a          移到行首
+</span><span>Space          C-Space      开始选中
+</span><span>               C-t          字符调序
+</span></code></pre>
+<h2 id="za-xiang">杂项：</h2>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>d  退出 tmux（tmux 仍在后台运行）
+</span><span>t  窗口中央显示一个数字时钟
+</span><span>?  列出所有快捷键
+</span><span>:  命令提示符
+</span></code></pre>
+<h2 id="pei-zhi-xuan-xiang">配置选项：</h2>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># 鼠标支持 - 设置为 on 来启用鼠标(与 2.1 之前的版本有区别，请自行查阅 man page)
+</span><span>* set -g mouse on
+</span><span>
+</span><span># 设置默认终端模式为 256color
+</span><span>set -g default-terminal &quot;screen-256color&quot;
+</span><span>
+</span><span># 启用活动警告
+</span><span>setw -g monitor-activity on
+</span><span>set -g visual-activity on
+</span><span>
+</span><span># 居中窗口列表
+</span><span>set -g status-justify centre
+</span><span>
+</span><span># 最大化/恢复窗格
+</span><span>unbind Up bind Up new-window -d -n tmp \; swap-pane -s tmp.1 \; select-window -t tmp
+</span><span>unbind Down
+</span><span>bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
+</span></code></pre>
+<h2 id="can-kao-pei-zhi-wen-jian-tmux-conf">参考配置文件（~/.tmux.conf）：</h2>
+<p>下面这份配置是我使用 Tmux 几年来逐渐精简后的配置，请自取。</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#65737e;"># -----------------------------------------------------------------------------
+</span><span style="color:#65737e;"># Tmux 基本配置 - 要求 Tmux &gt;= 2.3
+</span><span style="color:#65737e;"># 如果不想使用插件，只需要将此节的内容写入 ~/.tmux.conf 即可
+</span><span style="color:#65737e;"># -----------------------------------------------------------------------------
+</span><span>
+</span><span style="color:#65737e;"># C-b 和 VIM 冲突，修改 Prefix 组合键为 Control-Z，按键距离近
+</span><span style="color:#96b5b4;">set</span><span> -g prefix C-z
+</span><span>
+</span><span style="color:#96b5b4;">set</span><span> -g base-index         1     </span><span style="color:#65737e;"># 窗口编号从 1 开始计数
+</span><span style="color:#96b5b4;">set</span><span> -g display-panes-time 10000 </span><span style="color:#65737e;"># PREFIX-Q 显示编号的驻留时长，单位 ms
+</span><span style="color:#96b5b4;">set</span><span> -g mouse              on    </span><span style="color:#65737e;"># 开启鼠标
+</span><span style="color:#96b5b4;">set</span><span> -g pane-base-index    1     </span><span style="color:#65737e;"># 窗格编号从 1 开始计数
+</span><span style="color:#96b5b4;">set</span><span> -g renumber-windows   on    </span><span style="color:#65737e;"># 关掉某个窗口后，编号重排
+</span><span>
+</span><span style="color:#bf616a;">setw -g</span><span> allow-rename      off   </span><span style="color:#65737e;"># 禁止活动进程修改窗口名
+</span><span style="color:#bf616a;">setw -g</span><span> automatic-rename  off   </span><span style="color:#65737e;"># 禁止自动命名新窗口
+</span><span style="color:#bf616a;">setw -g</span><span> mode-keys         vi    </span><span style="color:#65737e;"># 进入复制模式的时候使用 vi 键位（默认是 EMACS）
+</span><span>
+</span><span style="color:#65737e;"># -----------------------------------------------------------------------------
+</span><span style="color:#65737e;"># 使用插件 - via tpm
+</span><span style="color:#65737e;">#   1. 执行 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+</span><span style="color:#65737e;">#   2. 执行 bash ~/.tmux/plugins/tpm/bin/install_plugins
+</span><span style="color:#65737e;"># -----------------------------------------------------------------------------
+</span><span>
+</span><span style="color:#bf616a;">setenv -g</span><span> TMUX_PLUGIN_MANAGER_PATH &#39;</span><span style="color:#a3be8c;">~/.tmux/plugins</span><span>&#39;
+</span><span>
+</span><span style="color:#65737e;"># 推荐的插件（请去每个插件的仓库下读一读使用教程）
+</span><span style="color:#96b5b4;">set</span><span> -g @plugin &#39;</span><span style="color:#a3be8c;">seebi/tmux-colors-solarized</span><span>&#39;
+</span><span style="color:#96b5b4;">set</span><span> -g @plugin &#39;</span><span style="color:#a3be8c;">tmux-plugins/tmux-pain-control</span><span>&#39;
+</span><span style="color:#96b5b4;">set</span><span> -g @plugin &#39;</span><span style="color:#a3be8c;">tmux-plugins/tmux-prefix-highlight</span><span>&#39;
+</span><span style="color:#96b5b4;">set</span><span> -g @plugin &#39;</span><span style="color:#a3be8c;">tmux-plugins/tmux-resurrect</span><span>&#39;
+</span><span style="color:#96b5b4;">set</span><span> -g @plugin &#39;</span><span style="color:#a3be8c;">tmux-plugins/tmux-sensible</span><span>&#39;
+</span><span style="color:#96b5b4;">set</span><span> -g @plugin &#39;</span><span style="color:#a3be8c;">tmux-plugins/tmux-yank</span><span>&#39;
+</span><span style="color:#96b5b4;">set</span><span> -g @plugin &#39;</span><span style="color:#a3be8c;">tmux-plugins/tpm</span><span>&#39;
+</span><span>
+</span><span style="color:#65737e;"># tmux-resurrect
+</span><span style="color:#96b5b4;">set</span><span> -g @resurrect-dir &#39;</span><span style="color:#a3be8c;">~/.tmux/resurrect</span><span>&#39;
+</span><span>
+</span><span style="color:#65737e;"># tmux-prefix-highlight
+</span><span style="color:#96b5b4;">set</span><span> -g status-right &#39;</span><span style="color:#a3be8c;">#{prefix_highlight} #H | %a %Y-%m-%d %H:%M</span><span>&#39;
+</span><span style="color:#96b5b4;">set</span><span> -g @prefix_highlight_show_copy_mode &#39;</span><span style="color:#a3be8c;">on</span><span>&#39;
+</span><span style="color:#96b5b4;">set</span><span> -g @prefix_highlight_copy_mode_attr &#39;</span><span style="color:#a3be8c;">fg=white,bg=blue</span><span>&#39;
+</span><span>
+</span><span style="color:#65737e;"># 初始化 TPM 插件管理器 (放在配置文件的最后)
+</span><span style="color:#bf616a;">run </span><span>&#39;</span><span style="color:#a3be8c;">~/.tmux/plugins/tpm/tpm</span><span>&#39;
+</span><span>
+</span></code></pre>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+
+        <footer>
+  <div style="display:flex">
+    
+        <a class="soc" href=https:&#x2F;&#x2F;github.com&#x2F;horaoen title=GitHub>
+            <i data-feather=github></i>
+        </a>
+    
+        <a class="soc" href=https:&#x2F;&#x2F;twitter.com&#x2F;haoran_f title=Twitter>
+            <i data-feather=twitter></i>
+        </a>
+    
+  </div>
+  <div class="footer-info">
+    2026 © horaoen | <a
+      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+  </div>
+</footer>
+
+
+<script>
+    feather.replace();
+</script>
+
+
+    </div>
+</body>
+
+</html>
