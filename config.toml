@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://horaoen.github.io"
+base_url = "http://47.94.7.180"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
@@ -10,9 +10,13 @@ build_search_index = true
 theme = "archie-zola"
 
 [markdown]
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = true
+
+[markdown.highlighting]
+# Use inline styles so the theme doesn't need extra CSS.
+style = "inline"
+
+# Pick one theme (single theme mode).
+theme = "github-dark"
 
 [extra]
 # control dark mode: auto | dark | toggle
