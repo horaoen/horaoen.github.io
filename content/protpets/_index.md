@@ -1,6 +1,17 @@
 +++
-date = "2024-04-04"
 title = "潢川县宠物救助"
+description = "潢川县宠物救助收支与明细"
+template = "prose.html"
+
+[extra]
+lang = "zh"
+title = "宠物救助"
+subtitle = "潢川县宠物救助收支记录"
+math = false
+mermaid = false
+copy = false
+comment = false
+reaction = false
 +++
 | 时间（2026） | 收入    | 支出 | 剩余                                  | 详情                                 |
 | -----------: | ------- | ---- | ------------------------------------- | ------------------------------------ |

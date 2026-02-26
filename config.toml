@@ -1,69 +1,51 @@
-# The URL the site will be built for
-base_url = "http://47.94.7.180"
-
-# Whether to automatically compile all Sass files in the sass directory
+base_url = "https://horaoen.github.io"
+title = "horaoen"
+description = "Personal blog by horaoen"
+default_language = "zh"
+theme = "serene"
+output_dir = "public"
 compile_sass = true
-
-# Whether to build a search index to be used later on by a JavaScript library
-build_search_index = true
-
-theme = "archie-zola"
+minify_html = false
+build_search_index = false
+generate_feeds = false
+feed_filenames = ["feed.xml"]
+taxonomies = [{ name = "tags" }, { name = "categories" }]
 
 [markdown]
+render_emoji = false
+external_links_target_blank = false
+external_links_no_follow = true
+external_links_no_referrer = true
+smart_punctuation = false
+github_alerts = true
 
 [markdown.highlighting]
-# Use inline styles so the theme doesn't need extra CSS.
-style = "inline"
+style = "class"
+light_theme = "github-light"
+dark_theme = "github-dark"
 
-# Pick one theme (single theme mode).
-theme = "github-dark"
+[slugify]
+paths = "on"
+taxonomies = "on"
+anchors = "on"
 
 [extra]
-# control dark mode: auto | dark | toggle
-mode = "toggle"
-
-# subtitle will show under the title in index page
-subtitle = "A zola theme forked from [archie](https://github.com/athul/archie)"
-
-# if set true, will use external CDN resource to load font and js file
-useCDN = false
-
-favicon = "/icon/favicon.png"
-
-# show in the footer
-copyright = "horaoen"
-
-# config your Google Analysis ID
-ga = "XXXX-XXXXX"
-
-# optional: config your i18n entry
-[extra.translations]
-languages = [{ name = "en", url = "/" }]
-
-# config multi-language menu and other text
-[[extra.translations.en]]
-show_more = "Read more ⟶"
-previous_page = "← Previous"
-next_page = "Next →"
-posted_on = "on "
-posted_by = "Published by"
-read_time = "minute read"
-all_tags = "All tags"
-menus = [
-  { name = "首页", url = "/", weight = 3 },
-  { name = "文章", url = "/posts", weight = 2 },
-  { name = "宠物救助", url = "/protpets", weight = 6 },
-  { name = "关于我", url = "/about", weight = 4 },
-  { name = "标签", url = "/tags", weight = 4 },
+sections = [
+  { name = "posts", path = "/posts", is_external = false },
+  { name = "protpets", path = "/protpets", is_external = false },
+  { name = "about", path = "/about", is_external = false }
 ]
+blog_section_path = "/posts"
 
-# config social icon info in the footer
-[[extra.social]]
-icon = "github"
-name = "GitHub"
-url = "https://github.com/horaoen"
+back_link_text = "返回"
+force_theme = false
 
-[[extra.social]]
-icon = "twitter"
-name = "Twitter"
-url = "https://twitter.com/haoran_f"
+footer_copyright = "© 2026 horaoen"
+footer_credits = true
+
+not_found_error_text = "404 未找到页面"
+not_found_recover_text = "« 返回首页 »"
+
+reaction = false
+reaction_align = "right"
+reaction_endpoint = "https://example.com/api/reaction"
