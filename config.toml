@@ -1,5 +1,4 @@
 base_url = "https://horaoen.github.io"
-title = "horaoen"
 description = "Personal blog by horaoen"
 default_language = "zh"
 theme = "serene"
@@ -31,9 +30,9 @@ anchors = "on"
 
 [extra]
 sections = [
-  { name = "posts", path = "/posts", is_external = false },
-  { name = "protpets", path = "/protpets", is_external = false },
-  { name = "about", path = "/about", is_external = false }
+  { name = "博客", path = "/posts", is_external = false },
+  { name = "宠物救助", path = "/protpets", is_external = false },
+  { name = "关于我", path = "/about", is_external = false }
 ]
 blog_section_path = "/posts"
 
