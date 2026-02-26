@@ -1,4 +1,5 @@
 base_url = "https://horaoen.github.io"
+title = "horaoen"
 description = "Personal blog by horaoen"
 default_language = "zh"
 theme = "serene"
