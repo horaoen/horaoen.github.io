@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  
+  
+    
+  
+  <meta name="description" content="博客文章列表">
+
+  <title>tmux cheat sheet</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://horaoen.github.io/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://horaoen.github.io/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://horaoen.github.io/img/apple-touch-icon.png">
+  
+  <style>
+
+  /* light mode colors */
+  body {
+    --primary-color: #5871a2;
+    --primary-pale-color: #5871a233;
+    --primary-decoration-color: #5871a210;
+    --bg-color: #ffffff;
+    --text-color: #2f3030;
+    --text-pale-color: #767676;
+    --text-decoration-color: #a9a9a9;
+    --highlight-mark-color: #5f75b020;
+
+    --callout-note-color: #5871a2;
+    --callout-tip-color: #268556;
+    --callout-important-color: #885fc9;
+    --callout-warning-color: #ab6632;
+    --callout-caution-color: #c64e4e;
+  }
+
+  /* dark mode colors */
+  body.dark {
+    --primary-color: #6f8fd1;
+    --primary-pale-color: #6f8fd166;
+    --primary-decoration-color: #6f8fd112;
+    --bg-color: #1c1c1c;
+    --text-color: #c1c1c1;
+    --text-pale-color: #848484;
+    --text-decoration-color: #5f5f5f;
+    --highlight-mark-color: #8296cb3b;
+
+    --callout-note-color: #6f8fd1;
+    --callout-tip-color: #47976f;
+    --callout-important-color: #9776cd;
+    --callout-warning-color: #ad7a52;
+    --callout-caution-color: #d06161;
+  }
+
+  /* typography */
+  body {
+    --main-font: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --code-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --homepage-max-width: 768px;
+    --main-max-width: 768px;
+    --avatar-size: 60px;
+    --font-size: 16px;
+    --line-height: 1.75;
+    --img-border-radius: 0px;
+    --detail-border-radius: 0px;
+    --dark-mode-img-brightness: 0.75;
+    --dark-mode-chart-brightness: 0.75;
+    --inline-code-border-radius: 2px;
+    --inline-code-bg-color: var(--primary-decoration-color);
+    --block-code-border-radius: 0px;
+    --block-code-border-color: var(--primary-color);
+    --detail-border-color: var(--primary-color);
+  }
+
+</style>
+
+  <link rel="stylesheet" href="https://horaoen.github.io/main.css">
+  
+
+<link id="hl" rel="stylesheet" type="text/css" href="/giallo-light.css" />
+
+
+
+  
+</head>
+
+<body class="post">
+  
+  <script>
+    const theme = sessionStorage.getItem('theme');
+    const match = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if ((theme && theme == 'dark') || (!theme && match)) {
+      document.body.classList.add('dark');
+      const hl = document.querySelector('link#hl');
+      if (hl) hl.href = 'https://horaoen.github.io/giallo-dark.css';
+    }
+  </script>
+  
+  
+<div id="wrapper">
+  <div id="blank"></div>
+  <aside>
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a class="h2" href="#zai-tmux-zhong-an-xia-tmux-qian-zhui-ctrl-b-ran-hou">在 Tmux 中，按下 Tmux 前缀 ctrl+b，然后</a>
+          
+          <ul>
+            
+            <li>
+              <a class="h3" href="#hui-hua">会话</a>
+            </li>
+            
+            <li>
+              <a class="h3" href="#chuang-kou-biao-qian-ye">窗口 (标签页)</a>
+            </li>
+            
+            <li>
+              <a class="h3" href="#diao-zheng-chuang-kou-pai-xu">调整窗口排序</a>
+            </li>
+            
+            <li>
+              <a class="h3" href="#chuang-ge-fen-ge-chuang-kou">窗格（分割窗口）</a>
+            </li>
+            
+            <li>
+              <a class="h3" href="#tong-bu-chuang-ge">同步窗格</a>
+            </li>
+            
+            <li>
+              <a class="h3" href="#diao-zheng-chuang-ge-chi-cun">调整窗格尺寸</a>
+            </li>
+            
+            <li>
+              <a class="h3" href="#wen-ben-fu-zhi-mo-shi">文本复制模式</a>
+            </li>
+            
+            <li>
+              <a class="h3" href="#za-xiang">杂项</a>
+            </li>
+            
+            <li>
+              <a class="h3" href="#pei-zhi-xuan-xiang">配置选项</a>
+            </li>
+            
+            <li>
+              <a class="h3" href="#can-kao-pei-zhi-wen-jian-tmux-conf">参考配置文件（~&#x2F;.tmux.conf）</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+    
+    <button id="back-to-top" aria-label="back to top">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+
+    </button>
+    
+  </aside>
+  <main>
+    
+<header>
+  <nav>
+    <a id="back-link" href="https:&#x2F;&#x2F;horaoen.github.io&#x2F;posts">← 返回</a>
+  </nav>
+</header>
+
+
+    <div>
+      
+      
+      
+      
+      <div id="copy-cfg" style="display: none;" data-copy-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;18&quot; height=&quot;18&quot;&gt;&lt;path d=&quot;M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;
+" data-check-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;18&quot; height=&quot;18&quot;&gt;&lt;path d=&quot;M10.0007 15.1709L19.1931 5.97852L20.6073 7.39273L10.0007 17.9993L3.63672 11.6354L5.05093 10.2212L10.0007 15.1709Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;
+"></div>
+      
+      <article class="prose">
+        <h1>tmux cheat sheet</h1>
+        <div id="post-info">
+          <div id="date">
+            <span id="publish">2025-02-14</span>
+            </div>
+
+          
+        </div>
+
+        
+        
+
+        
+
+        <p>启动新会话：</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>tmux [new -s 会话名 -n 窗口名]</span></span></code></pre>
+<p>恢复会话：</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>tmux at [-t 会话名]</span></span></code></pre>
+<p>列出所有会话：</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>tmux ls</span></span></code></pre>
+<p><a name="killSessions"></a>关闭会话：</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>tmux kill-session -t 会话名</span></span></code></pre>
+<p><a name="killAllSessions"></a>关闭所有会话：</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>tmux ls | grep : | cut -d. -f1 | awk &#39;{print substr($1, 0, length($1)-1)}&#39; | xargs kill</span></span></code></pre><h1 id="zai-tmux-zhong-an-xia-tmux-qian-zhui-ctrl-b-ran-hou">在 Tmux 中，按下 Tmux 前缀 <code>ctrl+b</code>，然后<a class="zola-anchor" href="#zai-tmux-zhong-an-xia-tmux-qian-zhui-ctrl-b-ran-hou" aria-label="Anchor link for: zai-tmux-zhong-an-xia-tmux-qian-zhui-ctrl-b-ran-hou" style="visibility: hidden;"></a>
+</h1>
+<h2 id="hui-hua">会话<a class="zola-anchor" href="#hui-hua" aria-label="Anchor link for: hui-hua" style="visibility: hidden;"></a>
+</h2>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>:new&lt;回车&gt;  启动新会话</span></span>
+<span class="giallo-l"><span>s           列出所有会话</span></span>
+<span class="giallo-l"><span>$           重命名当前会话</span></span></code></pre><h2 id="chuang-kou-biao-qian-ye"><a name="WindowsTabs"></a>窗口 (标签页)<a class="zola-anchor" href="#chuang-kou-biao-qian-ye" aria-label="Anchor link for: chuang-kou-biao-qian-ye" style="visibility: hidden;"></a>
+</h2>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>c  创建新窗口</span></span>
+<span class="giallo-l"><span>w  列出所有窗口</span></span>
+<span class="giallo-l"><span>n  后一个窗口</span></span>
+<span class="giallo-l"><span>p  前一个窗口</span></span>
+<span class="giallo-l"><span>f  查找窗口</span></span>
+<span class="giallo-l"><span>,  重命名当前窗口</span></span>
+<span class="giallo-l"><span>&amp;  关闭当前窗口</span></span></code></pre><h2 id="diao-zheng-chuang-kou-pai-xu">调整窗口排序<a class="zola-anchor" href="#diao-zheng-chuang-kou-pai-xu" aria-label="Anchor link for: diao-zheng-chuang-kou-pai-xu" style="visibility: hidden;"></a>
+</h2>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>swap-window -s 3 -t 1  交换 3 号和 1 号窗口</span></span>
+<span class="giallo-l"><span>swap-window -t 1       交换当前和 1 号窗口</span></span>
+<span class="giallo-l"><span>move-window -t 1       移动当前窗口到 1 号</span></span></code></pre><h2 id="chuang-ge-fen-ge-chuang-kou"><a name="PanesSplits"></a>窗格（分割窗口）<a class="zola-anchor" href="#chuang-ge-fen-ge-chuang-kou" aria-label="Anchor link for: chuang-ge-fen-ge-chuang-kou" style="visibility: hidden;"></a>
+</h2>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>%  垂直分割</span></span>
+<span class="giallo-l"><span>&quot;  水平分割</span></span>
+<span class="giallo-l"><span>o  交换窗格</span></span>
+<span class="giallo-l"><span>x  关闭窗格</span></span>
+<span class="giallo-l"><span>⍽  左边这个符号代表空格键 - 切换布局</span></span>
+<span class="giallo-l"><span>q 显示每个窗格是第几个，当数字出现的时候按数字几就选中第几个窗格</span></span>
+<span class="giallo-l"><span>{ 与上一个窗格交换位置</span></span>
+<span class="giallo-l"><span>} 与下一个窗格交换位置</span></span>
+<span class="giallo-l"><span>z 切换窗格最大化/最小化</span></span></code></pre><h2 id="tong-bu-chuang-ge"><a name="syncPanes"></a>同步窗格<a class="zola-anchor" href="#tong-bu-chuang-ge" aria-label="Anchor link for: tong-bu-chuang-ge" style="visibility: hidden;"></a>
+</h2>
+<p>这么做可以切换到想要的窗口，输入 Tmux 前缀和一个冒号呼出命令提示行，然后输入：</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>:setw synchronize-panes</span></span></code></pre>
+<p>你可以指定开或关，否则重复执行命令会在两者间切换。
+这个选项值针对某个窗口有效，不会影响别的会话和窗口。
+完事儿之后再次执行命令来关闭。<a rel="nofollow noreferrer external" href="http://blog.sanctum.geek.nz/sync-tmux-panes/">帮助</a></p>
+<h2 id="diao-zheng-chuang-ge-chi-cun">调整窗格尺寸<a class="zola-anchor" href="#diao-zheng-chuang-ge-chi-cun" aria-label="Anchor link for: diao-zheng-chuang-ge-chi-cun" style="visibility: hidden;"></a>
+</h2>
+<p>如果你不喜欢默认布局，可以重调窗格的尺寸。虽然这很容易实现，但一般不需要这么干。这几个命令用来调整窗格：</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>PREFIX : resize-pane -D          当前窗格向下扩大 1 格</span></span>
+<span class="giallo-l"><span>PREFIX : resize-pane -U          当前窗格向上扩大 1 格</span></span>
+<span class="giallo-l"><span>PREFIX : resize-pane -L          当前窗格向左扩大 1 格</span></span>
+<span class="giallo-l"><span>PREFIX : resize-pane -R          当前窗格向右扩大 1 格</span></span>
+<span class="giallo-l"><span>PREFIX : resize-pane -D 20       当前窗格向下扩大 20 格</span></span>
+<span class="giallo-l"><span>PREFIX : resize-pane -t 2 -L 20  编号为 2 的窗格向左扩大 20 格</span></span></code></pre><h2 id="wen-ben-fu-zhi-mo-shi">文本复制模式<a class="zola-anchor" href="#wen-ben-fu-zhi-mo-shi" aria-label="Anchor link for: wen-ben-fu-zhi-mo-shi" style="visibility: hidden;"></a>
+</h2>
+<p>按下 <code>PREFIX-[</code> 进入文本复制模式。可以使用方向键在屏幕中移动光标。默认情况下，方向键是启用的。在配置文件中启用 Vim 键盘布局来切换窗口、调整窗格大小。Tmux 也支持 Vi 模式。要是想启用 Vi 模式，只需要把下面这一行添加到 .tmux.conf 中：</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>setw -g mode-keys vi</span></span></code></pre>
+<p>启用这条配置后，就可以使用 h、j、k、l 来移动光标了。</p>
+<p>想要退出文本复制模式的话，按下回车键就可以了。然后按下 <code>PREFIX-]</code> 粘贴刚才复制的文本。</p>
+<p>一次移动一格效率低下，在 Vi 模式启用的情况下，可以辅助一些别的快捷键高效工作。</p>
+<p>例如，可以使用 w 键逐词移动，使用 b 键逐词回退。使用 f 键加上任意字符跳转到当前行第一次出现该字符的位置，使用 F 键达到相反的效果。</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>vi             emacs        功能</span></span>
+<span class="giallo-l"><span>^              M-m          反缩进</span></span>
+<span class="giallo-l"><span>Escape         C-g          清除选定内容</span></span>
+<span class="giallo-l"><span>Enter          M-w          复制选定内容</span></span>
+<span class="giallo-l"><span>j              Down         光标下移</span></span>
+<span class="giallo-l"><span>h              Left         光标左移</span></span>
+<span class="giallo-l"><span>l              Right        光标右移</span></span>
+<span class="giallo-l"><span>L                           光标移到尾行</span></span>
+<span class="giallo-l"><span>M              M-r          光标移到中间行</span></span>
+<span class="giallo-l"><span>H              M-R          光标移到首行</span></span>
+<span class="giallo-l"><span>k              Up           光标上移</span></span>
+<span class="giallo-l"><span>d              C-u          删除整行</span></span>
+<span class="giallo-l"><span>D              C-k          删除到行末</span></span>
+<span class="giallo-l"><span>$              C-e          移到行尾</span></span>
+<span class="giallo-l"><span>:              g            前往指定行</span></span>
+<span class="giallo-l"><span>C-d            M-Down       向下滚动半屏</span></span>
+<span class="giallo-l"><span>C-u            M-Up         向上滚动半屏</span></span>
+<span class="giallo-l"><span>C-f            Page down    下一页</span></span>
+<span class="giallo-l"><span>w              M-f          下一个词</span></span>
+<span class="giallo-l"><span>p              C-y          粘贴</span></span>
+<span class="giallo-l"><span>C-b            Page up      上一页</span></span>
+<span class="giallo-l"><span>b              M-b          上一个词</span></span>
+<span class="giallo-l"><span>q              Escape       退出</span></span>
+<span class="giallo-l"><span>C-Down or J    C-Down       向下翻</span></span>
+<span class="giallo-l"><span>C-Up or K      C-Up         向下翻</span></span>
+<span class="giallo-l"><span>n              n            继续搜索</span></span>
+<span class="giallo-l"><span>?              C-r          向前搜索</span></span>
+<span class="giallo-l"><span>/              C-s          向后搜索</span></span>
+<span class="giallo-l"><span>0              C-a          移到行首</span></span>
+<span class="giallo-l"><span>Space          C-Space      开始选中</span></span>
+<span class="giallo-l"><span>               C-t          字符调序</span></span></code></pre><h2 id="za-xiang">杂项<a class="zola-anchor" href="#za-xiang" aria-label="Anchor link for: za-xiang" style="visibility: hidden;"></a>
+</h2>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>d  退出 tmux（tmux 仍在后台运行）</span></span>
+<span class="giallo-l"><span>t  窗口中央显示一个数字时钟</span></span>
+<span class="giallo-l"><span>?  列出所有快捷键</span></span>
+<span class="giallo-l"><span>:  命令提示符</span></span></code></pre><h2 id="pei-zhi-xuan-xiang">配置选项<a class="zola-anchor" href="#pei-zhi-xuan-xiang" aria-label="Anchor link for: pei-zhi-xuan-xiang" style="visibility: hidden;"></a>
+</h2>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span># 鼠标支持 - 设置为 on 来启用鼠标(与 2.1 之前的版本有区别，请自行查阅 man page)</span></span>
+<span class="giallo-l"><span>* set -g mouse on</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span># 设置默认终端模式为 256color</span></span>
+<span class="giallo-l"><span>set -g default-terminal &quot;screen-256color&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span># 启用活动警告</span></span>
+<span class="giallo-l"><span>setw -g monitor-activity on</span></span>
+<span class="giallo-l"><span>set -g visual-activity on</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span># 居中窗口列表</span></span>
+<span class="giallo-l"><span>set -g status-justify centre</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span># 最大化/恢复窗格</span></span>
+<span class="giallo-l"><span>unbind Up bind Up new-window -d -n tmp \; swap-pane -s tmp.1 \; select-window -t tmp</span></span>
+<span class="giallo-l"><span>unbind Down</span></span>
+<span class="giallo-l"><span>bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp</span></span></code></pre><h2 id="can-kao-pei-zhi-wen-jian-tmux-conf">参考配置文件（~/.tmux.conf）<a class="zola-anchor" href="#can-kao-pei-zhi-wen-jian-tmux-conf" aria-label="Anchor link for: can-kao-pei-zhi-wen-jian-tmux-conf" style="visibility: hidden;"></a>
+</h2>
+<p>下面这份配置是我使用 Tmux 几年来逐渐精简后的配置，请自取。</p>
+<pre class="giallo z-code"><code data-lang="shellscript"><span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> -----------------------------------------------------------------------------</span></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> Tmux 基本配置 - 要求 Tmux &gt;= 2.3</span></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> 如果不想使用插件，只需要将此节的内容写入 ~/.tmux.conf 即可</span></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> -----------------------------------------------------------------------------</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> C-b 和 VIM 冲突，修改 Prefix 组合键为 Control-Z，按键距离近</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> prefix</span><span class="z-string"> C-z</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> base-index</span><span class="z-constant">         1</span><span class="z-punctuation z-definition z-comment">     #</span><span class="z-comment"> 窗口编号从 1 开始计数</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> display-panes-time</span><span class="z-constant"> 10000</span><span class="z-punctuation z-definition z-comment"> #</span><span class="z-comment"> PREFIX-Q 显示编号的驻留时长，单位 ms</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> mouse</span><span class="z-string">              on</span><span class="z-punctuation z-definition z-comment">    #</span><span class="z-comment"> 开启鼠标</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> pane-base-index</span><span class="z-constant">    1</span><span class="z-punctuation z-definition z-comment">     #</span><span class="z-comment"> 窗格编号从 1 开始计数</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> renumber-windows</span><span class="z-string">   on</span><span class="z-punctuation z-definition z-comment">    #</span><span class="z-comment"> 关掉某个窗口后，编号重排</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-entity z-name">setw</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> allow-rename</span><span class="z-string">      off</span><span class="z-punctuation z-definition z-comment">   #</span><span class="z-comment"> 禁止活动进程修改窗口名</span></span>
+<span class="giallo-l"><span class="z-entity z-name">setw</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> automatic-rename</span><span class="z-string">  off</span><span class="z-punctuation z-definition z-comment">   #</span><span class="z-comment"> 禁止自动命名新窗口</span></span>
+<span class="giallo-l"><span class="z-entity z-name">setw</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> mode-keys</span><span class="z-string">         vi</span><span class="z-punctuation z-definition z-comment">    #</span><span class="z-comment"> 进入复制模式的时候使用 vi 键位（默认是 EMACS）</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> -----------------------------------------------------------------------------</span></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> 使用插件 - via tpm</span></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment">   1. 执行 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm</span></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment">   2. 执行 bash ~/.tmux/plugins/tpm/bin/install_plugins</span></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> -----------------------------------------------------------------------------</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-entity z-name">setenv</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> TMUX_PLUGIN_MANAGER_PATH</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">~/.tmux/plugins</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> 推荐的插件（请去每个插件的仓库下读一读使用教程）</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> @plugin</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">seebi/tmux-colors-solarized</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> @plugin</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">tmux-plugins/tmux-pain-control</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> @plugin</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">tmux-plugins/tmux-prefix-highlight</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> @plugin</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">tmux-plugins/tmux-resurrect</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> @plugin</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">tmux-plugins/tmux-sensible</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> @plugin</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">tmux-plugins/tmux-yank</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> @plugin</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">tmux-plugins/tpm</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> tmux-resurrect</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> @resurrect-dir</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">~/.tmux/resurrect</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> tmux-prefix-highlight</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> status-right</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">#{prefix_highlight} #H | %a %Y-%m-%d %H:%M</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> @prefix_highlight_show_copy_mode</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">on</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-support">set</span><span class="z-constant"> -</span><span class="z-constant">g</span><span class="z-string"> @prefix_highlight_copy_mode_attr</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">fg=white,bg=blue</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span class="z-punctuation z-definition z-comment">#</span><span class="z-comment"> 初始化 TPM 插件管理器 (放在配置文件的最后)</span></span>
+<span class="giallo-l"><span class="z-entity z-name">run</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">~/.tmux/plugins/tpm/tpm</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"></span></code></pre>
+      </article>
+
+      
+      
+
+      
+      
+    </div>
+
+    
+
+
+<footer>
+  <div class="left">
+    <div class="copyright">
+      © 2026 horaoen
+      
+      <span>|</span>
+      Built with <a href="https://www.getzola.org" rel="noreferrer" target="_blank">zola</a> and <a href="https://github.com/isunjn/serene" rel="noreferrer" target="_blank">serene</a>
+      
+    </div>
+  </div>
+
+  <div class="right">
+    
+    
+      
+    
+    
+    <a id="rss-btn" href="https://horaoen.github.io/posts/feed.xml">RSS</a>
+    
+    
+
+    
+    
+    
+    <button id="theme-toggle" aria-label="theme switch">
+      <span class="moon-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+</span>
+      <span class="sun-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z" fill="currentColor"></path></svg>
+</span>
+    </button>
+    
+  </div>
+</footer>
+
+
+
+
+<dialog id="rss-mask">
+  <div>
+    <a href="https:&#x2F;&#x2F;horaoen.github.io&#x2F;posts&#x2F;feed.xml">https:&#x2F;&#x2F;horaoen.github.io&#x2F;posts&#x2F;feed.xml</a>
+    
+    
+    <button autofocus aria-label="copy" data-link="https:&#x2F;&#x2F;horaoen.github.io&#x2F;posts&#x2F;feed.xml" data-copy-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;18&quot; height=&quot;18&quot;&gt;&lt;path d=&quot;M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;
+" data-check-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;18&quot; height=&quot;18&quot;&gt;&lt;path d=&quot;M10.0007 15.1709L19.1931 5.97852L20.6073 7.39273L10.0007 17.9993L3.63672 11.6354L5.05093 10.2212L10.0007 15.1709Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;
+" >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z" fill="currentColor"></path></svg>
+
+    </button>
+  </div>
+</dialog>
+
+
+
+  </main>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="https://horaoen.github.io/js/main.js"></script>
+</body>
+
+</html>

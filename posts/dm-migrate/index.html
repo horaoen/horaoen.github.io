@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  
+  
+    
+  
+  <meta name="description" content="博客文章列表">
+
+  <title>达梦数据库迁移</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://horaoen.github.io/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://horaoen.github.io/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://horaoen.github.io/img/apple-touch-icon.png">
+  
+  <style>
+
+  /* light mode colors */
+  body {
+    --primary-color: #5871a2;
+    --primary-pale-color: #5871a233;
+    --primary-decoration-color: #5871a210;
+    --bg-color: #ffffff;
+    --text-color: #2f3030;
+    --text-pale-color: #767676;
+    --text-decoration-color: #a9a9a9;
+    --highlight-mark-color: #5f75b020;
+
+    --callout-note-color: #5871a2;
+    --callout-tip-color: #268556;
+    --callout-important-color: #885fc9;
+    --callout-warning-color: #ab6632;
+    --callout-caution-color: #c64e4e;
+  }
+
+  /* dark mode colors */
+  body.dark {
+    --primary-color: #6f8fd1;
+    --primary-pale-color: #6f8fd166;
+    --primary-decoration-color: #6f8fd112;
+    --bg-color: #1c1c1c;
+    --text-color: #c1c1c1;
+    --text-pale-color: #848484;
+    --text-decoration-color: #5f5f5f;
+    --highlight-mark-color: #8296cb3b;
+
+    --callout-note-color: #6f8fd1;
+    --callout-tip-color: #47976f;
+    --callout-important-color: #9776cd;
+    --callout-warning-color: #ad7a52;
+    --callout-caution-color: #d06161;
+  }
+
+  /* typography */
+  body {
+    --main-font: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --code-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --homepage-max-width: 768px;
+    --main-max-width: 768px;
+    --avatar-size: 60px;
+    --font-size: 16px;
+    --line-height: 1.75;
+    --img-border-radius: 0px;
+    --detail-border-radius: 0px;
+    --dark-mode-img-brightness: 0.75;
+    --dark-mode-chart-brightness: 0.75;
+    --inline-code-border-radius: 2px;
+    --inline-code-bg-color: var(--primary-decoration-color);
+    --block-code-border-radius: 0px;
+    --block-code-border-color: var(--primary-color);
+    --detail-border-color: var(--primary-color);
+  }
+
+</style>
+
+  <link rel="stylesheet" href="https://horaoen.github.io/main.css">
+  
+
+<link id="hl" rel="stylesheet" type="text/css" href="/giallo-light.css" />
+
+
+
+  
+</head>
+
+<body class="post">
+  
+  <script>
+    const theme = sessionStorage.getItem('theme');
+    const match = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if ((theme && theme == 'dark') || (!theme && match)) {
+      document.body.classList.add('dark');
+      const hl = document.querySelector('link#hl');
+      if (hl) hl.href = 'https://horaoen.github.io/giallo-dark.css';
+    }
+  </script>
+  
+  
+<div id="wrapper">
+  <div id="blank"></div>
+  <aside>
+    
+    
+    <nav>
+      <ul>
+        
+        <li>
+          <a class="h2" href="#huan-jing">环境</a>
+          
+        </li>
+        
+        <li>
+          <a class="h2" href="#han-shu">函数</a>
+          
+        </li>
+        
+        <li>
+          <a class="h2" href="#shu-ju-qian-yi">数据迁移</a>
+          
+        </li>
+        
+        <li>
+          <a class="h2" href="#shu-ju-xiao-yan">数据校验</a>
+          
+          <ul>
+            
+            <li>
+              <a class="h3" href="#bi-dui-suo-yin">比对索引</a>
+            </li>
+            
+            <li>
+              <a class="h3" href="#xiang-guan-shu-ju-cao-zuo">相关数据操作</a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+      </ul>
+    </nav>
+    
+    
+    <button id="back-to-top" aria-label="back to top">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+
+    </button>
+    
+  </aside>
+  <main>
+    
+<header>
+  <nav>
+    <a id="back-link" href="https:&#x2F;&#x2F;horaoen.github.io&#x2F;posts">← 返回</a>
+  </nav>
+</header>
+
+
+    <div>
+      
+      
+      
+      
+      <div id="copy-cfg" style="display: none;" data-copy-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;18&quot; height=&quot;18&quot;&gt;&lt;path d=&quot;M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;
+" data-check-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;18&quot; height=&quot;18&quot;&gt;&lt;path d=&quot;M10.0007 15.1709L19.1931 5.97852L20.6073 7.39273L10.0007 17.9993L3.63672 11.6354L5.05093 10.2212L10.0007 15.1709Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;
+"></div>
+      
+      <article class="prose">
+        <h1>达梦数据库迁移</h1>
+        <div id="post-info">
+          <div id="date">
+            <span id="publish">2024-10-28</span>
+            </div>
+
+          
+        </div>
+
+        
+        
+
+        
+
+        <h1 id="huan-jing">环境<a class="zola-anchor" href="#huan-jing" aria-label="Anchor link for: huan-jing" style="visibility: hidden;"></a>
+</h1>
+<ol>
+<li>客户端：macos使用dbeaver, IDEA: 使用mysql连接修改驱动使用达梦数据库连接驱动</li>
+</ol>
+<h1 id="han-shu">函数<a class="zola-anchor" href="#han-shu" aria-label="Anchor link for: han-shu" style="visibility: hidden;"></a>
+</h1>
+<ol>
+<li>str_to_date =&gt; to_date(date1, 'YYYY-MM-DD HH24:MI:SS')</li>
+<li>group_concat =&gt; wm_concat / listagg</li>
+<li>date_sub =&gt; add_days / add_months</li>
+<li>current_time =&gt; current_date() / sysdate() / curdate()</li>
+<li>date(var) =&gt; trunc(var)</li>
+<li>convert =&gt; cast</li>
+<li>convert(str, SIGNED) =&gt; to_number(REGEXP_SUBSTR(str, '[0-9]+'))</li>
+<li>match_partern = REPLACE('${ew.department}', ',', '|'), REGEXP  match_partern =&gt; REGEXP_LIKE(var1, match_partern)</li>
+<li>if函数传参数为null时（部分环境支持，兼容性不好），替换为case ... when ... else ...end</li>
+<li>DATEDIFF 必须指定date_unit</li>
+<li>WITH RECURSIVE cte1 =&gt; WITH cte1(var)</li>
+</ol>
+<h1 id="shu-ju-qian-yi">数据迁移<a class="zola-anchor" href="#shu-ju-qian-yi" aria-label="Anchor link for: shu-ju-qian-yi" style="visibility: hidden;"></a>
+</h1>
+<ol>
+<li><a rel="nofollow noreferrer external" href="https://eco.dameng.com/document/dm/zh-cn/faq/faq-mysql-dm8-migrate.html">迁移问题</a></li>
+<li><a rel="nofollow noreferrer external" href="https://eco.dameng.com/document/dm/zh-cn/start/tool-dm-migrate">迁移步骤</a></li>
+<li>source -&gt; start</li>
+</ol>
+<h1 id="shu-ju-xiao-yan">数据校验<a class="zola-anchor" href="#shu-ju-xiao-yan" aria-label="Anchor link for: shu-ju-xiao-yan" style="visibility: hidden;"></a>
+</h1>
+<h2 id="bi-dui-suo-yin">比对索引<a class="zola-anchor" href="#bi-dui-suo-yin" aria-label="Anchor link for: bi-dui-suo-yin" style="visibility: hidden;"></a>
+</h2>
+<ol>
+<li>mysql</li>
+</ol>
+<pre class="giallo z-code"><code data-lang="sql"><span class="giallo-l"><span class="z-keyword">SELECT</span><span class="z-constant"> a</span><span>.</span><span class="z-constant">TABLE_SCHEMA</span><span>,</span></span>
+<span class="giallo-l"><span class="z-constant">       a</span><span>.</span><span class="z-constant">TABLE_NAME</span><span>,</span></span>
+<span class="giallo-l"><span class="z-constant">       a</span><span>.</span><span class="z-constant">index_name</span><span>,</span></span>
+<span class="giallo-l"><span>       GROUP_CONCAT(column_name </span><span class="z-keyword">ORDER BY</span><span> seq_in_index) </span><span class="z-keyword">AS</span><span class="z-punctuation z-definition z-string"> `</span><span class="z-string">Columns</span><span class="z-punctuation z-definition z-string">`</span></span>
+<span class="giallo-l"><span class="z-keyword">FROM</span><span class="z-constant"> information_schema</span><span>.</span><span class="z-constant">statistics</span><span> a</span></span>
+<span class="giallo-l"><span class="z-keyword">where</span><span class="z-constant"> a</span><span>.</span><span class="z-constant">TABLE_SCHEMA</span><span class="z-keyword"> =</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">xzfw_pro1019</span><span class="z-punctuation z-definition z-string">&#39;</span><span class="z-keyword"> and</span><span class="z-constant"> a</span><span>.</span><span class="z-constant">COLUMN_NAME</span><span class="z-keyword"> !=</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">id</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-keyword">GROUP BY</span><span class="z-constant"> a</span><span>.</span><span class="z-constant">TABLE_SCHEMA</span><span>,</span><span class="z-constant">a</span><span>.</span><span class="z-constant">TABLE_NAME</span><span>,</span><span class="z-constant">a</span><span>.</span><span class="z-constant">index_name</span></span>
+<span class="giallo-l"><span class="z-keyword">order by</span><span> INDEX_NAME;</span></span></code></pre>
+<ol start="2">
+<li>dm</li>
+</ol>
+<pre class="giallo z-code"><code data-lang="sql"><span class="giallo-l"><span class="z-keyword">SELECT</span><span> </span></span>
+<span class="giallo-l"><span class="z-constant">    i</span><span>.</span><span class="z-constant">OWNER</span><span class="z-keyword"> AS</span><span> TABLE_SCHEMA,</span></span>
+<span class="giallo-l"><span class="z-constant">    i</span><span>.</span><span class="z-constant">TABLE_NAME</span><span>,</span></span>
+<span class="giallo-l"><span class="z-constant">    i</span><span>.</span><span class="z-constant">INDEX_NAME</span><span>,</span></span>
+<span class="giallo-l"><span>    LISTAGG(</span><span class="z-constant">c</span><span>.</span><span class="z-constant">COLUMN_NAME</span><span>, </span><span class="z-punctuation z-definition z-string">&#39;</span><span class="z-string">,</span><span class="z-punctuation z-definition z-string">&#39;</span><span>) </span><span class="z-keyword">WITHIN</span><span class="z-support"> GROUP</span><span> (</span><span class="z-keyword">ORDER BY</span><span class="z-constant"> c</span><span>.</span><span class="z-constant">COLUMN_POSITION</span><span>) </span><span class="z-keyword">AS</span><span> Columns</span></span>
+<span class="giallo-l"><span class="z-keyword">FROM</span><span> </span></span>
+<span class="giallo-l"><span>    DBA_INDEXES i</span></span>
+<span class="giallo-l"><span class="z-keyword">JOIN</span><span> </span></span>
+<span class="giallo-l"><span>    DBA_IND_COLUMNS c </span><span class="z-keyword">ON</span><span class="z-constant"> i</span><span>.</span><span class="z-constant">OWNER</span><span class="z-keyword"> =</span><span class="z-constant"> c</span><span>.</span><span class="z-constant">INDEX_OWNER</span><span class="z-keyword"> AND</span><span class="z-constant"> i</span><span>.</span><span class="z-constant">INDEX_NAME</span><span class="z-keyword"> =</span><span class="z-constant"> c</span><span>.</span><span class="z-constant">INDEX_NAME</span></span>
+<span class="giallo-l"><span class="z-keyword"> WHERE</span><span class="z-constant"> i</span><span>.</span><span class="z-constant">OWNER</span><span class="z-keyword"> =</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">xzfw_pro1019</span><span class="z-punctuation z-definition z-string">&#39;</span><span class="z-keyword"> AND</span><span class="z-constant"> c</span><span>.</span><span class="z-constant">COLUMN_NAME</span><span class="z-keyword"> !=</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">id</span><span class="z-punctuation z-definition z-string">&#39;</span></span>
+<span class="giallo-l"><span class="z-keyword">GROUP BY</span><span> </span></span>
+<span class="giallo-l"><span class="z-constant">    i</span><span>.</span><span class="z-constant">OWNER</span><span>, </span><span class="z-constant">i</span><span>.</span><span class="z-constant">TABLE_NAME</span><span>, </span><span class="z-constant">i</span><span>.</span><span class="z-constant">INDEX_NAME</span></span>
+<span class="giallo-l"><span class="z-keyword">ORDER BY</span><span class="z-constant"> i</span><span>.</span><span class="z-constant">INDEX_NAME</span></span></code></pre><h2 id="xiang-guan-shu-ju-cao-zuo">相关数据操作<a class="zola-anchor" href="#xiang-guan-shu-ju-cao-zuo" aria-label="Anchor link for: xiang-guan-shu-ju-cao-zuo" style="visibility: hidden;"></a>
+</h2>
+<ol>
+<li>清空数据库表</li>
+</ol>
+<pre class="giallo z-code"><code data-lang="sql"><span class="giallo-l"><span class="z-keyword">BEGIN</span></span>
+<span class="giallo-l"><span class="z-keyword">    FOR</span><span> rec </span><span class="z-keyword">IN</span><span> (</span><span class="z-keyword">SELECT</span><span> TABLE_NAME </span><span class="z-keyword">FROM</span><span> ALL_TABLES </span><span class="z-keyword">WHERE</span><span class="z-keyword"> OWNER</span><span class="z-keyword"> =</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">XZFW</span><span class="z-punctuation z-definition z-string">&#39;</span><span>) </span><span class="z-keyword">LOOP</span></span>
+<span class="giallo-l"><span class="z-keyword">        EXECUTE</span><span class="z-keyword"> IMMEDIATE</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">DROP TABLE XZFW.</span><span class="z-punctuation z-definition z-string">&#39;</span><span class="z-keyword"> ||</span><span class="z-constant"> rec</span><span>.</span><span class="z-constant">TABLE_NAME</span><span class="z-keyword"> ||</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string"> CASCADE CONSTRAINTS</span><span class="z-punctuation z-definition z-string">&#39;</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">    END</span><span class="z-keyword"> LOOP</span><span>;</span></span>
+<span class="giallo-l"><span class="z-keyword">END</span><span>;</span></span></code></pre><h3 id="qi-yu-tips">其余tips<a class="zola-anchor" href="#qi-yu-tips" aria-label="Anchor link for: qi-yu-tips" style="visibility: hidden;"></a>
+</h3>
+<h4 id="cha-xun-yue-shu">查询约束<a class="zola-anchor" href="#cha-xun-yue-shu" aria-label="Anchor link for: cha-xun-yue-shu" style="visibility: hidden;"></a>
+</h4>
+<pre class="giallo z-code"><code data-lang="sql"><span class="giallo-l"><span class="z-keyword"> SELECT</span><span> </span></span>
+<span class="giallo-l"><span>    CONSTRAINT_NAME, </span></span>
+<span class="giallo-l"><span>    CONSTRAINT_TYPE, </span></span>
+<span class="giallo-l"><span>    SEARCH_CONDITION, </span></span>
+<span class="giallo-l"><span>    R_CONSTRAINT_NAME, </span></span>
+<span class="giallo-l"><span>    DELETE_RULE, </span></span>
+<span class="giallo-l"><span class="z-keyword">    STATUS</span><span>, </span></span>
+<span class="giallo-l"><span>    DEFERRABLE, </span></span>
+<span class="giallo-l"><span>    VALIDATED, </span></span>
+<span class="giallo-l"><span class="z-keyword">    GENERATED</span></span>
+<span class="giallo-l"><span class="z-keyword">FROM</span><span> </span></span>
+<span class="giallo-l"><span>    USER_CONSTRAINTS</span></span>
+<span class="giallo-l"><span class="z-keyword">WHERE</span><span> </span></span>
+<span class="giallo-l"><span>    TABLE_NAME </span><span class="z-keyword">=</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">T_WORKFLOW_WORK_ITEM</span><span class="z-punctuation z-definition z-string">&#39;</span><span class="z-keyword"> AND</span></span>
+<span class="giallo-l"><span class="z-keyword">    OWNER</span><span class="z-keyword"> =</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">XZFW</span><span class="z-punctuation z-definition z-string">&#39;</span><span>;</span></span></code></pre><h4 id="shan-chu-yue-shu">删除约束<a class="zola-anchor" href="#shan-chu-yue-shu" aria-label="Anchor link for: shan-chu-yue-shu" style="visibility: hidden;"></a>
+</h4>
+<pre class="giallo z-code"><code data-lang="sql"><span class="giallo-l"><span class="z-keyword">ALTER</span><span class="z-keyword"> TABLE</span><span class="z-constant"> XZFW</span><span>.</span><span class="z-constant">T_WORKFLOW_PROCESS_INST</span><span class="z-keyword"> DROP</span><span class="z-storage"> CONSTRAINT</span><span> CONS134220360;</span></span></code></pre><h4 id="cha-xun-suo-yin">查询索引<a class="zola-anchor" href="#cha-xun-suo-yin" aria-label="Anchor link for: cha-xun-suo-yin" style="visibility: hidden;"></a>
+</h4>
+<pre class="giallo z-code"><code data-lang="sql"><span class="giallo-l"><span class="z-keyword"> SELECT</span><span> </span></span>
+<span class="giallo-l"><span class="z-constant">       I</span><span>.</span><span class="z-constant">INDEX_NAME</span><span class="z-keyword"> AS</span><span> INDEX_NAME,</span></span>
+<span class="giallo-l"><span class="z-constant">       IC</span><span>.</span><span class="z-constant">COLUMN_NAME</span><span class="z-keyword"> AS</span><span> COLUMN_NAME,</span></span>
+<span class="giallo-l"><span class="z-constant">       IC</span><span>.</span><span class="z-constant">COLUMN_POSITION</span><span class="z-keyword"> AS</span><span> COLUMN_POSITION,</span></span>
+<span class="giallo-l"><span class="z-constant">       I</span><span>.</span><span class="z-constant">UNIQUENESS</span><span class="z-keyword"> AS</span><span> UNIQUENESS</span></span>
+<span class="giallo-l"><span class="z-keyword">   FROM</span><span> </span></span>
+<span class="giallo-l"><span>       USER_INDEXES I</span></span>
+<span class="giallo-l"><span class="z-keyword">   JOIN</span><span> </span></span>
+<span class="giallo-l"><span>       USER_IND_COLUMNS IC </span><span class="z-keyword">ON</span><span class="z-constant"> I</span><span>.</span><span class="z-constant">INDEX_NAME</span><span class="z-keyword"> =</span><span class="z-constant"> IC</span><span>.</span><span class="z-constant">INDEX_NAME</span></span>
+<span class="giallo-l"><span class="z-keyword">   WHERE</span><span> </span></span>
+<span class="giallo-l"><span class="z-constant">       I</span><span>.</span><span class="z-constant">TABLE_NAME</span><span class="z-keyword"> =</span><span class="z-punctuation z-definition z-string"> &#39;</span><span class="z-string">T_WORKFLOW_WORK_ITEM</span><span class="z-punctuation z-definition z-string">&#39;</span><span>;</span></span></code></pre><h4 id="shan-chu-suo-yin">删除索引<a class="zola-anchor" href="#shan-chu-suo-yin" aria-label="Anchor link for: shan-chu-suo-yin" style="visibility: hidden;"></a>
+</h4>
+<pre class="giallo z-code"><code data-lang="sql"><span class="giallo-l"><span class="z-keyword">DROP</span><span class="z-keyword"> INDEX</span><span class="z-constant"> XZFW</span><span>.</span><span class="z-constant">INDEX33559470</span><span>;</span></span></code></pre><h4 id="chuang-jian-suo-yin">创建索引<a class="zola-anchor" href="#chuang-jian-suo-yin" aria-label="Anchor link for: chuang-jian-suo-yin" style="visibility: hidden;"></a>
+</h4>
+<pre class="giallo z-code"><code data-lang="sql"><span class="giallo-l"><span class="z-keyword">CREATE</span><span class="z-keyword"> INDEX</span><span class="z-entity z-name"> T_WORKFLOW_WORK_ITEM_WORK_ITEM_ID_IDX</span><span class="z-keyword"> ON</span><span class="z-constant"> XZFW</span><span>.</span><span class="z-constant">T_WORKFLOW_WORK_ITEM</span><span> (WORK_ITEM_ID);</span></span>
+<span class="giallo-l"><span class="z-keyword">CREATE</span><span class="z-keyword"> INDEX</span><span class="z-entity z-name"> T_WORKFLOW_PROCESS_INST_PROCESS_INST_ID_IDX</span><span class="z-keyword"> ON</span><span class="z-constant"> XZFW</span><span>.</span><span class="z-constant">T_WORKFLOW_PROCESS_INST</span><span> (PROCESS_INST_ID);</span></span></code></pre><h4 id="shan-chu-ju-he-suo-yin">删除聚合索引<a class="zola-anchor" href="#shan-chu-ju-he-suo-yin" aria-label="Anchor link for: shan-chu-ju-he-suo-yin" style="visibility: hidden;"></a>
+</h4>
+<pre class="giallo z-code"><code data-lang="plain"></code></pre>
+      </article>
+
+      
+      
+
+      
+      
+    </div>
+
+    
+
+
+<footer>
+  <div class="left">
+    <div class="copyright">
+      © 2026 horaoen
+      
+      <span>|</span>
+      Built with <a href="https://www.getzola.org" rel="noreferrer" target="_blank">zola</a> and <a href="https://github.com/isunjn/serene" rel="noreferrer" target="_blank">serene</a>
+      
+    </div>
+  </div>
+
+  <div class="right">
+    
+    
+      
+    
+    
+    <a id="rss-btn" href="https://horaoen.github.io/posts/feed.xml">RSS</a>
+    
+    
+
+    
+    
+    
+    <button id="theme-toggle" aria-label="theme switch">
+      <span class="moon-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path></svg>
+</span>
+      <span class="sun-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z" fill="currentColor"></path></svg>
+</span>
+    </button>
+    
+  </div>
+</footer>
+
+
+
+
+<dialog id="rss-mask">
+  <div>
+    <a href="https:&#x2F;&#x2F;horaoen.github.io&#x2F;posts&#x2F;feed.xml">https:&#x2F;&#x2F;horaoen.github.io&#x2F;posts&#x2F;feed.xml</a>
+    
+    
+    <button autofocus aria-label="copy" data-link="https:&#x2F;&#x2F;horaoen.github.io&#x2F;posts&#x2F;feed.xml" data-copy-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;18&quot; height=&quot;18&quot;&gt;&lt;path d=&quot;M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;
+" data-check-icon="&lt;svg xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; viewBox=&quot;0 0 24 24&quot; width=&quot;18&quot; height=&quot;18&quot;&gt;&lt;path d=&quot;M10.0007 15.1709L19.1931 5.97852L20.6073 7.39273L10.0007 17.9993L3.63672 11.6354L5.05093 10.2212L10.0007 15.1709Z&quot; fill=&quot;currentColor&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;
+" >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z" fill="currentColor"></path></svg>
+
+    </button>
+  </div>
+</dialog>
+
+
+
+  </main>
+</div>
+
+  
+<script src="/js/lightense.min.js"></script>
+
+
+  <script src="https://horaoen.github.io/js/main.js"></script>
+</body>
+
+</html>
