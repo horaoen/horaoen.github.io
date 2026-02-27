@@ -24,7 +24,7 @@ date = "2025-02-14"
 
     tmux ls | grep : | cut -d. -f1 | awk '{print substr($1, 0, length($1)-1)}' | xargs kill
 
-# 在 Tmux 中，按下 Tmux 前缀 `ctrl+b`，然后：
+# 在 Tmux 中，按下 Tmux 前缀 `ctrl+b`，然后
 
 ## 会话
 
@@ -48,7 +48,7 @@ date = "2025-02-14"
     swap-window -t 1       交换当前和 1 号窗口
     move-window -t 1       移动当前窗口到 1 号
 
-## <a name="PanesSplits"></a>窗格（分割窗口） 
+## <a name="PanesSplits"></a>窗格（分割窗口）
 
     %  垂直分割
     "  水平分割
@@ -72,7 +72,6 @@ date = "2025-02-14"
 这个选项值针对某个窗口有效，不会影响别的会话和窗口。
 完事儿之后再次执行命令来关闭。[帮助](http://blog.sanctum.geek.nz/sync-tmux-panes/)
 
-
 ## 调整窗格尺寸
 
 如果你不喜欢默认布局，可以重调窗格的尺寸。虽然这很容易实现，但一般不需要这么干。这几个命令用来调整窗格：
@@ -85,7 +84,7 @@ date = "2025-02-14"
     PREFIX : resize-pane -t 2 -L 20  编号为 2 的窗格向左扩大 20 格
     
     
-## 文本复制模式：
+## 文本复制模式
 
 按下 `PREFIX-[` 进入文本复制模式。可以使用方向键在屏幕中移动光标。默认情况下，方向键是启用的。在配置文件中启用 Vim 键盘布局来切换窗口、调整窗格大小。Tmux 也支持 Vi 模式。要是想启用 Vi 模式，只需要把下面这一行添加到 .tmux.conf 中：
 
@@ -131,14 +130,14 @@ date = "2025-02-14"
     Space          C-Space      开始选中
                    C-t          字符调序
 
-## 杂项：
+## 杂项
 
     d  退出 tmux（tmux 仍在后台运行）
     t  窗口中央显示一个数字时钟
     ?  列出所有快捷键
     :  命令提示符
 
-## 配置选项：
+## 配置选项
 
     # 鼠标支持 - 设置为 on 来启用鼠标(与 2.1 之前的版本有区别，请自行查阅 man page)
     * set -g mouse on
@@ -158,7 +157,7 @@ date = "2025-02-14"
     unbind Down
     bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
 
-## 参考配置文件（~/.tmux.conf）：
+## 参考配置文件（~/.tmux.conf）
 
 下面这份配置是我使用 Tmux 几年来逐渐精简后的配置，请自取。
 
@@ -210,3 +209,4 @@ set -g @prefix_highlight_copy_mode_attr 'fg=white,bg=blue'
 run '~/.tmux/plugins/tpm/tpm'
 
 ```
+
